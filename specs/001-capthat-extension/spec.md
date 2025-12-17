@@ -5,6 +5,16 @@
 **Status**: Draft  
 **Input**: User description: "Epic 1: Extension Setup & Basic UI US-1: Load the extension locally in Chrome"
 
+## Clarifications
+
+### Session 2025-01-27
+
+- Q: How should duplicate image detection work when a user attempts to capture the same image multiple times? → A: Content hash match - same image content = duplicate even if different URLs
+- Q: What should be the maximum number of items allowed on the Cap Board before the system prevents new captures? → A: 100 items with warning at 80 - hard limit at 100, warning shown at 80
+- Q: When the board has more items than visible grid slots, how should users access additional items? → A: Virtual scrolling - grid shows fixed slots, content scrolls within slots
+- Q: What should empty grid slots display when there are no captured items yet? → A: Placeholder with capture hint - "Click Cap! to capture images"
+- Q: When a capture fails (e.g., network error, CORS blocked, storage full), how should the error be communicated to the user? → A: Toast notification with retry option - shows error with retry button
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Load Extension in Chrome (Priority: P1)
@@ -74,7 +84,9 @@ As a user, I want to click "Cap!" on an image tile so that it gets added to my C
    - Image reference (URL or blob)
    - Source page URL
    - Captured timestamp
-3. **Given** I have already captured an image, **When** I attempt to capture the same image again, **Then** the system either prevents duplicates OR indicates it's already captured (consistent behavior)
+3. **Given** I have already captured an image, **When** I attempt to capture the same image again (same content hash), **Then** the system either prevents duplicates OR indicates it's already captured (consistent behavior)
+4. **Given** I have 80 or more items on the board, **When** I attempt to capture a new item, **Then** I see a warning message indicating I'm approaching the board limit
+5. **Given** I have 100 items on the board, **When** I attempt to capture a new item, **Then** the system prevents the capture and shows a message that the board is full
 
 ---
 
@@ -88,12 +100,13 @@ As a user, I want to see captured items in a grid so that I can review what I co
 
 **Acceptance Scenarios**:
 
-1. **Given** I have captured items, **When** I open the CapThat panel, **Then** captured items render as thumbnails inside grid slots
-2. **Given** I view a captured item in the grid, **When** I examine it, **Then** each grid cell shows:
+1. **Given** I have no captured items, **When** I open the CapThat panel, **Then** empty grid slots display placeholders with capture hint text (e.g., "Click Cap! to capture images")
+2. **Given** I have captured items, **When** I open the CapThat panel, **Then** captured items render as thumbnails inside grid slots
+3. **Given** I view a captured item in the grid, **When** I examine it, **Then** each grid cell shows:
    - Thumbnail
    - Optional metadata (title/domain) if available
-3. **Given** I have captured more than N items, **When** I view the grid, **Then** the grid either scrolls OR paginates (consistent behavior)
-4. **Given** I have captured items, **When** I refresh the page or restart the browser, **Then** the board state persists and items are still visible
+4. **Given** I have captured more than N items, **When** I view the grid, **Then** the grid uses virtual scrolling (fixed slots, content scrolls within slots)
+5. **Given** I have captured items, **When** I refresh the page or restart the browser, **Then** the board state persists and items are still visible
 
 ---
 
@@ -232,7 +245,7 @@ As a user, I want confirmation and errors so that I know what happened.
 
 1. **Given** I click "Cap!" on an image, **When** the capture completes, **Then** a small toast appears: "Captured"
 2. **Given** I export data successfully, **When** export completes, **Then** I see "Exported successfully"
-3. **Given** an action fails, **When** the error occurs, **Then** I see a clear message with reason category (permission/CORS/storage)
+3. **Given** an action fails, **When** the error occurs, **Then** I see a toast notification with clear message (reason category: permission/CORS/storage) and a retry button
 4. **Given** I perform actions, **When** feedback appears, **Then** no blocking alerts are shown except for "Clear board confirmation"
 
 ---
@@ -258,7 +271,7 @@ As a user, I want captured items saved into my local CapThat app so that I can k
 
 - What happens when a page has no images?
 - How does the system handle images that fail to load or are broken?
-- What happens when storage quota is exceeded?
+- What happens when storage quota is exceeded? (Board limit of 100 items enforced before browser storage quota)
 - How does the system handle very large images (memory/performance)?
 - What happens when multiple tabs try to capture simultaneously?
 - How does the system handle network failures during export?
@@ -280,6 +293,7 @@ As a user, I want captured items saved into my local CapThat app so that I can k
 - **FR-003**: Extension MUST reflect code changes after rebuild when reloaded
 - **FR-004**: System MUST provide a CapThat panel accessible via extension action button, side panel, or injected overlay
 - **FR-005**: Panel MUST display title "CapThat!", empty grid with N slots (e.g., 10), and action buttons (Clear, Export JSON, Export CapBoard, Export Individual Caps)
+- **FR-005a**: Empty grid slots MUST display placeholders with capture hint text (e.g., "Click Cap! to capture images")
 - **FR-006**: Panel UI MUST be styled with Tailwind and usable at typical desktop widths
 - **FR-007**: System MUST detect and mark capturable images on pages, including `<img>` elements with valid sources
 - **FR-008**: System MUST NOT break page layout or block page interactions when active
@@ -287,10 +301,13 @@ As a user, I want captured items saved into my local CapThat app so that I can k
 - **FR-010**: System MUST allow users to capture images by clicking "Cap!" button on image tiles
 - **FR-011**: System MUST add captured items to the CapThat panel within 2 seconds of capture action
 - **FR-012**: Captured items MUST include image reference (URL or blob), source page URL, and captured timestamp
-- **FR-013**: System MUST handle duplicate captures consistently (either prevent duplicates OR indicate already captured)
+- **FR-013**: System MUST handle duplicate captures consistently (either prevent duplicates OR indicate already captured) based on image content hash matching
+- **FR-013a**: System MUST allow a maximum of 100 items on the Cap Board
+- **FR-013b**: System MUST show a warning message when the board reaches 80 items
+- **FR-013c**: System MUST prevent new captures when the board reaches 100 items and show a message that the board is full
 - **FR-014**: System MUST render captured items as thumbnails in grid slots
 - **FR-015**: Grid cells MUST display thumbnail and optional metadata (title/domain) if available
-- **FR-016**: System MUST handle more than N items via scrolling OR pagination (consistent behavior)
+- **FR-016**: System MUST handle more than N items via virtual scrolling (grid shows fixed slots, content scrolls within slots)
 - **FR-017**: Board state MUST persist across page refreshes and browser restarts
 - **FR-018**: System MUST provide remove control (e.g., X button) for each captured item
 - **FR-019**: System MUST remove items from UI immediately when remove control is clicked
@@ -318,11 +335,86 @@ As a user, I want captured items saved into my local CapThat app so that I can k
 - **FR-041**: System MUST inform users when lower-quality fallback was used (small badge or tooltip)
 - **FR-042**: System MUST show toast notification "Captured" when "Cap!" is clicked
 - **FR-043**: System MUST show "Exported successfully" message on export success
-- **FR-044**: System MUST show clear error message with reason category (permission/CORS/storage) on failure
+- **FR-044**: System MUST show toast notification with clear error message (reason category: permission/CORS/storage) and retry button on failure
+- **FR-044a**: System MUST allow users to retry failed actions via the retry button in error toast notifications
 - **FR-045**: System MUST NOT show blocking alerts except for "Clear board confirmation"
 - **FR-046**: System MUST post captured payload to http://localhost:3000/api/capture when local Next.js app is running (Phase 2)
 - **FR-047**: System MUST fall back to extension-only storage when local app is not running (Phase 2)
 - **FR-048**: System MUST show "Local app not detected" message when local app is not available (Phase 2)
+
+### Security Requirements
+
+#### Non-Functional Requirements
+- **NFR-SEC-001**: Extension MUST request minimal permissions (prefer `activeTab` over `*://*/*`)
+- **NFR-SEC-002**: Extension MUST implement strict Content Security Policy (no `eval()`, no inline scripts)
+- **NFR-SEC-003**: Content scripts MUST use isolated world (no `unsafeWindow` or direct page context access)
+- **NFR-SEC-004**: All inputs MUST be validated before storage (URLs, metadata, timestamps)
+- **NFR-SEC-005**: URLs MUST be sanitized (block `javascript:` and other dangerous schemes)
+- **NFR-SEC-006**: Storage quota MUST be monitored (prevent DoS via storage exhaustion)
+- **NFR-SEC-007**: Image size MUST be limited (prevent memory exhaustion: 10MB per image, 10MP dimensions)
+- **NFR-SEC-008**: Export filenames MUST be sanitized (prevent path traversal: remove `/`, `\`, `..`, etc.)
+- **NFR-SEC-009**: Error messages MUST NOT expose internal paths or storage structure
+- **NFR-SEC-010**: Phase 2 API MUST only communicate with `http://localhost:3000` (validate origin)
+
+#### Acceptance Criteria
+- [AC-SEC-001] Manifest permissions reviewed and justified in implementation
+- [AC-SEC-002] CSP violations blocked in testing (no eval, no inline scripts)
+- [AC-SEC-003] XSS prevention verified in content scripts (isolated world, sanitized DOM)
+- [AC-SEC-004] Input validation tested with malicious URLs (`javascript:`, `data:` schemes)
+- [AC-SEC-005] Storage quota handling tested (warnings at 80% usage, errors at 100%)
+- [AC-SEC-006] Export filename sanitization verified (no path traversal characters)
+- [AC-SEC-007] Image MIME type validation implemented (JPEG, PNG, GIF, WebP only)
+- [AC-SEC-008] Image size limits enforced (reject or resize oversized images)
+- [AC-SEC-009] Error messages are user-friendly (no internal paths exposed)
+- [AC-SEC-010] Localhost API origin validation tested (reject non-localhost requests)
+
+**Detailed Security Checklist**: See [checklists/security.md](./checklists/security.md) for comprehensive threat model and testing requirements.
+
+### UI/Design Requirements
+
+#### Visual Style
+- **UI-001**: Dark mode by default (dark background with light text)
+- **UI-002**: Glassmorphism / soft translucency panels (backdrop-blur effects)
+- **UI-003**: Subtle gradients (teal/cyan/electric blue accents)
+- **UI-004**: Soft glows + ambient shadows (subtle elevation effects)
+- **UI-005**: Rounded corners, thin borders (modern, clean aesthetic)
+- **UI-006**: Low-contrast grid background (subtle dot pattern or gradient)
+- **UI-007**: Minimal text; strong visual hierarchy (icons over labels where possible)
+
+#### Layout Requirements
+- **UI-008**: Top browser-like header with URL bar and subtle navigation arrows (back/forward)
+- **UI-009**: Main content: grid of image cards with floating "Cap!" action buttons
+- **UI-010**: Right-side floating panel:
+  - Title "CapThat!" in header
+  - Cap Board grid (captured items in grid layout)
+  - Action buttons: Clear Cap Board, Export JSON, Export CapBoard, Export Individual Caps
+- **UI-011**: Modular component structure required:
+  - `Header` component (browser-like header)
+  - `ImageGrid` component (main content grid)
+  - `ImageCard` component (individual image card with "Cap!" button)
+  - `CapBoardPanel` component (right-side panel)
+  - `ActionButton` component (reusable button with states)
+
+#### Interaction Requirements
+- **UI-012**: Hover states (subtle glow and/or scale transform)
+- **UI-013**: Button press micro-interactions (active state feedback)
+- **UI-014**: Smooth transitions (200–300ms duration)
+- **UI-015**: Cards lift slightly on hover (elevation increase)
+
+#### Accessibility Requirements
+- **UI-016**: High contrast text on dark background (WCAG AA compliance)
+- **UI-017**: Keyboard navigable buttons (tab navigation, Enter/Space activation)
+- **UI-018**: Clean Tailwind class usage (no external UI libraries)
+
+#### Acceptance Criteria
+- [AC-UI-001] Dark mode theme applied consistently across all components
+- [AC-UI-002] Glassmorphism effects visible on panels (backdrop-blur, transparency)
+- [AC-UI-003] Teal/cyan/electric blue accents used for primary actions
+- [AC-UI-004] Hover states trigger on all interactive elements
+- [AC-UI-005] Transitions are smooth (200–300ms, no jank)
+- [AC-UI-006] Grid layout is responsive (works at 1024px+ widths)
+- [AC-UI-007] All buttons are keyboard accessible
+- [AC-UI-008] Text contrast meets WCAG AA standards
 
 ### Key Entities *(include if feature involves data)*
 
@@ -358,7 +450,8 @@ As a user, I want captured items saved into my local CapThat app so that I can k
 - Extension will be built using standard Chrome Extension Manifest V3 architecture
 - Tailwind CSS will be used for styling the panel UI
 - Grid will display a default of 10 slots (configurable)
-- Duplicate detection will be based on image URL comparison
+- Duplicate detection will be based on image content hash comparison (same image content = duplicate even if different URLs)
+- Board size limit is 100 items maximum, with warning shown at 80 items
 - Storage will use chrome.storage.local for metadata and IndexedDB for blob storage
 - Export filenames will use format: cap-<timestamp>-<id>.png for individual images
 - ZIP export will support boards up to 50 items as a reasonable limit
