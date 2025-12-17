@@ -384,3 +384,117 @@ Updating the plan template to align with the new constitution principles:
 
 ---
 
+
+Updating the plan template's Constitution Check section to reflect the new principles:
+
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="search_replace">
+
+<details><summary>Tool use: **search_replace** • Edit file: .specify/templates/plan-template.md</summary>
+
+**Chunk 1**
+Lines added: 18, lines removed: 1
+
+```diff
+@@ -32,5 +32,22 @@
+  *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
+  
+- [Gates determined based on constitution file]
++ **Code Clarity &amp; Readability**: 
++ - [ ] All code uses descriptive names and clear structure
++ - [ ] No cryptic or overly clever implementations
++ 
++ **Simplicity First**: 
++ - [ ] Chosen approach is the simplest that solves the problem
++ - [ ] Any complexity is justified and documented
++ 
++ **Regular Comments**: 
++ - [ ] Plan includes comment strategy for complex logic
++ - [ ] Framework-specific patterns will be explained for newcomers
++ 
++ **File Organization**: 
++ - [ ] File structure avoids excessive file splitting
++ - [ ] Related functionality consolidated where possible
++ - [ ] File separation only where clearly beneficial
++ 
++ **Violations**: If any principle cannot be met, document justification in Complexity Tracking section below.
+  
+  ## Project Structure
+```
+
+</details>
+
+</tool-use>
+
+---
+
+
+
+---
+
+
+Checking for linting errors:
+
+
+---
+
+<tool-use data-tool-type="generic" data-tool-name="read_lints">
+<details>
+          <summary>Tool use: **read_lints** • Read lints for 2 files</summary>
+      
+Lint paths:
+
+- `.specify/memory/constitution.md`
+- `.specify/templates/plan-template.md`
+
+Lint results
+
+
+**No lint errors found**
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Created the project constitution and updated dependent templates. Summary:
+
+## Constitution Created: Version 1.0.0
+
+**New Constitution Principles:**
+
+1. **Code Clarity and Readability** — Code must be clean, easy-to-read, and immediately understandable with descriptive names and clear structure.
+
+2. **Simplicity First** — Prioritize simple solutions; complexity must be justified.
+
+3. **Regular Documentation Through Comments** — Include comments explaining the "why" behind decisions, assuming readers are newcomers to full-stack development.
+
+4. **File Organization: Prefer Single Files** — Avoid excessive file splitting; consolidate related functionality into cohesive modules. Split only when there's clear benefit.
+
+**Governance:**
+- Version: **1.0.0** (initial constitution)
+- Ratified: **2025-01-27**
+- Last Amended: **2025-01-27**
+
+**Template Updates:**
+- **plan-template.md** — Updated Constitution Check section with specific gates aligned to the new principles
+
+**Files Created/Updated:**
+- `.specify/memory/constitution.md` — New constitution document
+- `.specify/templates/plan-template.md` — Updated with constitution compliance checks
+
+**Suggested Commit Message:**
+```
+docs: add constitution v1.0.0 (code clarity, simplicity, comments, file organization)
+```
+
+The constitution is ready and will guide development practices, emphasizing clarity and accessibility for newcomers to full-stack development.
+
+---
+

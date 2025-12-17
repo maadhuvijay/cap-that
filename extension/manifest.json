@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "CapThat",
+  "version": "0.1.0",
+  "description": "Capture and organize images into a mood board",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "sidePanel"
+  ],
+  "host_permissions": [],
+  "background": {
+    "service_worker": "background/service-worker.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content/content-script.js"],
+      "run_at": "document_idle",
+      "world": "ISOLATED"
+    }
+  ],
+  "side_panel": {
+    "default_path": "ui/side-panel.html"
+  },
+  "action": {
+    "default_title": "Open CapThat Panel"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; img-src 'self' data: blob: https: http:; connect-src 'self' http://localhost:3000"
+  }
+}
+

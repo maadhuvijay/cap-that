@@ -19,9 +19,18 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@shared/*": ["./shared/*"]
     }
   },
+  "references": [
+    {
+      "path": "./shared"
+    },
+    {
+      "path": "./extension"
+    }
+  ],
   "include": [
     "next-env.d.ts",
     "**/*.ts",

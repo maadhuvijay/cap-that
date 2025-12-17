@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:extension": "cd extension && vite build && node ../scripts/copy-extension-assets.js",
+    "build:all": "npm run build:extension && npm run build",
     "start": "next start",
     "lint": "eslint"
   },
@@ -15,12 +17,15 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/chrome": "^0.0.268",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^4.3.1",
     "eslint": "^9",
     "eslint-config-next": "16.0.10",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vite": "^5.4.0"
   }
 }
