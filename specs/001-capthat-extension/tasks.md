@@ -1,41 +1,38 @@
-# Implementation Tasks: CapThat Chrome Extension
+---
+description: "Task list for CapThat Chrome Extension implementation"
+---
 
-**Feature**: CapThat Chrome Extension + Next.js Web App  
+# Tasks: CapThat Chrome Extension
+
+**Input**: Design documents from `/specs/001-capthat-extension/`  
+**Prerequisites**: implementation-plan.md (required), spec.md (required for user stories)  
 **Feature Branch**: `001-capthat-extension`  
 **Generated**: 2025-01-27  
 **Status**: Ready for Implementation
 
-## Overview
+**Tests**: Tests are OPTIONAL - not included unless explicitly requested in the feature specification.
 
-This document contains actionable, dependency-ordered tasks for implementing the CapThat Chrome Extension. Tasks are organized by phase, with user stories implemented independently to enable parallel work where possible.
+**Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
 
-**Total Tasks**: 147  
-**User Stories**: 14 (P1: 2, P2: 5, P3: 6, P4: 1)  
-**MVP Scope**: User Stories 1-2 (P1) + Foundational tasks
+## Format: `[ID] [P?] [Story] Description`
 
----
+- **[P]**: Can run in parallel (different files, no dependencies)
+- **[Story]**: Which user story this task belongs to (e.g., [US1], [US2], [US3])
+- Include exact file paths in descriptions
 
-## Implementation Strategy
+## Path Conventions
 
-### MVP First Approach
-- **MVP v1**: Complete User Stories 1-2 (P1) + Foundational tasks
-- **Incremental Delivery**: Each user story phase is independently testable
-- **Parallel Opportunities**: Tasks marked with `[P]` can be worked on in parallel
-
-### Task Format
-- `[P]` = Parallelizable (different files, no dependencies)
-- `[US1]`, `[US2]`, etc. = User Story label (maps to spec.md)
-- All tasks include exact file paths for implementation
+- **Extension**: `extension/` at repository root
+- **Web App**: `app/` at repository root (Next.js)
+- **Shared**: `shared/` at repository root
 
 ---
 
 ## Phase 1: Setup & Build Pipeline
 
-**Goal**: Initialize project structure and build configuration for Chrome Extension.
+**Purpose**: Project initialization and basic structure for Chrome Extension.
 
 **Independent Test**: Extension loads in Chrome via "Load unpacked" without errors.
-
-### Setup Tasks
 
 - [ ] T001 Create extension directory structure at `extension/`
 - [ ] T002 Initialize TypeScript configuration at `extension/tsconfig.json`
@@ -54,16 +51,18 @@ This document contains actionable, dependency-ordered tasks for implementing the
 
 ---
 
-## Phase 2: Foundational Tasks
+## Phase 2: Foundational (Blocking Prerequisites)
 
-**Goal**: Implement core infrastructure that blocks all user stories (storage, validation, types).
+**Purpose**: Core infrastructure that MUST be complete before ANY user story can be implemented.
+
+**⚠️ CRITICAL**: No user story work can begin until this phase is complete.
 
 **Independent Test**: Storage adapters can save/load data, validators reject invalid inputs.
 
 ### Type Definitions
 
-- [ ] T015 [P] Define TypeScript types at `extension/types/index.ts` (CapturedItem, CapBoard, ImageReference, ExportManifest)
-- [ ] T016 [P] Define shared types at `shared/types/index.ts` for extension and web compatibility (export CapturedItem, CapBoard, ImageReference, ExportManifest interfaces)
+- [ ] T015 [P] Define TypeScript types at `extension/types/index.ts` (CapturedItem with id, imageReference, sourceUrl, timestamp, metadata, qualityIndicator; CapBoard with items array, metadata, gridConfig, exportHistory; ImageReference with urlOrBlob, thumbnail, dimensions, fallbackIndicator; ExportManifest with boardMetadata, itemReferences, exportTimestamp, formatVersion)
+- [ ] T016 [P] Define shared types at `shared/types/index.ts` for extension and web compatibility (export CapturedItem, CapBoard, ImageReference, ExportManifest interfaces matching extension types)
 
 ### Storage Layer
 
@@ -86,30 +85,34 @@ This document contains actionable, dependency-ordered tasks for implementing the
 - [ ] T027 [P] Define message types at `extension/types/messages.ts` (capture request/response, storage updates, export requests with TypeScript interfaces)
 - [ ] T028 [P] Implement message validation in `extension/background/service-worker.ts` message handlers (validate message shape, reject invalid messages)
 
+**Checkpoint**: Foundation ready - user story implementation can now begin in parallel
+
 ---
 
-## Phase 3: User Story 1 - Load Extension in Chrome (P1)
+## Phase 3: User Story 1 - Load Extension in Chrome (Priority: P1) 🎯 MVP
 
-**Goal**: Extension loads successfully in Chrome and appears in extensions list.
+**Goal**: Extension loads successfully in Chrome and appears in extensions list with icon and name.
 
-**Independent Test**: Run build command, open chrome://extensions, load unpacked extension, verify it appears with icon and name "CapThat", reload reflects code changes.
+**Independent Test**: Run build command, open chrome://extensions, load unpacked extension, verify it appears with icon and name "CapThat", reload reflects code changes after rebuild.
 
 **Acceptance Criteria**:
 - Extension loads without errors
 - Extension shows icon and name "CapThat" in extensions list
 - Reloading extension reflects code changes after rebuild
 
-### Implementation Tasks
+### Implementation for User Story 1
 
-- [ ] T029 [US1] Create extension icon files at `extension/icons/icon16.png`, `extension/icons/icon48.png`, `extension/icons/icon128.png` (icons field already configured in manifest.json)
+- [ ] T029 [US1] Create extension icon files at `extension/icons/icon16.png`, `extension/icons/icon48.png`, `extension/icons/icon128.png`
 - [ ] T030 [US1] Verify extension name "CapThat" is configured in `extension/manifest.json` (name field)
 - [ ] T031 [US1] Verify build output generates valid extension structure in `build/extension/` (run `npm run build:extension` and verify manifest.json, icons, and compiled JS files exist)
 - [ ] T032 [US1] Test extension loads via "Load unpacked" in chrome://extensions (open chrome://extensions, enable Developer mode, click "Load unpacked", select `build/extension/` directory)
 - [ ] T033 [US1] Test extension reload reflects code changes after rebuild (make code change, rebuild, reload extension in chrome://extensions, verify change appears)
 
+**Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
+
 ---
 
-## Phase 4: User Story 2 - Show CapThat Panel UI (P1)
+## Phase 4: User Story 2 - Show CapThat Panel UI (Priority: P1) 🎯 MVP
 
 **Goal**: Users can open CapThat panel and see complete UI with title, grid, and action buttons.
 
@@ -145,9 +148,11 @@ This document contains actionable, dependency-ordered tasks for implementing the
 - [ ] T048 [US2] Verify dark theme with glassmorphism effects render correctly
 - [ ] T049 [US2] Verify hover states and transitions work (200-300ms duration)
 
+**Checkpoint**: At this point, User Story 2 should be fully functional and testable independently
+
 ---
 
-## Phase 5: User Story 3 - Detect Capturable Images on Page (P2)
+## Phase 5: User Story 3 - Detect Capturable Images on Page (Priority: P2)
 
 **Goal**: Extension identifies images on the page and enables capture mode.
 
@@ -159,24 +164,23 @@ This document contains actionable, dependency-ordered tasks for implementing the
 - Page layout is not broken, page interactions work normally
 - No console errors on common websites
 
-### Content Script Implementation
+### Implementation for User Story 3
 
 - [ ] T050 [US3] Implement image detection logic in `extension/content/content-script.ts` (querySelector for `<img>` elements)
 - [ ] T051 [US3] Filter valid image sources (http/https/data) in `extension/content/content-script.ts`
 - [ ] T052 [US3] Handle lazy-loaded images in `extension/content/content-script.ts`
 - [ ] T053 [US3] Inject "Cap!" buttons with isolation in `extension/content/content-script.ts`
 - [ ] T054 [US3] Setup message passing to service worker in `extension/content/content-script.ts`
-
-### Security Hardening
-
 - [ ] T055 [US3] Verify isolated world usage (no unsafeWindow) in `extension/content/content-script.ts`
 - [ ] T056 [US3] Sanitize DOM manipulation in `extension/content/content-script.ts`
 - [ ] T057 [US3] Test XSS prevention (isolated world, sanitized DOM)
 - [ ] T058 [US3] Test content script injects without breaking pages on common websites
 
+**Checkpoint**: At this point, User Story 3 should be fully functional and testable independently
+
 ---
 
-## Phase 6: User Story 4 - Capture Image Using "Cap!" Button (P2)
+## Phase 6: User Story 4 - Capture Image Using "Cap!" Button (Priority: P2)
 
 **Goal**: Users can click "Cap!" on an image tile to add it to Cap Board.
 
@@ -188,7 +192,7 @@ This document contains actionable, dependency-ordered tasks for implementing the
 - Duplicate captures handled consistently (content hash matching)
 - Warning shown at 80 items, capture blocked at 100 items
 
-### Capture Logic
+### Implementation for User Story 4
 
 - [ ] T059 [US4] Implement capture request handler in `extension/background/service-worker.ts`
 - [ ] T060 [US4] Implement URL capture (primary) in `extension/background/service-worker.ts`
@@ -201,9 +205,11 @@ This document contains actionable, dependency-ordered tasks for implementing the
 - [ ] T067 [US4] Check board size before capture (80/100 limits) in `extension/background/service-worker.ts`
 - [ ] T068 [US4] Update UI on capture completion via storage events
 
+**Checkpoint**: At this point, User Story 4 should be fully functional and testable independently
+
 ---
 
-## Phase 7: User Story 5 - View Captured Items in Grid (P2)
+## Phase 7: User Story 5 - View Captured Items in Grid (Priority: P2)
 
 **Goal**: Users can see captured items rendered as thumbnails in grid slots.
 
@@ -216,7 +222,7 @@ This document contains actionable, dependency-ordered tasks for implementing the
 - Virtual scrolling handles more than N items
 - Board state persists across refreshes and browser restarts
 
-### Grid Implementation
+### Implementation for User Story 5
 
 - [ ] T069 [US5] Implement grid rendering in `extension/ui/components/ImageGrid.tsx` (render captured items as thumbnails)
 - [ ] T070 [US5] Implement empty state placeholders in `extension/ui/components/ImageGrid.tsx` ("Click Cap! to capture images")
@@ -225,9 +231,11 @@ This document contains actionable, dependency-ordered tasks for implementing the
 - [ ] T073 [US5] Handle grid updates on capture/remove in `extension/ui/components/ImageGrid.tsx`
 - [ ] T074 [US5] Test board state persists across browser restarts
 
+**Checkpoint**: At this point, User Story 5 should be fully functional and testable independently
+
 ---
 
-## Phase 8: User Story 8 - Persist Board Using Extension Storage (P2)
+## Phase 8: User Story 8 - Persist Board Using Extension Storage (Priority: P2)
 
 **Goal**: Board is saved automatically and loads when panel reopens.
 
@@ -239,7 +247,7 @@ This document contains actionable, dependency-ordered tasks for implementing the
 - Previously captured items load automatically on panel open
 - Storage errors handled with non-blocking error messages
 
-### Storage Persistence
+### Implementation for User Story 8
 
 - [ ] T075 [US8] Implement save board metadata in `extension/storage/storage-adapter.ts` (chrome.storage.local)
 - [ ] T076 [US8] Implement save image blobs in `extension/storage/indexeddb-adapter.ts`
@@ -247,9 +255,11 @@ This document contains actionable, dependency-ordered tasks for implementing the
 - [ ] T078 [US8] Handle storage errors gracefully in `extension/storage/storage-adapter.ts`
 - [ ] T079 [US8] Test board persistence across browser restarts
 
+**Checkpoint**: At this point, User Story 8 should be fully functional and testable independently
+
 ---
 
-## Phase 9: User Story 12 - Handle CORS-Blocked Images with Fallback (P2)
+## Phase 9: User Story 12 - Handle CORS-Blocked Images with Fallback (Priority: P2)
 
 **Goal**: Extension captures images even when direct download fails due to CORS.
 
@@ -260,16 +270,18 @@ This document contains actionable, dependency-ordered tasks for implementing the
 - Items added to board with usable thumbnail even when fallback used
 - Users informed via badge or tooltip when lower-quality fallback used
 
-### CORS Fallback Implementation
+### Implementation for User Story 12
 
 - [ ] T080 [US12] Implement fallback capture strategy in `extension/background/service-worker.ts` (URL → blob → tab capture)
 - [ ] T081 [US12] Store fallback indicator in captured item metadata
 - [ ] T082 [US12] Display fallback badge/tooltip in `extension/ui/components/ImageCard.tsx`
 - [ ] T083 [US12] Test CORS-blocked image capture with fallback
 
+**Checkpoint**: At this point, User Story 12 should be fully functional and testable independently
+
 ---
 
-## Phase 10: User Story 6 - Remove a Captured Item (P3)
+## Phase 10: User Story 6 - Remove a Captured Item (Priority: P3)
 
 **Goal**: Users can remove individual captured items from the board.
 
@@ -281,16 +293,18 @@ This document contains actionable, dependency-ordered tasks for implementing the
 - Item removed from storage
 - Other items remain on board
 
-### Remove Functionality
+### Implementation for User Story 6
 
 - [ ] T084 [US6] Add remove button to items in `extension/ui/components/ImageCard.tsx`
 - [ ] T085 [US6] Implement remove handler in `extension/ui/side-panel.tsx`
 - [ ] T086 [US6] Update storage on remove in `extension/storage/storage-adapter.ts`
 - [ ] T087 [US6] Update UI on remove in `extension/ui/components/ImageGrid.tsx`
 
+**Checkpoint**: At this point, User Story 6 should be fully functional and testable independently
+
 ---
 
-## Phase 11: User Story 7 - Clear the Entire Cap Board (P3)
+## Phase 11: User Story 7 - Clear the Entire Cap Board (Priority: P3)
 
 **Goal**: Users can clear the entire board with confirmation.
 
@@ -302,16 +316,18 @@ This document contains actionable, dependency-ordered tasks for implementing the
 - All items removed from UI on confirmation
 - All stored items deleted from extension storage
 
-### Clear Board Implementation
+### Implementation for User Story 7
 
 - [ ] T088 [US7] Implement clear button handler in `extension/ui/components/CapBoardPanel.tsx`
 - [ ] T089 [US7] Add confirmation modal in `extension/ui/components/CapBoardPanel.tsx`
 - [ ] T090 [US7] Clear storage on confirmation in `extension/storage/storage-adapter.ts`
 - [ ] T091 [US7] Reset UI on clear in `extension/ui/components/ImageGrid.tsx`
 
+**Checkpoint**: At this point, User Story 7 should be fully functional and testable independently
+
 ---
 
-## Phase 12: User Story 9 - Export Board Metadata as JSON (P3)
+## Phase 12: User Story 9 - Export Board Metadata as JSON (Priority: P3)
 
 **Goal**: Users can export board metadata as JSON file.
 
@@ -322,7 +338,7 @@ This document contains actionable, dependency-ordered tasks for implementing the
 - JSON includes for each item: id, image URL (or filename reference), source page URL, captured timestamp, optional metadata
 - JSON validates (no circular refs, valid UTF-8)
 
-### JSON Export
+### Implementation for User Story 9
 
 - [ ] T092 [US9] Implement JSON export logic at `extension/export/json-export.ts`
 - [ ] T093 [US9] Generate JSON manifest with all metadata in `extension/export/json-export.ts`
@@ -330,9 +346,11 @@ This document contains actionable, dependency-ordered tasks for implementing the
 - [ ] T095 [US9] Download JSON via chrome.downloads API in `extension/export/json-export.ts`
 - [ ] T096 [US9] Wire export button to handler in `extension/ui/components/CapBoardPanel.tsx`
 
+**Checkpoint**: At this point, User Story 9 should be fully functional and testable independently
+
 ---
 
-## Phase 13: User Story 10 - Export Individual Captured Images (P3)
+## Phase 13: User Story 10 - Export Individual Captured Images (Priority: P3)
 
 **Goal**: Users can export each captured image as separate files.
 
@@ -343,7 +361,7 @@ This document contains actionable, dependency-ordered tasks for implementing the
 - Filenames are consistent and unique (cap-<timestamp>-<id>.png)
 - CORS-blocked images skipped and reported in summary
 
-### Individual Image Export
+### Implementation for User Story 10
 
 - [ ] T097 [US10] Implement individual image export logic at `extension/export/image-export.ts`
 - [ ] T098 [US10] Fetch images with CORS handling in `extension/export/image-export.ts`
@@ -353,9 +371,11 @@ This document contains actionable, dependency-ordered tasks for implementing the
 - [ ] T102 [US10] Handle CORS-blocked images gracefully in `extension/export/image-export.ts`
 - [ ] T103 [US10] Wire export button to handler in `extension/ui/components/CapBoardPanel.tsx`
 
+**Checkpoint**: At this point, User Story 10 should be fully functional and testable independently
+
 ---
 
-## Phase 14: User Story 11 - Export Full Cap Board as ZIP (P3)
+## Phase 14: User Story 11 - Export Full Cap Board as ZIP (Priority: P3)
 
 **Goal**: Users can export full board as single ZIP file.
 
@@ -366,7 +386,7 @@ This document contains actionable, dependency-ordered tasks for implementing the
 - ZIP contains /images/ folder with images (if available) and board.json manifest
 - Export completes without crashing for boards up to 50 items
 
-### ZIP Export
+### Implementation for User Story 11
 
 - [ ] T104 [US11] Install JSZip dependency in `package.json`
 - [ ] T105 [US11] Implement ZIP export logic at `extension/export/zip-export.ts`
@@ -376,9 +396,11 @@ This document contains actionable, dependency-ordered tasks for implementing the
 - [ ] T109 [US11] Download ZIP via chrome.downloads API in `extension/export/zip-export.ts`
 - [ ] T110 [US11] Wire export button to handler in `extension/ui/components/CapBoardPanel.tsx`
 
+**Checkpoint**: At this point, User Story 11 should be fully functional and testable independently
+
 ---
 
-## Phase 15: User Story 13 - Show Status Feedback for Actions (P3)
+## Phase 15: User Story 13 - Show Status Feedback for Actions (Priority: P3)
 
 **Goal**: Users receive confirmation and error feedback for all actions.
 
@@ -390,7 +412,7 @@ This document contains actionable, dependency-ordered tasks for implementing the
 - Toast notification with clear error message (permission/CORS/storage) and retry button on failure
 - No blocking alerts except for "Clear board confirmation"
 
-### Toast System
+### Implementation for User Story 13
 
 - [ ] T111 [US13] Create toast component at `extension/ui/components/Toast.tsx`
 - [ ] T112 [US13] Implement toast queue in `extension/ui/components/Toast.tsx`
@@ -400,9 +422,11 @@ This document contains actionable, dependency-ordered tasks for implementing the
 - [ ] T116 [US13] Implement retry functionality in `extension/ui/components/Toast.tsx`
 - [ ] T117 [US13] Ensure no internal paths exposed in error messages
 
+**Checkpoint**: At this point, User Story 13 should be fully functional and testable independently
+
 ---
 
-## Phase 16: User Story 14 - Send Captured Items to Local Next.js API (P4 - Optional Phase 2)
+## Phase 16: User Story 14 - Send Captured Items to Local Next.js API (Priority: P4 - Optional Phase 2)
 
 **Goal**: Extension posts captured items to local Next.js API when available.
 
@@ -414,7 +438,7 @@ This document contains actionable, dependency-ordered tasks for implementing the
 - "Local app not detected" message shown when app unavailable
 - Items stored and displayed in Next.js board view
 
-### Next.js API Integration
+### Implementation for User Story 14
 
 - [ ] T118 [US14] Create Next.js API endpoint at `app/api/capture/route.ts` (POST handler)
 - [ ] T119 [US14] Validate payload structure in `app/api/capture/route.ts`
@@ -428,11 +452,13 @@ This document contains actionable, dependency-ordered tasks for implementing the
 - [ ] T127 [US14] Create board view page at `app/board/page.tsx`
 - [ ] T128 [US14] Display captured items in board view in `app/board/page.tsx`
 
+**Checkpoint**: At this point, User Story 14 should be fully functional and testable independently
+
 ---
 
 ## Phase 17: Polish & Cross-Cutting Concerns
 
-**Goal**: Complete security hardening, performance optimization, and final polish.
+**Purpose**: Improvements that affect multiple user stories.
 
 **Independent Test**: All security acceptance criteria pass, performance acceptable with 100 items, UI polished and accessible.
 
@@ -471,43 +497,117 @@ This document contains actionable, dependency-ordered tasks for implementing the
 
 ## Dependencies & Execution Order
 
-### User Story Completion Order
+### Phase Dependencies
 
-1. **Phase 1-2** (Setup + Foundational): Must complete before any user stories
-2. **Phase 3** (US1 - Load Extension): Blocks all other stories (extension must load)
-3. **Phase 4** (US2 - Panel UI): Blocks US5, US6, US7, US9, US10, US11, US13 (UI needed for interactions)
-4. **Phase 5** (US3 - Detect Images): Blocks US4 (images must be detected before capture)
-5. **Phase 6** (US4 - Capture): Blocks US5, US8, US12 (captures needed for board)
-6. **Phase 7** (US5 - View Grid): Depends on US2, US4, US8
-7. **Phase 8** (US8 - Persist Board): Can run in parallel with US5 after US4
-8. **Phase 9** (US12 - CORS Fallback): Depends on US4, can run in parallel with US5, US8
-9. **Phase 10** (US6 - Remove Item): Depends on US5
-10. **Phase 11** (US7 - Clear Board): Depends on US5
-11. **Phase 12** (US9 - Export JSON): Depends on US5
-12. **Phase 13** (US10 - Export Images): Depends on US5
-13. **Phase 14** (US11 - Export ZIP): Depends on US9, US10
-14. **Phase 15** (US13 - Status Feedback): Depends on US4, US9, US10, US11, US7
-15. **Phase 16** (US14 - Next.js API): Optional, can run independently after US4
-16. **Phase 17** (Polish): Depends on all previous phases
+- **Setup (Phase 1)**: No dependencies - can start immediately
+- **Foundational (Phase 2)**: Depends on Setup completion - BLOCKS all user stories
+- **User Stories (Phase 3+)**: All depend on Foundational phase completion
+  - User stories can then proceed in parallel (if staffed)
+  - Or sequentially in priority order (P1 → P2 → P3)
+- **Polish (Final Phase)**: Depends on all desired user stories being complete
 
-### Parallel Execution Examples
+### User Story Dependencies
 
-**After Phase 2 (Foundational)**:
-- T015-T028 can run in parallel (different files, no dependencies)
+- **User Story 1 (P1)**: Can start after Foundational (Phase 2) - No dependencies on other stories
+- **User Story 2 (P1)**: Can start after Foundational (Phase 2) - No dependencies on other stories
+- **User Story 3 (P2)**: Can start after Foundational (Phase 2) - No dependencies on other stories
+- **User Story 4 (P2)**: Depends on US3 (images must be detected before capture)
+- **User Story 5 (P2)**: Depends on US2 (UI needed), US4 (captures needed), US8 (persistence needed)
+- **User Story 6 (P3)**: Depends on US5 (grid needed)
+- **User Story 7 (P3)**: Depends on US5 (grid needed)
+- **User Story 8 (P2)**: Can start after US4 (captures needed) - Can run in parallel with US5
+- **User Story 9 (P3)**: Depends on US5 (board needed)
+- **User Story 10 (P3)**: Depends on US5 (board needed)
+- **User Story 11 (P3)**: Depends on US9, US10 (export components needed)
+- **User Story 12 (P2)**: Depends on US4 (capture needed) - Can run in parallel with US5, US8
+- **User Story 13 (P3)**: Depends on US4, US9, US10, US11, US7 (actions needed for feedback)
+- **User Story 14 (P4)**: Can start after US4 (capture needed) - Optional, can run independently
 
-**After Phase 4 (US2 - Panel UI)**:
-- T050-T058 (US3 - Detect Images) can start
-- T059-T068 (US4 - Capture) can start after US3
+### Within Each User Story
 
-**After Phase 6 (US4 - Capture)**:
-- T069-T074 (US5 - View Grid) and T075-T079 (US8 - Persist Board) can run in parallel
-- T080-T083 (US12 - CORS Fallback) can run in parallel
+- Models before services
+- Services before endpoints/UI
+- Core implementation before integration
+- Story complete before moving to next priority
 
-**After Phase 7 (US5 - View Grid)**:
-- T084-T087 (US6 - Remove), T088-T091 (US7 - Clear), T092-T096 (US9 - Export JSON), T097-T103 (US10 - Export Images) can run in parallel
+### Parallel Opportunities
 
-**After Phase 12-13 (US9, US10)**:
-- T104-T110 (US11 - Export ZIP) can start
+- All Setup tasks can run in parallel (different files)
+- All Foundational tasks marked [P] can run in parallel (within Phase 2)
+- Once Foundational phase completes, all user stories can start in parallel (if team capacity allows)
+- Models within a story marked [P] can run in parallel
+- Different user stories can be worked on in parallel by different team members
+
+---
+
+## Parallel Execution Examples
+
+### After Phase 2 (Foundational):
+```bash
+# Launch all foundational tasks in parallel:
+Task: "Define TypeScript types at extension/types/index.ts"
+Task: "Define shared types at shared/types/index.ts"
+Task: "Implement chrome.storage.local adapter at extension/storage/storage-adapter.ts"
+Task: "Implement IndexedDB adapter at extension/storage/indexeddb-adapter.ts"
+Task: "Implement URL validator at extension/validation/url-validator.ts"
+Task: "Implement image validator at extension/validation/image-validator.ts"
+Task: "Define message types at extension/types/messages.ts"
+```
+
+### After Phase 4 (US2 - Panel UI):
+```bash
+# Launch UI components in parallel:
+Task: "Implement Header component at extension/ui/components/Header.tsx"
+Task: "Implement ActionButton component at extension/ui/components/ActionButton.tsx"
+Task: "Implement ImageCard component at extension/ui/components/ImageCard.tsx"
+Task: "Implement ImageGrid component at extension/ui/components/ImageGrid.tsx"
+Task: "Implement CapBoardPanel component at extension/ui/components/CapBoardPanel.tsx"
+```
+
+### After Phase 6 (US4 - Capture):
+```bash
+# Launch parallel stories:
+Task: "Implement grid rendering in extension/ui/components/ImageGrid.tsx" (US5)
+Task: "Implement save board metadata in extension/storage/storage-adapter.ts" (US8)
+Task: "Implement fallback capture strategy in extension/background/service-worker.ts" (US12)
+```
+
+---
+
+## Implementation Strategy
+
+### MVP First (User Stories 1-2 Only)
+
+1. Complete Phase 1: Setup
+2. Complete Phase 2: Foundational (CRITICAL - blocks all stories)
+3. Complete Phase 3: User Story 1 (Load Extension)
+4. Complete Phase 4: User Story 2 (Panel UI)
+5. **STOP and VALIDATE**: Test User Stories 1-2 independently
+6. Deploy/demo if ready
+
+### Incremental Delivery
+
+1. Complete Setup + Foundational → Foundation ready
+2. Add User Story 1 → Test independently → Deploy/Demo (Extension loads!)
+3. Add User Story 2 → Test independently → Deploy/Demo (UI visible!)
+4. Add User Story 3 → Test independently → Deploy/Demo (Images detected!)
+5. Add User Story 4 → Test independently → Deploy/Demo (Capture works!)
+6. Add User Story 5 → Test independently → Deploy/Demo (Grid displays!)
+7. Each story adds value without breaking previous stories
+
+### Parallel Team Strategy
+
+With multiple developers:
+
+1. Team completes Setup + Foundational together
+2. Once Foundational is done:
+   - Developer A: User Story 1 (Load Extension)
+   - Developer B: User Story 2 (Panel UI)
+3. Once US1 and US2 are done:
+   - Developer A: User Story 3 (Detect Images)
+   - Developer B: User Story 4 (Capture)
+   - Developer C: User Story 5 (View Grid) + US8 (Persistence)
+4. Stories complete and integrate independently
 
 ---
 
@@ -553,6 +653,22 @@ This document contains actionable, dependency-ordered tasks for implementing the
 ### Parallel Opportunities Identified:
 - 28 tasks marked with `[P]` can be worked on in parallel
 
+### Independent Test Criteria for Each Story:
+- **US1**: Extension loads in Chrome, appears in extensions list
+- **US2**: Panel opens and displays complete UI
+- **US3**: Images detected without breaking pages
+- **US4**: Capture adds item to board within 2 seconds
+- **US5**: Grid displays captured items, persists across restarts
+- **US6**: Remove item works, other items remain
+- **US7**: Clear board works with confirmation
+- **US8**: Board persists and loads automatically
+- **US9**: JSON export generates valid file
+- **US10**: Individual images export with unique filenames
+- **US11**: ZIP export completes for boards up to 50 items
+- **US12**: CORS-blocked images captured with fallback
+- **US13**: Status feedback appears for all actions
+- **US14**: Items posted to Next.js API when available
+
 ### Suggested MVP Scope:
 - **MVP v1**: Phases 1-4 (Setup + Foundational + US1 + US2)
   - Total MVP tasks: 49 tasks
@@ -572,4 +688,3 @@ This document contains actionable, dependency-ordered tasks for implementing the
 ---
 
 **End of Tasks Document**
-

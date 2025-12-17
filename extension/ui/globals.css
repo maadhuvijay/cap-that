@@ -1,0 +1,167 @@
+/**
+ * Global Styles for CapThat Extension
+ * Glassmorphism utilities and dark theme base styles
+ */
+
+@import "tailwindcss";
+
+/* Dark Mode Base (UI-001) */
+:root {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --surface: #1a1a1a;
+  --border: #2a2a2a;
+  --text-muted: #a0a0a0;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+}
+
+/* Glassmorphism Utility Classes (UI-002, T036) */
+.glass {
+  background: rgba(26, 26, 26, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-light {
+  background: rgba(26, 26, 26, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-strong {
+  background: rgba(26, 26, 26, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Panel Glassmorphism */
+.glass-panel {
+  @apply glass rounded-glass;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Card Glassmorphism */
+.glass-card {
+  @apply glass-light rounded-card;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Low-contrast Grid Background (UI-006) */
+.grid-bg {
+  background-image: 
+    radial-gradient(circle, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.grid-bg-dots {
+  background-image: 
+    radial-gradient(circle, rgba(20, 184, 166, 0.1) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Subtle Gradient Backgrounds (UI-003) */
+.gradient-teal {
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+}
+
+.gradient-cyan {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+}
+
+.gradient-electric {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(20, 184, 166, 0.1) 100%);
+}
+
+/* Hover Effects (UI-012, UI-015) */
+.hover-lift {
+  transition: transform 250ms ease, box-shadow 250ms ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.hover-glow-teal {
+  transition: box-shadow 250ms ease;
+}
+
+.hover-glow-teal:hover {
+  box-shadow: 0 0 20px rgba(20, 184, 166, 0.4);
+}
+
+.hover-glow-cyan {
+  transition: box-shadow 250ms ease;
+}
+
+.hover-glow-cyan:hover {
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+}
+
+.hover-glow-electric {
+  transition: box-shadow 250ms ease;
+}
+
+.hover-glow-electric:hover {
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+}
+
+/* Button Press Micro-interactions (UI-013) */
+.button-press {
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.button-press:active {
+  transform: scale(0.98);
+}
+
+/* Smooth Transitions (UI-014) */
+.transition-smooth {
+  transition: all 250ms ease;
+}
+
+/* High Contrast Text (UI-016, WCAG AA) */
+.text-high-contrast {
+  color: #ededed;
+  background: rgba(10, 10, 10, 0.8);
+}
+
+/* Focus States for Keyboard Navigation (UI-017) */
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-dark-bg;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(26, 26, 26, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(20, 184, 166, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(20, 184, 166, 0.7);
+}
+

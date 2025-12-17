@@ -1,0 +1,120 @@
+# Cap That Development Guidelines
+
+Auto-generated from all feature plans. Last updated: 2025-01-27
+
+## Active Technologies
+
+- TypeScript 5.x + React 19.2.1 + Tailwind CSS 4.x (001-capthat-extension)
+- Chrome Extension APIs (MV3) (001-capthat-extension)
+- Vite 5.4.0 (001-capthat-extension)
+- Next.js 16.0.10 (001-capthat-extension)
+- JSZip (001-capthat-extension)
+
+## Project Structure
+
+```text
+cap-that/
+├── extension/                          # Chrome Extension
+│   ├── manifest.json                   # MV3 manifest
+│   ├── background/
+│   │   └── service-worker.ts          # Background service worker
+│   ├── content/
+│   │   └── content-script.ts          # Content script injection
+│   ├── ui/
+│   │   ├── side-panel.html            # Side panel HTML
+│   │   ├── side-panel.tsx             # React component
+│   │   └── components/                # UI components
+│   ├── storage/
+│   │   ├── storage-adapter.ts          # chrome.storage wrapper
+│   │   └── indexeddb-adapter.ts       # IndexedDB wrapper
+│   ├── export/
+│   │   ├── json-export.ts              # JSON export logic
+│   │   ├── zip-export.ts               # ZIP export logic
+│   │   └── filename-sanitizer.ts       # Filename sanitization
+│   ├── validation/
+│   │   ├── url-validator.ts            # URL validation
+│   │   ├── image-validator.ts          # Image validation
+│   │   └── schema-validator.ts         # Data schema validation
+│   └── types/
+│       ├── index.ts                    # TypeScript types
+│       └── messages.ts                 # Message type definitions
+│
+├── app/                                # Next.js App (Phase 2)
+│   ├── api/
+│   │   └── capture/
+│   │       └── route.ts                # POST /api/capture
+│   ├── board/
+│   │   └── page.tsx                    # Board view page
+│   └── layout.tsx                      # Root layout
+│
+├── shared/                             # Shared code
+│   ├── types/
+│   │   └── index.ts                    # Shared TypeScript types
+│   ├── validators/
+│   │   └── url.ts                      # URL validation
+│   └── storage/
+│       └── adapters.ts                 # Storage interface
+```
+
+## Commands
+
+### TypeScript
+- Build extension: `npm run build:extension`
+- Build all: `npm run build:all`
+- Type check: `tsc --noEmit`
+
+### Chrome Extension
+- Load unpacked: Open `chrome://extensions`, enable Developer mode, click "Load unpacked", select `extension/` directory
+- Reload extension: Click reload button in chrome://extensions after code changes
+
+### Next.js
+- Dev server: `npm run dev`
+- Build: `npm run build`
+- Start: `npm start`
+
+## Code Style
+
+### TypeScript
+- Use strict TypeScript configuration
+- Prefer interfaces over types for object shapes
+- Use discriminated unions for message types
+- Add JSDoc comments for exported functions
+- Use descriptive variable and function names
+
+### React
+- Use functional components and hooks
+- Prefer composition over inheritance
+- Keep components focused and single-purpose
+- Use TypeScript for all components
+
+### Chrome Extension
+- Follow MV3 patterns (service worker, no background pages)
+- Use isolated world for content scripts
+- Validate all messages at boundaries
+- Implement strict CSP (no eval, no inline scripts)
+- Request minimal permissions (activeTab over *://*/*)
+
+## Recent Changes
+
+- 001-capthat-extension: Added TypeScript + React + Tailwind CSS for Chrome Extension with message passing architecture
+
+## Message Passing Architecture
+
+All communication between extension components uses type-safe message passing:
+
+- **Content Script ↔ Service Worker**: `chrome.runtime.sendMessage` / `chrome.runtime.onMessage`
+- **UI ↔ Service Worker**: `chrome.runtime.sendMessage` / `chrome.runtime.onMessage`
+- **Message Types**: Defined in `extension/types/messages.ts` (see `specs/001-capthat-extension/contracts/messages.ts` for reference)
+- **Validation**: All messages validated using `isValidMessage()` at boundaries
+
+Key message types:
+- `CAPTURE_REQUEST` / `CAPTURE_RESPONSE` - Image capture
+- `STORAGE_UPDATE` - Board state changes
+- `EXPORT_REQUEST` / `EXPORT_RESPONSE` - Export operations
+- `BOARD_UPDATE` - Remove item / clear board
+- `ERROR` - Error notifications
+
+See `specs/001-capthat-extension/quickstart.md` for usage examples.
+
+<!-- MANUAL ADDITIONS START -->
+<!-- MANUAL ADDITIONS END -->
