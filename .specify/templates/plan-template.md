@@ -31,7 +31,24 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+**Code Clarity & Readability**: 
+- [ ] All code uses descriptive names and clear structure
+- [ ] No cryptic or overly clever implementations
+
+**Simplicity First**: 
+- [ ] Chosen approach is the simplest that solves the problem
+- [ ] Any complexity is justified and documented
+
+**Regular Comments**: 
+- [ ] Plan includes comment strategy for complex logic
+- [ ] Framework-specific patterns will be explained for newcomers
+
+**File Organization**: 
+- [ ] File structure avoids excessive file splitting
+- [ ] Related functionality consolidated where possible
+- [ ] File separation only where clearly beneficial
+
+**Violations**: If any principle cannot be met, document justification in Complexity Tracking section below.
 
 ## Project Structure
 
