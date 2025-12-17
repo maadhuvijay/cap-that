@@ -63,28 +63,28 @@ This document contains actionable, dependency-ordered tasks for implementing the
 ### Type Definitions
 
 - [ ] T015 [P] Define TypeScript types at `extension/types/index.ts` (CapturedItem, CapBoard, ImageReference, ExportManifest)
-- [ ] T016 [P] Define shared types at `shared/types/index.ts` for extension and web compatibility
+- [ ] T016 [P] Define shared types at `shared/types/index.ts` for extension and web compatibility (export CapturedItem, CapBoard, ImageReference, ExportManifest interfaces)
 
 ### Storage Layer
 
-- [ ] T017 [P] Implement chrome.storage.local adapter at `extension/storage/storage-adapter.ts`
-- [ ] T018 [P] Implement IndexedDB adapter at `extension/storage/indexeddb-adapter.ts` for blob storage
-- [ ] T019 [P] Create storage interface/abstraction at `extension/storage/storage-interface.ts`
-- [ ] T020 [P] Implement storage quota monitoring in `extension/storage/storage-adapter.ts`
-- [ ] T021 [P] Implement board size limit enforcement (100 items) in `extension/storage/storage-adapter.ts`
-- [ ] T022 [P] Implement warning threshold (80 items) in `extension/storage/storage-adapter.ts`
+- [ ] T017 [P] Implement chrome.storage.local adapter at `extension/storage/storage-adapter.ts` (save/load board metadata, handle errors)
+- [ ] T018 [P] Implement IndexedDB adapter at `extension/storage/indexeddb-adapter.ts` for blob storage (store/retrieve image blobs)
+- [ ] T019 [P] Create storage interface/abstraction at `extension/storage/storage-interface.ts` (define IStorageAdapter interface for both adapters)
+- [ ] T020 [P] Implement storage quota monitoring in `extension/storage/storage-adapter.ts` (check chrome.storage.quota, warn at 80% usage)
+- [ ] T021 [P] Implement board size limit enforcement (100 items) in `extension/storage/storage-adapter.ts` (prevent saves beyond 100 items)
+- [ ] T022 [P] Implement warning threshold (80 items) in `extension/storage/storage-adapter.ts` (emit warning event at 80 items)
 
 ### Validation Layer
 
-- [ ] T023 [P] Implement URL validator at `extension/validation/url-validator.ts` (block javascript:, validate schemes)
-- [ ] T024 [P] Implement image validator at `extension/validation/image-validator.ts` (MIME types, size limits)
-- [ ] T025 [P] Implement schema validator at `extension/validation/schema-validator.ts` (data structure validation)
-- [ ] T026 [P] Create shared validators at `shared/validators/url.ts` for reuse
+- [ ] T023 [P] Implement URL validator at `extension/validation/url-validator.ts` (block javascript:, validate http/https/data schemes)
+- [ ] T024 [P] Implement image validator at `extension/validation/image-validator.ts` (validate MIME types JPEG/PNG/GIF/WebP, enforce 10MB size limit, 10MP dimension limit)
+- [ ] T025 [P] Implement schema validator at `extension/validation/schema-validator.ts` (validate CapturedItem, CapBoard data structures)
+- [ ] T026 [P] Create shared URL validator at `shared/validators/url.ts` for reuse by extension and web app
 
 ### Message Contracts
 
-- [ ] T027 [P] Define message types at `extension/types/messages.ts` (capture request/response, storage updates, export requests)
-- [ ] T028 [P] Implement message validation in `extension/background/service-worker.ts` message handlers
+- [ ] T027 [P] Define message types at `extension/types/messages.ts` (capture request/response, storage updates, export requests with TypeScript interfaces)
+- [ ] T028 [P] Implement message validation in `extension/background/service-worker.ts` message handlers (validate message shape, reject invalid messages)
 
 ---
 
@@ -101,11 +101,11 @@ This document contains actionable, dependency-ordered tasks for implementing the
 
 ### Implementation Tasks
 
-- [ ] T029 [US1] Configure extension icon in `extension/manifest.json` (icons field)
-- [ ] T030 [US1] Configure extension name "CapThat" in `extension/manifest.json`
-- [ ] T031 [US1] Verify build output generates valid extension structure in `build/extension/`
-- [ ] T032 [US1] Test extension loads via "Load unpacked" in chrome://extensions
-- [ ] T033 [US1] Test extension reload reflects code changes after rebuild
+- [ ] T029 [US1] Create extension icon files at `extension/icons/icon16.png`, `extension/icons/icon48.png`, `extension/icons/icon128.png` (icons field already configured in manifest.json)
+- [ ] T030 [US1] Verify extension name "CapThat" is configured in `extension/manifest.json` (name field)
+- [ ] T031 [US1] Verify build output generates valid extension structure in `build/extension/` (run `npm run build:extension` and verify manifest.json, icons, and compiled JS files exist)
+- [ ] T032 [US1] Test extension loads via "Load unpacked" in chrome://extensions (open chrome://extensions, enable Developer mode, click "Load unpacked", select `build/extension/` directory)
+- [ ] T033 [US1] Test extension reload reflects code changes after rebuild (make code change, rebuild, reload extension in chrome://extensions, verify change appears)
 
 ---
 
