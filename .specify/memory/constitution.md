@@ -1,50 +1,77 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report:
+Version change: N/A → 1.0.0 (initial constitution)
+Modified principles: N/A (new constitution)
+Added sections: Core Principles (4 principles), Development Guidelines, Governance
+Removed sections: N/A
+Templates requiring updates:
+  ✅ plan-template.md - Constitution Check section aligns with new principles
+  ✅ spec-template.md - No changes needed (generic template)
+  ✅ tasks-template.md - No changes needed (generic template)
+Follow-up TODOs: None
+-->
+
+# Cap That Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Code Clarity and Readability
+Code MUST be clean, easy-to-read, and immediately understandable. Use descriptive variable and function names. Structure code logically with clear flow. Avoid clever or cryptic implementations that require deep domain knowledge to understand. When in doubt, prefer explicit over implicit.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+**Rationale**: Code is read far more often than it is written. Clear code reduces cognitive load, speeds up onboarding, and minimizes bugs from misunderstandings.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### II. Simplicity First
+Prioritize simple solutions over complex ones. Avoid premature optimization and over-engineering. Choose the most straightforward approach that solves the problem. Complexity MUST be justified when introduced.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+**Rationale**: Simple code is easier to understand, maintain, and debug. Newcomers to full-stack development can learn and contribute more effectively when complexity is minimized.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### III. Regular Documentation Through Comments
+Code MUST include regular comments that explain the "why" behind decisions, not just the "what". Comment complex logic, non-obvious business rules, and architectural decisions. Assume readers are relative newcomers to full-stack development who may not be familiar with framework-specific patterns or domain concepts.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+**Rationale**: Comments serve as inline documentation that helps newcomers understand both the code and the reasoning behind it. This accelerates learning and reduces the need for external documentation.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### IV. File Organization: Prefer Single Files
+Where possible, avoid creating excessive files. Rely on single files as much as possible. Consolidate related functionality into cohesive modules rather than splitting into many small files. Only create separate files when there is a clear benefit (e.g., very large files, distinct concerns that would be confusing together, or shared utilities used across multiple features).
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+**Rationale**: Fewer files mean less navigation overhead and easier mental mapping of the codebase. Newcomers can understand a feature by reading a single file rather than jumping between many small files. This reduces cognitive overhead and makes the project structure more approachable.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+## Development Guidelines
+
+### Code Style
+- Use consistent formatting (enforced by project linting/formatting tools)
+- Prefer functional components and hooks in React/Next.js
+- Keep functions focused and single-purpose
+- Extract complex logic into well-named helper functions within the same file when possible
+
+### Comment Guidelines
+- Add comments for:
+  - Business logic that isn't immediately obvious
+  - Framework-specific patterns that newcomers might not recognize
+  - Non-standard approaches or workarounds
+  - Complex algorithms or data transformations
+- Avoid comments that simply restate what the code does
+- Use JSDoc-style comments for exported functions and components
+
+### File Organization Guidelines
+- Default to keeping related code in a single file
+- Split files only when:
+  - A file exceeds ~500 lines and contains distinct, separable concerns
+  - Code is shared across multiple features (create shared utilities)
+  - Separation provides clear architectural benefit (e.g., API routes vs. UI components)
+- Prefer feature-based organization over layer-based when possible
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes all other coding practices and style guides. All code reviews MUST verify compliance with these principles.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Amendment Procedure**: 
+- Amendments require documentation of the rationale
+- Version must be incremented according to semantic versioning
+- All dependent templates and documentation must be updated to reflect changes
+
+**Compliance Review**:
+- Code reviews must check adherence to all principles
+- Violations must be justified in the Complexity Tracking section of implementation plans
+- Regular reviews ensure the codebase remains accessible to newcomers
+
+**Version**: 1.0.0 | **Ratified**: 2025-01-27 | **Last Amended**: 2025-01-27
