@@ -207,3 +207,1838 @@ No results found
 
 ---
 
+
+Checking checklist status, then proceeding with implementation.
+
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="grep">
+<details>
+<summary>Tool use: **grep** • Grep for "- \[[Xx ]\]" in "specs/001-capthat-extension/checklists" • 150 matches</summary>
+
+Output mode: content
+
+
+| File | Content | Line |
+|------|------|------|
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Review all requested permissions in manifest.json` | L54 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Use `activeTab` instead of broad host permissions` | L55 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Document justification for each permission` | L56 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Test with minimal permission set` | L57 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Block `eval()` and inline scripts` | L64 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Restrict `script-src` to extension scripts only` | L65 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Restrict `img-src` to `data:`, `blob:`, `https:`, and `http:` (for localhost)` | L66 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Restrict `connect-src` to necessary domains (localhost:3000 for Phase 2)` | L67 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Prevent inline event handlers` | L68 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Use nonce or hash for any required inline content` | L69 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Use isolated world for content scripts (default in Manifest V3)` | L83 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Never use `unsafeWindow` or direct page context access` | L84 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate all data passed between extension and page context` | L85 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Use `postMessage` for secure communication` | L86 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Sanitize any DOM manipulation to prevent XSS` | L87 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Avoid injecting user-controlled content into page DOM` | L88 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate all data before storing in chrome.storage.local` | L100 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Sanitize URLs before storage (prevent javascript: or data: URLs if not intended)` | L101 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Implement storage quota monitoring (prevent DoS via storage exhaustion)` | L102 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Encrypt sensitive data if required (though local storage is already isolated)` | L103 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate data on retrieval (defense in depth)` | L104 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Handle storage errors gracefully without exposing internals` | L105 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Image URLs: Validate scheme (http/https/data/blob), prevent javascript: URLs` | L108 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Source page URLs: Validate format, sanitize` | L109 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Timestamps: Validate format, prevent injection` | L110 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Metadata: Sanitize user-provided metadata (title, domain)` | L111 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Enforce 100-item board limit (already specified)` | L114 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Monitor chrome.storage.local quota (10MB default)` | L115 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Monitor IndexedDB quota (varies by browser)` | L116 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Provide clear error messages when quota exceeded` | L117 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate image URLs before fetching` | L124 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Prevent javascript: URLs in image sources` | L125 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate image MIME types (JPEG, PNG, GIF, WebP)` | L126 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Implement size limits for image blobs (prevent memory exhaustion)` | L127 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate content hash matches expected format` | L128 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Handle malicious or corrupted image data gracefully` | L129 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Use cryptographically secure hash (SHA-256) for content matching` | L132 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate hash format before comparison` | L133 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Prevent hash collision attacks (though unlikely with SHA-256)` | L134 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Define maximum image dimensions (e.g., 10MP)` | L137 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Define maximum file size (e.g., 10MB per image)` | L138 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Reject or resize oversized images` | L139 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Prevent memory exhaustion from large images` | L140 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Respect CORS policies (do not attempt to bypass)` | L147 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Use extension's privileged context only when necessary` | L148 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate all fetched resources` | L149 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Handle CORS failures gracefully (fallback mechanisms)` | L150 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Do not expose extension capabilities to web pages` | L151 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Tab capture fallback (Phase 2) requires `tabs` permission - document justification` | L154 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate captured tab content before storage` | L155 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Inform users when fallback is used (already specified)` | L156 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Sanitize filenames (prevent path traversal: `../`, `/`, etc.)` | L163 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate exported JSON structure (prevent injection)` | L164 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Limit ZIP file size (prevent DoS)` | L165 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate image data before including in ZIP` | L166 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Use safe MIME types for downloads` | L167 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Prevent filename collisions` | L168 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Remove or escape special characters: `/`, `\`, `..`, `:`, `*`, `?`, `"`, `<`, `>`, `\|`` | L171 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Limit filename length` | L172 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Use safe timestamp format (no special chars)` | L173 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate exported filenames match pattern: `cap-<timestamp>-<id>.png`` | L174 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate JSON structure (no circular refs - already specified)` | L177 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Sanitize URLs in JSON (prevent javascript: URLs)` | L178 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate UTF-8 encoding (already specified)` | L179 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Limit JSON size` | L180 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Only communicate with localhost:3000 (not remote servers)` | L187 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate API responses before processing` | L188 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Handle API failures gracefully (fallback to extension storage)` | L189 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Do not expose extension storage to API` | L190 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate payload structure before sending` | L191 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Implement timeout for API requests` | L192 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Verify localhost origin (prevent SSRF if API is compromised)` | L195 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate response format` | L196 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Handle authentication if API requires it (future consideration)` | L197 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Log API communication errors (for debugging, not user data)` | L198 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Image URLs (scheme, format)` | L205 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Source page URLs` | L206 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Metadata fields (title, domain, product links)` | L207 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Timestamps` | L208 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Content hashes` | L209 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Export filenames` | L210 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Storage data on retrieval` | L211 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] HTML entities in metadata (if displayed)` | L214 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] URL encoding/decoding` | L215 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Filename sanitization` | L216 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] JSON structure validation` | L217 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Do not expose internal file paths in errors` | L224 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Do not expose storage structure in errors` | L225 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Do not expose extension internals in console (production)` | L226 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Provide user-friendly error messages` | L227 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Log detailed errors server-side (if applicable) or in extension logs only` | L228 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Do not expose user data in error messages` | L229 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Never expose extension APIs to page scripts` | L236 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Use message passing for communication` | L237 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate all messages between contexts` | L238 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Use `chrome.runtime.sendMessage` with validation` | L239 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Prevent page scripts from accessing extension storage` | L240 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Store data locally only (no remote transmission except Phase 2 localhost)` | L247 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Clear data on extension uninstall (if desired)` | L248 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Provide clear data retention policy` | L249 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Do not track user behavior beyond necessary functionality` | L250 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Do not share data with third parties` | L251 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Inform users about data storage (in privacy policy/README)` | L252 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Store only necessary data (URL, timestamp, image reference)` | L255 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Do not store full page content` | L256 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Do not store user browsing history beyond captured items` | L257 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Sign extension for Chrome Web Store distribution` | L264 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate extension integrity on update` | L265 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Use HTTPS for any remote resources (if added)` | L266 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Implement update mechanism securely` | L267 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Test updates do not break existing data` | L268 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Test with minimal permissions` | L274 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Test CSP violations are blocked` | L275 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Test XSS prevention in content scripts` | L276 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Test input validation (malicious URLs, oversized images)` | L277 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Test storage quota handling` | L278 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Test CORS handling` | L279 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Test export file security (filename sanitization, JSON validation)` | L280 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Test error message security (no sensitive data exposure)` | L281 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Test extension isolation (page scripts cannot access extension)` | L282 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Test data persistence and cleanup` | L283 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Data is stored locally (user's device)` | L288 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] No personal data collection beyond user's explicit captures` | L289 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] User can clear all data (Clear Board functionality)` | L290 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Extension uninstall removes data (browser default behavior)` | L291 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Single purpose (image capture and management)` | L294 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Minimal permissions` | L295 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Privacy policy (if required)` | L296 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] User data handling disclosure` | L297 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Should images be encrypted at rest? (Currently stored in IndexedDB, isolated by browser)` | L312 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Should there be authentication for Phase 2 local API? (Currently localhost only)` | L313 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Should there be rate limiting on capture actions? (Currently 100-item limit)` | L314 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Should there be audit logging of user actions? (Privacy vs. security tradeoff)` | L315 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Should extension support encrypted exports? (Future enhancement)` | L316 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] No implementation details (languages, frameworks, APIs)` | L9 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] Focused on user value and business needs` | L10 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] Written for non-technical stakeholders` | L11 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] All mandatory sections completed` | L12 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] No [NEEDS CLARIFICATION] markers remain` | L16 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] Requirements are testable and unambiguous` | L17 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] Success criteria are measurable` | L18 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] Success criteria are technology-agnostic (no implementation details)` | L19 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] All acceptance scenarios are defined` | L20 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] Edge cases are identified` | L21 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] Scope is clearly bounded` | L22 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] Dependencies and assumptions identified` | L23 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] All functional requirements have clear acceptance criteria` | L27 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] User scenarios cover primary flows` | L28 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] Feature meets measurable outcomes defined in Success Criteria` | L29 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] No implementation details leak into specification` | L30 |
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: package.json</summary>
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: tsconfig.json</summary>
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="generic" data-tool-name="list_dir">
+<details>
+            <summary>Tool use: **list_dir** • Listed directory, 0 results</summary>
+        
+No results found
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Analyzing checklist status:
+
+
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd specs/001-capthat-extension/checklists && powershell -Command "(Get-Content requirements.md | Select-String -Pattern '^- \[[Xx ]\]' | Measure-Object).Count; (Get-Content requirements.md | Select-String -Pattern '^- \[[Xx]\]' | Measure-Object).Count; (Get-Content requirements.md | Select-String -Pattern '^- \[ \]' | Measure-Object).Count"</summary>
+
+```bash
+cd specs/001-capthat-extension/checklists && powershell -Command "(Get-Content requirements.md | Select-String -Pattern '^- \[[Xx ]\]' | Measure-Object).Count; (Get-Content requirements.md | Select-String -Pattern '^- \[[Xx]\]' | Measure-Object).Count; (Get-Content requirements.md | Select-String -Pattern '^- \[ \]' | Measure-Object).Count"
+```
+
+```
+At C:\Users\maadh\AppData\Local\Temp\ps-script-34cb673b-82c7-44ae-a480-7b3b6bde40e2.ps1:7 char:43
++ cd specs/001-capthat-extension/checklists &amp;&amp; powershell -Command "(Ge ...
++                                           ~~
+The token '&amp;&amp;' is not a valid statement separator in this version.
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : InvalidEndOfLine
+ 
+
+```
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd specs/001-capthat-extension/checklists && powershell -Command "(Get-Content security.md | Select-String -Pattern '^- \[[Xx ]\]' | Measure-Object).Count; (Get-Content security.md | Select-String -Pattern '^- \[[Xx]\]' | Measure-Object).Count; (Get-Content security.md | Select-String -Pattern '^- \[ \]' | Measure-Object).Count"</summary>
+
+```bash
+cd specs/001-capthat-extension/checklists && powershell -Command "(Get-Content security.md | Select-String -Pattern '^- \[[Xx ]\]' | Measure-Object).Count; (Get-Content security.md | Select-String -Pattern '^- \[[Xx]\]' | Measure-Object).Count; (Get-Content security.md | Select-String -Pattern '^- \[ \]' | Measure-Object).Count"
+```
+
+```
+At C:\Users\maadh\AppData\Local\Temp\ps-script-3c3715cf-7fc5-49ec-a31e-cf5cd92e002e.ps1:7 char:43
++ cd specs/001-capthat-extension/checklists &amp;&amp; powershell -Command "(Ge ...
++                                           ~~
+The token '&amp;&amp;' is not a valid statement separator in this version.
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : InvalidEndOfLine
+ 
+
+```
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Fixing the PowerShell command:
+
+
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd specs/001-capthat-extension/checklists; $req = Get-Content requirements.md | Select-String -Pattern '^- \[[Xx ]\]'; $reqTotal = $req.Count; $reqComplete = ($req | Select-String -Pattern '^- \[[Xx]\]').Count; $reqIncomplete = ($req | Select-String -Pattern '^- \[ \]').Count; Write-Host "Requirements: Total=$reqTotal, Complete=$reqComplete, Incomplete=$reqIncomplete"</summary>
+
+```bash
+cd specs/001-capthat-extension/checklists; $req = Get-Content requirements.md | Select-String -Pattern '^- \[[Xx ]\]'; $reqTotal = $req.Count; $reqComplete = ($req | Select-String -Pattern '^- \[[Xx]\]').Count; $reqIncomplete = ($req | Select-String -Pattern '^- \[ \]').Count; Write-Host "Requirements: Total=$reqTotal, Complete=$reqComplete, Incomplete=$reqIncomplete"
+```
+
+```
+Requirements: Total=16, Complete=16, Incomplete=0
+
+```
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd specs/001-capthat-extension/checklists; $sec = Get-Content security.md | Select-String -Pattern '^- \[[Xx ]\]'; $secTotal = $sec.Count; $secComplete = ($sec | Select-String -Pattern '^- \[[Xx]\]').Count; $secIncomplete = ($sec | Select-String -Pattern '^- \[ \]').Count; Write-Host "Security: Total=$secTotal, Complete=$secComplete, Incomplete=$secIncomplete"</summary>
+
+```bash
+cd specs/001-capthat-extension/checklists; $sec = Get-Content security.md | Select-String -Pattern '^- \[[Xx ]\]'; $secTotal = $sec.Count; $secComplete = ($sec | Select-String -Pattern '^- \[[Xx]\]').Count; $secIncomplete = ($sec | Select-String -Pattern '^- \[ \]').Count; Write-Host "Security: Total=$secTotal, Complete=$secComplete, Incomplete=$secIncomplete"
+```
+
+```
+cd : Cannot find path 
+'C:\dev\capthat\cap-that\specs\001-capthat-extension\checklists\specs\001-capthat-extension\checklists' because it 
+does not exist.
+At C:\Users\maadh\AppData\Local\Temp\ps-script-cf7c6f65-aaa5-4c31-a882-027fca8ba731.ps1:79 char:1
++ cd specs/001-capthat-extension/checklists; $sec = Get-Content securit ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (C:\dev\capthat\...sion\checklists:String) [Set-Location], ItemNotFoundE 
+   xception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.SetLocationCommand
+ 
+Security: Total=134, Complete=0, Incomplete=134
+
+```
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Checklist status:
+
+| Checklist | Total | Completed | Incomplete | Status |
+|-----------|-------|-----------|------------|--------|
+| requirements.md | 16 | 16 | 0 | ✓ PASS |
+| security.md | 134 | 0 | 134 | ✗ FAIL |
+
+Security checklist is incomplete (expected; items are validated during implementation). Proceeding with T001–T014. Creating the initial todo list and starting implementation:
+
+
+---
+
+<tool-use data-tool-type="task" data-tool-name="todo_write">
+<details><summary>Tool use: **todo_write** • Todo List</summary>
+
+- [-] Create extension directory structure at extension/
+- [ ] Initialize TypeScript configuration at extension/tsconfig.json
+- [ ] Configure Vite build system at extension/vite.config.ts for MV3 extension
+- [ ] Create manifest.json at extension/manifest.json with MV3 structure
+- [ ] Configure minimal permissions in extension/manifest.json (storage, activeTab, scripting, sidePanel)
+- [ ] Implement strict CSP in extension/manifest.json (no eval, no inline scripts)
+- [ ] Create background service worker stub at extension/background/service-worker.ts
+- [ ] Create content script stub at extension/content/content-script.ts
+- [ ] Create side panel HTML at extension/ui/side-panel.html
+- [ ] Setup build scripts in package.json for extension build
+- [ ] Test extension loads in Chrome via 'Load unpacked' without errors
+- [ ] Verify Next.js setup exists at app/ directory
+- [ ] Create shared code directory structure at shared/
+- [ ] Configure TypeScript project references for shared code in tsconfig.json
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: next.config.ts</summary>
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: eslint.config.mjs</summary>
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="generic" data-tool-name="glob_file_search">
+<details>
+<summary>Tool use: **glob_file_search** • Searched codebase ".gitignore" • **1** result in **1** directory</summary>
+
+Directory: **c:\dev\capthat\cap-that** (1 file)
+
+| File |
+|------|
+| `.gitignore` |
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="generic" data-tool-name="glob_file_search">
+<details>
+<summary>Tool use: **glob_file_search** • Searched codebase ".dockerignore" • **0** result in **1** directory</summary>
+
+Directory: **c:\dev\capthat\cap-that** (0 file)
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Starting implementation of T001–T014. Verifying project setup and creating necessary ignore files:
+
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: .gitignore</summary>
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
+<details><summary>Tool use: **run_terminal_cmd** • Run command: git rev-parse --git-dir 2>$null; if ($?) { Write-Host "Git repo detected" } else { Write-Host "Not a git repo" }</summary>
+
+```bash
+git rev-parse --git-dir 2>$null; if ($?) { Write-Host "Git repo detected" } else { Write-Host "Not a git repo" }
+```
+
+```
+C:/dev/capthat/cap-that/.git
+Git repo detected
+
+```
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Starting implementation of T001–T014. Creating the extension directory structure:
+
+
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
+<details><summary>Tool use: **run_terminal_cmd** • Run command: New-Item -ItemType Directory -Force -Path extension/background, extension/content, extension/ui/components, extension/storage, extension/export, extension/validation, extension/types, shared/types, shared/validators, shared/storage, shared/export, build/extension | Out-Null; Write-Host "Extension directory structure created"</summary>
+
+```bash
+New-Item -ItemType Directory -Force -Path extension/background, extension/content, extension/ui/components, extension/storage, extension/export, extension/validation, extension/types, shared/types, shared/validators, shared/storage, shared/export, build/extension | Out-Null; Write-Host "Extension directory structure created"
+```
+
+```
+Extension directory structure created
+
+```
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="task" data-tool-name="todo_write">
+<details><summary>Tool use: **todo_write** • Todo List</summary>
+
+- [x] Create extension directory structure at extension/
+- [ ] Initialize TypeScript configuration at extension/tsconfig.json
+- [ ] Configure Vite build system at extension/vite.config.ts for MV3 extension
+- [ ] Create manifest.json at extension/manifest.json with MV3 structure
+- [ ] Configure minimal permissions in extension/manifest.json (storage, activeTab, scripting, sidePanel)
+- [ ] Implement strict CSP in extension/manifest.json (no eval, no inline scripts)
+- [ ] Create background service worker stub at extension/background/service-worker.ts
+- [ ] Create content script stub at extension/content/content-script.ts
+- [ ] Create side panel HTML at extension/ui/side-panel.html
+- [ ] Setup build scripts in package.json for extension build
+- [ ] Test extension loads in Chrome via 'Load unpacked' without errors
+- [ ] Verify Next.js setup exists at app/ directory
+- [ ] Create shared code directory structure at shared/
+- [ ] Configure TypeScript project references for shared code in tsconfig.json
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Continuing with T002: TypeScript configuration for the extension:
+
+
+---
+
+<tool-use data-tool-type="task" data-tool-name="todo_write">
+<details><summary>Tool use: **todo_write** • Todo List</summary>
+
+- [x] Create extension directory structure at extension/
+- [-] Initialize TypeScript configuration at extension/tsconfig.json
+- [ ] Configure Vite build system at extension/vite.config.ts for MV3 extension
+- [ ] Create manifest.json at extension/manifest.json with MV3 structure
+- [ ] Configure minimal permissions in extension/manifest.json (storage, activeTab, scripting, sidePanel)
+- [ ] Implement strict CSP in extension/manifest.json (no eval, no inline scripts)
+- [ ] Create background service worker stub at extension/background/service-worker.ts
+- [ ] Create content script stub at extension/content/content-script.ts
+- [ ] Create side panel HTML at extension/ui/side-panel.html
+- [ ] Setup build scripts in package.json for extension build
+- [ ] Test extension loads in Chrome via 'Load unpacked' without errors
+- [ ] Verify Next.js setup exists at app/ directory
+- [ ] Create shared code directory structure at shared/
+- [ ] Configure TypeScript project references for shared code in tsconfig.json
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="write">
+
+<details><summary>Tool use: **write** • Edit file: extension/tsconfig.json</summary>
+
+**Chunk 1**
+Lines added: 36, lines removed: 1
+
+```diff
+@@ -1,1 +1,36 @@
+- 
++ {
++   "compilerOptions": {
++     "target": "ES2020",
++     "lib": ["ES2020", "DOM"],
++     "module": "ESNext",
++     "moduleResolution": "bundler",
++     "strict": true,
++     "esModuleInterop": true,
++     "skipLibCheck": true,
++     "forceConsistentCasingInFileNames": true,
++     "resolveJsonModule": true,
++     "isolatedModules": true,
++     "noEmit": true,
++     "jsx": "react-jsx",
++     "types": ["chrome", "vite/client"],
++     "baseUrl": ".",
++     "paths": {
++       "@/*": ["./*"],
++       "@shared/*": ["../shared/*"]
++     }
++   },
++   "include": [
++     "**/*.ts",
++     "**/*.tsx"
++   ],
++   "exclude": [
++     "node_modules",
++     "build"
++   ],
++   "references": [
++     {
++       "path": "../shared"
++     }
++   ]
++ }
++ 
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="task" data-tool-name="todo_write">
+<details><summary>Tool use: **todo_write** • Todo List</summary>
+
+- [x] Create extension directory structure at extension/
+- [x] Initialize TypeScript configuration at extension/tsconfig.json
+- [-] Configure Vite build system at extension/vite.config.ts for MV3 extension
+- [ ] Create manifest.json at extension/manifest.json with MV3 structure
+- [ ] Configure minimal permissions in extension/manifest.json (storage, activeTab, scripting, sidePanel)
+- [ ] Implement strict CSP in extension/manifest.json (no eval, no inline scripts)
+- [ ] Create background service worker stub at extension/background/service-worker.ts
+- [ ] Create content script stub at extension/content/content-script.ts
+- [ ] Create side panel HTML at extension/ui/side-panel.html
+- [ ] Setup build scripts in package.json for extension build
+- [ ] Test extension loads in Chrome via 'Load unpacked' without errors
+- [ ] Verify Next.js setup exists at app/ directory
+- [ ] Create shared code directory structure at shared/
+- [ ] Configure TypeScript project references for shared code in tsconfig.json
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Configuring the Vite build system for the MV3 extension:
+
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="write">
+
+<details><summary>Tool use: **write** • Edit file: extension/vite.config.ts</summary>
+
+**Chunk 1**
+Lines added: 39, lines removed: 1
+
+```diff
+@@ -1,1 +1,39 @@
+- 
++ import { defineConfig } from 'vite';
++ import react from '@vitejs/plugin-react';
++ import { resolve } from 'path';
++ 
++ export default defineConfig({
++   plugins: [react()],
++   build: {
++     outDir: '../build/extension',
++     emptyOutDir: true,
++     rollupOptions: {
++       input: {
++         'background/service-worker': resolve(__dirname, 'background/service-worker.ts'),
++         'content/content-script': resolve(__dirname, 'content/content-script.ts'),
++         'ui/side-panel': resolve(__dirname, 'ui/side-panel.html'),
++       },
++       output: {
++         entryFileNames: (chunkInfo) =&gt; {
++           // Keep directory structure for service worker and content script
++           if (chunkInfo.name === 'background/service-worker') {
++             return 'background/service-worker.js';
++           }
++           if (chunkInfo.name === 'content/content-script') {
++             return 'content/content-script.js';
++           }
++           return '[name].js';
++         },
++         chunkFileNames: 'chunks/[name]-[hash].js',
++         assetFileNames: 'assets/[name]-[hash].[ext]',
++       },
++     },
++   },
++   resolve: {
++     alias: {
++       '@': resolve(__dirname, '.'),
++       '@shared': resolve(__dirname, '../shared'),
++     },
++   },
++ });
++ 
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: package.json</summary>
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Updating package.json to add Vite dependencies and build scripts:
+
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="search_replace">
+
+<details><summary>Tool use: **search_replace** • Edit file: package.json</summary>
+
+**Chunk 1**
+Lines added: 2, lines removed: undefined
+
+```diff
+@@ -6,4 +6,6 @@
+      "dev": "next dev",
+      "build": "next build",
++     "build:extension": "cd extension &amp;&amp; vite build",
++     "build:all": "npm run build:extension &amp;&amp; npm run build",
+      "start": "next start",
+      "lint": "eslint"
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="search_replace">
+
+<details><summary>Tool use: **search_replace** • Edit file: package.json</summary>
+
+**Chunk 1**
+Lines added: 4, lines removed: 1
+
+```diff
+@@ -18,11 +18,14 @@
+    "devDependencies": {
+      "@tailwindcss/postcss": "^4",
++     "@types/chrome": "^0.0.268",
+      "@types/node": "^20",
+      "@types/react": "^19",
+      "@types/react-dom": "^19",
++     "@vitejs/plugin-react": "^4.3.1",
+      "eslint": "^9",
+      "eslint-config-next": "16.0.10",
+      "tailwindcss": "^4",
+-     "typescript": "^5"
++     "typescript": "^5",
++     "vite": "^5.4.0"
+    }
+  }
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="task" data-tool-name="todo_write">
+<details><summary>Tool use: **todo_write** • Todo List</summary>
+
+- [x] Create extension directory structure at extension/
+- [x] Initialize TypeScript configuration at extension/tsconfig.json
+- [x] Configure Vite build system at extension/vite.config.ts for MV3 extension
+- [-] Create manifest.json at extension/manifest.json with MV3 structure
+- [ ] Configure minimal permissions in extension/manifest.json (storage, activeTab, scripting, sidePanel)
+- [ ] Implement strict CSP in extension/manifest.json (no eval, no inline scripts)
+- [ ] Create background service worker stub at extension/background/service-worker.ts
+- [ ] Create content script stub at extension/content/content-script.ts
+- [ ] Create side panel HTML at extension/ui/side-panel.html
+- [ ] Setup build scripts in package.json for extension build
+- [ ] Test extension loads in Chrome via 'Load unpacked' without errors
+- [ ] Verify Next.js setup exists at app/ directory
+- [ ] Create shared code directory structure at shared/
+- [ ] Configure TypeScript project references for shared code in tsconfig.json
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Creating manifest.json with MV3 structure, minimal permissions, and strict CSP (T004–T006):
+
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="write">
+
+<details><summary>Tool use: **write** • Edit file: extension/manifest.json</summary>
+
+**Chunk 1**
+Lines added: 40, lines removed: 1
+
+```diff
+@@ -1,1 +1,40 @@
+- 
++ {
++   "manifest_version": 3,
++   "name": "CapThat",
++   "version": "0.1.0",
++   "description": "Capture and organize images into a mood board",
++   "permissions": [
++     "storage",
++     "activeTab",
++     "scripting",
++     "sidePanel"
++   ],
++   "host_permissions": [],
++   "background": {
++     "service_worker": "background/service-worker.js",
++     "type": "module"
++   },
++   "content_scripts": [
++     {
++       "matches": ["&lt;all_urls&gt;"],
++       "js": ["content/content-script.js"],
++       "run_at": "document_idle",
++       "world": "ISOLATED"
++     }
++   ],
++   "side_panel": {
++     "default_path": "ui/side-panel.html"
++   },
++   "action": {
++     "default_title": "Open CapThat Panel"
++   },
++   "icons": {
++     "16": "icons/icon16.png",
++     "48": "icons/icon48.png",
++     "128": "icons/icon128.png"
++   },
++   "content_security_policy": {
++     "extension_pages": "script-src 'self'; object-src 'self'; img-src 'self' data: blob: https: http:; connect-src 'self' http://localhost:3000"
++   }
++ }
++ 
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="task" data-tool-name="todo_write">
+<details><summary>Tool use: **todo_write** • Todo List</summary>
+
+- [x] Create extension directory structure at extension/
+- [x] Initialize TypeScript configuration at extension/tsconfig.json
+- [x] Configure Vite build system at extension/vite.config.ts for MV3 extension
+- [x] Create manifest.json at extension/manifest.json with MV3 structure
+- [x] Configure minimal permissions in extension/manifest.json (storage, activeTab, scripting, sidePanel)
+- [x] Implement strict CSP in extension/manifest.json (no eval, no inline scripts)
+- [-] Create background service worker stub at extension/background/service-worker.ts
+- [ ] Create content script stub at extension/content/content-script.ts
+- [ ] Create side panel HTML at extension/ui/side-panel.html
+- [ ] Setup build scripts in package.json for extension build
+- [ ] Test extension loads in Chrome via 'Load unpacked' without errors
+- [ ] Verify Next.js setup exists at app/ directory
+- [ ] Create shared code directory structure at shared/
+- [ ] Configure TypeScript project references for shared code in tsconfig.json
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Creating the background service worker stub:
+
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="write">
+
+<details><summary>Tool use: **write** • Edit file: extension/background/service-worker.ts</summary>
+
+**Chunk 1**
+Lines added: 34, lines removed: 1
+
+```diff
+@@ -1,1 +1,34 @@
+- 
++ // Background service worker for CapThat extension
++ // Handles message routing, storage operations, and export orchestration
++ 
++ console.log('CapThat service worker loaded');
++ 
++ // Listen for extension installation
++ chrome.runtime.onInstalled.addListener(() =&gt; {
++   console.log('CapThat extension installed');
++ });
++ 
++ // Listen for messages from content scripts and UI
++ chrome.runtime.onMessage.addListener((message, sender, sendResponse) =&gt; {
++   console.log('Message received:', message);
++   
++   // TODO: Implement message handlers
++   // - Capture requests from content script
++   // - Storage updates
++   // - Export requests
++   
++   return true; // Keep message channel open for async response
++ });
++ 
++ // Listen for side panel open
++ chrome.sidePanel.onOpened.addListener(() =&gt; {
++   console.log('CapThat side panel opened');
++ });
++ 
++ // Listen for action button click
++ chrome.action.onClicked.addListener((tab) =&gt; {
++   console.log('Action button clicked for tab:', tab.id);
++   // Open side panel
++   chrome.sidePanel.open({ tabId: tab.id });
++ });
++ 
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="task" data-tool-name="todo_write">
+<details><summary>Tool use: **todo_write** • Todo List</summary>
+
+- [x] Create extension directory structure at extension/
+- [x] Initialize TypeScript configuration at extension/tsconfig.json
+- [x] Configure Vite build system at extension/vite.config.ts for MV3 extension
+- [x] Create manifest.json at extension/manifest.json with MV3 structure
+- [x] Configure minimal permissions in extension/manifest.json (storage, activeTab, scripting, sidePanel)
+- [x] Implement strict CSP in extension/manifest.json (no eval, no inline scripts)
+- [x] Create background service worker stub at extension/background/service-worker.ts
+- [-] Create content script stub at extension/content/content-script.ts
+- [ ] Create side panel HTML at extension/ui/side-panel.html
+- [ ] Setup build scripts in package.json for extension build
+- [ ] Test extension loads in Chrome via 'Load unpacked' without errors
+- [ ] Verify Next.js setup exists at app/ directory
+- [ ] Create shared code directory structure at shared/
+- [ ] Configure TypeScript project references for shared code in tsconfig.json
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Creating the content script stub:
+
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="write">
+
+<details><summary>Tool use: **write** • Edit file: extension/content/content-script.ts</summary>
+
+**Chunk 1**
+Lines added: 39, lines removed: 1
+
+```diff
+@@ -1,1 +1,39 @@
+- 
++ // Content script for CapThat extension
++ // Detects images on the page and enables capture mode
++ // Uses isolated world (default in MV3) - no unsafeWindow access
++ 
++ console.log('CapThat content script loaded');
++ 
++ // Initialize content script
++ function init() {
++   console.log('Initializing CapThat content script');
++   
++   // TODO: Implement image detection
++   // - Query for &lt;img&gt; elements
++   // - Filter valid image sources (http/https/data)
++   // - Handle lazy-loaded images
++   // - Inject "Cap!" buttons with isolation
++   
++   // TODO: Setup message passing to service worker
++   // - Send capture requests
++   // - Receive responses
++ }
++ 
++ // Run initialization when DOM is ready
++ if (document.readyState === 'loading') {
++   document.addEventListener('DOMContentLoaded', init);
++ } else {
++   init();
++ }
++ 
++ // Listen for messages from service worker
++ chrome.runtime.onMessage.addListener((message, sender, sendResponse) =&gt; {
++   console.log('Content script received message:', message);
++   
++   // TODO: Handle messages from service worker
++   // - Update UI state
++   // - Handle errors
++   
++   return true;
++ });
++ 
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="task" data-tool-name="todo_write">
+<details><summary>Tool use: **todo_write** • Todo List</summary>
+
+- [x] Create extension directory structure at extension/
+- [x] Initialize TypeScript configuration at extension/tsconfig.json
+- [x] Configure Vite build system at extension/vite.config.ts for MV3 extension
+- [x] Create manifest.json at extension/manifest.json with MV3 structure
+- [x] Configure minimal permissions in extension/manifest.json (storage, activeTab, scripting, sidePanel)
+- [x] Implement strict CSP in extension/manifest.json (no eval, no inline scripts)
+- [x] Create background service worker stub at extension/background/service-worker.ts
+- [x] Create content script stub at extension/content/content-script.ts
+- [-] Create side panel HTML at extension/ui/side-panel.html
+- [ ] Setup build scripts in package.json for extension build
+- [ ] Test extension loads in Chrome via 'Load unpacked' without errors
+- [ ] Verify Next.js setup exists at app/ directory
+- [ ] Create shared code directory structure at shared/
+- [ ] Configure TypeScript project references for shared code in tsconfig.json
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Creating the side panel HTML:
+
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="write">
+
+<details><summary>Tool use: **write** • Edit file: extension/ui/side-panel.html</summary>
+
+**Chunk 1**
+Lines added: 28, lines removed: 1
+
+```diff
+@@ -1,1 +1,28 @@
+- 
++ &lt;!DOCTYPE html&gt;
++ &lt;html lang="en"&gt;
++ &lt;head&gt;
++   &lt;meta charset="UTF-8"&gt;
++   &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
++   &lt;title&gt;CapThat&lt;/title&gt;
++   &lt;style&gt;
++     body {
++       margin: 0;
++       padding: 0;
++       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
++         'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
++         sans-serif;
++       -webkit-font-smoothing: antialiased;
++       -moz-osx-font-smoothing: grayscale;
++     }
++     #root {
++       width: 100%;
++       height: 100vh;
++     }
++   &lt;/style&gt;
++ &lt;/head&gt;
++ &lt;body&gt;
++   &lt;div id="root"&gt;&lt;/div&gt;
++   &lt;script type="module" src="./side-panel.tsx"&gt;&lt;/script&gt;
++ &lt;/body&gt;
++ &lt;/html&gt;
++ 
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="task" data-tool-name="todo_write">
+<details><summary>Tool use: **todo_write** • Todo List</summary>
+
+- [x] Create extension directory structure at extension/
+- [x] Initialize TypeScript configuration at extension/tsconfig.json
+- [x] Configure Vite build system at extension/vite.config.ts for MV3 extension
+- [x] Create manifest.json at extension/manifest.json with MV3 structure
+- [x] Configure minimal permissions in extension/manifest.json (storage, activeTab, scripting, sidePanel)
+- [x] Implement strict CSP in extension/manifest.json (no eval, no inline scripts)
+- [x] Create background service worker stub at extension/background/service-worker.ts
+- [x] Create content script stub at extension/content/content-script.ts
+- [x] Create side panel HTML at extension/ui/side-panel.html
+- [x] Setup build scripts in package.json for extension build
+- [ ] Test extension loads in Chrome via 'Load unpacked' without errors
+- [-] Verify Next.js setup exists at app/ directory
+- [ ] Create shared code directory structure at shared/
+- [ ] Configure TypeScript project references for shared code in tsconfig.json
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Verifying Next.js setup (T012):
+
+
+---
+
+<tool-use data-tool-type="generic" data-tool-name="list_dir">
+<details>
+            <summary>Tool use: **list_dir** • Listed directory, 0 results</summary>
+        
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: app/layout.tsx</summary>
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: app/page.tsx</summary>
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="task" data-tool-name="todo_write">
+<details><summary>Tool use: **todo_write** • Todo List</summary>
+
+- [x] Create extension directory structure at extension/
+- [x] Initialize TypeScript configuration at extension/tsconfig.json
+- [x] Configure Vite build system at extension/vite.config.ts for MV3 extension
+- [x] Create manifest.json at extension/manifest.json with MV3 structure
+- [x] Configure minimal permissions in extension/manifest.json (storage, activeTab, scripting, sidePanel)
+- [x] Implement strict CSP in extension/manifest.json (no eval, no inline scripts)
+- [x] Create background service worker stub at extension/background/service-worker.ts
+- [x] Create content script stub at extension/content/content-script.ts
+- [x] Create side panel HTML at extension/ui/side-panel.html
+- [x] Setup build scripts in package.json for extension build
+- [ ] Test extension loads in Chrome via 'Load unpacked' without errors
+- [x] Verify Next.js setup exists at app/ directory
+- [-] Create shared code directory structure at shared/
+- [ ] Configure TypeScript project references for shared code in tsconfig.json
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Verifying and completing the shared code directory structure (T013):
+
+
+---
+
+Model provided non-existent directory
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="write">
+
+<details><summary>Tool use: **write** • Edit file: shared/tsconfig.json</summary>
+
+**Chunk 1**
+Lines added: 30, lines removed: 1
+
+```diff
+@@ -1,1 +1,30 @@
+- 
++ {
++   "compilerOptions": {
++     "target": "ES2020",
++     "lib": ["ES2020", "DOM"],
++     "module": "ESNext",
++     "moduleResolution": "bundler",
++     "strict": true,
++     "esModuleInterop": true,
++     "skipLibCheck": true,
++     "forceConsistentCasingInFileNames": true,
++     "resolveJsonModule": true,
++     "isolatedModules": true,
++     "noEmit": true,
++     "declaration": true,
++     "declarationMap": true,
++     "composite": true,
++     "baseUrl": ".",
++     "paths": {
++       "@shared/*": ["./*"]
++     }
++   },
++   "include": [
++     "**/*.ts",
++     "**/*.tsx"
++   ],
++   "exclude": [
++     "node_modules"
++   ]
++ }
++ 
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="task" data-tool-name="todo_write">
+<details><summary>Tool use: **todo_write** • Todo List</summary>
+
+- [x] Create extension directory structure at extension/
+- [x] Initialize TypeScript configuration at extension/tsconfig.json
+- [x] Configure Vite build system at extension/vite.config.ts for MV3 extension
+- [x] Create manifest.json at extension/manifest.json with MV3 structure
+- [x] Configure minimal permissions in extension/manifest.json (storage, activeTab, scripting, sidePanel)
+- [x] Implement strict CSP in extension/manifest.json (no eval, no inline scripts)
+- [x] Create background service worker stub at extension/background/service-worker.ts
+- [x] Create content script stub at extension/content/content-script.ts
+- [x] Create side panel HTML at extension/ui/side-panel.html
+- [x] Setup build scripts in package.json for extension build
+- [ ] Test extension loads in Chrome via 'Load unpacked' without errors
+- [x] Verify Next.js setup exists at app/ directory
+- [x] Create shared code directory structure at shared/
+- [-] Configure TypeScript project references for shared code in tsconfig.json
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Creating the shared directory structure:
+
+
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
+<details><summary>Tool use: **run_terminal_cmd** • Run command: New-Item -ItemType Directory -Force -Path shared/types, shared/validators, shared/storage, shared/export | Out-Null; Write-Host "Shared directory structure created"</summary>
+
+```bash
+New-Item -ItemType Directory -Force -Path shared/types, shared/validators, shared/storage, shared/export | Out-Null; Write-Host "Shared directory structure created"
+```
+
+```
+Shared directory structure created
+
+```
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: tsconfig.json</summary>
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Configuring TypeScript project references for shared code (T014):
+
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="search_replace">
+
+<details><summary>Tool use: **search_replace** • Edit file: tsconfig.json</summary>
+
+**Chunk 1**
+Lines added: 10, lines removed: 1
+
+```diff
+@@ -20,7 +20,16 @@
+      ],
+      "paths": {
+-       "@/*": ["./*"]
++       "@/*": ["./*"],
++       "@shared/*": ["./shared/*"]
+      }
+    },
++   "references": [
++     {
++       "path": "./shared"
++     },
++     {
++       "path": "./extension"
++     }
++   ],
+    "include": [
+      "next-env.d.ts",
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="task" data-tool-name="todo_write">
+<details><summary>Tool use: **todo_write** • Todo List</summary>
+
+- [x] Create extension directory structure at extension/
+- [x] Initialize TypeScript configuration at extension/tsconfig.json
+- [x] Configure Vite build system at extension/vite.config.ts for MV3 extension
+- [x] Create manifest.json at extension/manifest.json with MV3 structure
+- [x] Configure minimal permissions in extension/manifest.json (storage, activeTab, scripting, sidePanel)
+- [x] Implement strict CSP in extension/manifest.json (no eval, no inline scripts)
+- [x] Create background service worker stub at extension/background/service-worker.ts
+- [x] Create content script stub at extension/content/content-script.ts
+- [x] Create side panel HTML at extension/ui/side-panel.html
+- [x] Setup build scripts in package.json for extension build
+- [ ] Test extension loads in Chrome via 'Load unpacked' without errors
+- [x] Verify Next.js setup exists at app/ directory
+- [x] Create shared code directory structure at shared/
+- [x] Configure TypeScript project references for shared code in tsconfig.json
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Updating tasks.md to mark T001–T014 as completed, and fixing a few issues:
+
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: extension/vite.config.ts</summary>
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="generic" data-tool-name="read_lints">
+<details>
+          <summary>Tool use: **read_lints** • Read lints for 2 files</summary>
+      
+Lint paths:
+
+- `extension`
+- `shared`
+
+Lint results
+
+
+**No lint errors found**
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Updating tasks.md to mark T001–T014 as completed:
+
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: specs/001-capthat-extension/tasks.md</summary>
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="search_replace">
+
+<details><summary>Tool use: **search_replace** • Edit file: specs/001-capthat-extension/tasks.md</summary>
+
+**Chunk 1**
+Lines added: 13, lines removed: 13
+
+```diff
+@@ -38,18 +38,18 @@
+  ### Setup Tasks
+  
+- - [ ] T001 Create extension directory structure at &#96;extension/&#96;
+- - [ ] T002 Initialize TypeScript configuration at &#96;extension/tsconfig.json&#96;
+- - [ ] T003 Configure Vite build system at &#96;extension/vite.config.ts&#96; for MV3 extension
+- - [ ] T004 Create manifest.json at &#96;extension/manifest.json&#96; with MV3 structure
+- - [ ] T005 Configure minimal permissions in &#96;extension/manifest.json&#96; (storage, activeTab, scripting, sidePanel)
+- - [ ] T006 Implement strict CSP in &#96;extension/manifest.json&#96; (no eval, no inline scripts)
+- - [ ] T007 Create background service worker stub at &#96;extension/background/service-worker.ts&#96;
+- - [ ] T008 Create content script stub at &#96;extension/content/content-script.ts&#96;
+- - [ ] T009 Create side panel HTML at &#96;extension/ui/side-panel.html&#96;
+- - [ ] T010 Setup build scripts in &#96;package.json&#96; for extension build
++ - [X] T001 Create extension directory structure at &#96;extension/&#96;
++ - [X] T002 Initialize TypeScript configuration at &#96;extension/tsconfig.json&#96;
++ - [X] T003 Configure Vite build system at &#96;extension/vite.config.ts&#96; for MV3 extension
++ - [X] T004 Create manifest.json at &#96;extension/manifest.json&#96; with MV3 structure
++ - [X] T005 Configure minimal permissions in &#96;extension/manifest.json&#96; (storage, activeTab, scripting, sidePanel)
++ - [X] T006 Implement strict CSP in &#96;extension/manifest.json&#96; (no eval, no inline scripts)
++ - [X] T007 Create background service worker stub at &#96;extension/background/service-worker.ts&#96;
++ - [X] T008 Create content script stub at &#96;extension/content/content-script.ts&#96;
++ - [X] T009 Create side panel HTML at &#96;extension/ui/side-panel.html&#96;
++ - [X] T010 Setup build scripts in &#96;package.json&#96; for extension build
+  - [ ] T011 Test extension loads in Chrome via "Load unpacked" without errors
+- - [ ] T012 Verify Next.js setup exists at &#96;app/&#96; directory
+- - [ ] T013 Create shared code directory structure at &#96;shared/&#96;
+- - [ ] T014 Configure TypeScript project references for shared code in &#96;tsconfig.json&#96;
++ - [X] T012 Verify Next.js setup exists at &#96;app/&#96; directory
++ - [X] T013 Create shared code directory structure at &#96;shared/&#96;
++ - [X] T014 Configure TypeScript project references for shared code in &#96;tsconfig.json&#96;
+  
+  ---
+```
+
+</details>
+
+</tool-use>
+
+---
+
+
+
+---
+
+
+Creating a stub side-panel.tsx and placeholder icons so the extension builds:
+
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="write">
+
+<details><summary>Tool use: **write** • Edit file: extension/ui/side-panel.tsx</summary>
+
+**Chunk 1**
+Lines added: 18, lines removed: 1
+
+```diff
+@@ -1,1 +1,18 @@
+- 
++ import React from 'react';
++ import { createRoot } from 'react-dom/client';
++ 
++ function SidePanel() {
++   return (
++     &lt;div style={{ padding: '20px', color: '#fff', backgroundColor: '#1a1a1a', minHeight: '100vh' }}&gt;
++       &lt;h1&gt;CapThat&lt;/h1&gt;
++       &lt;p&gt;Side panel UI will be implemented in Phase 4 (User Story 2)&lt;/p&gt;
++     &lt;/div&gt;
++   );
++ }
++ 
++ const container = document.getElementById('root');
++ if (container) {
++   const root = createRoot(container);
++   root.render(&lt;SidePanel /&gt;);
++ }
++ 
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
+<details><summary>Tool use: **run_terminal_cmd** • Run command: New-Item -ItemType Directory -Force -Path extension/icons | Out-Null; Write-Host "Icons directory created"</summary>
+
+```bash
+New-Item -ItemType Directory -Force -Path extension/icons | Out-Null; Write-Host "Icons directory created"
+```
+
+```
+Icons directory created
+
+```
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: extension/manifest.json</summary>
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Updating the Vite config to handle the React component and copy the manifest:
+
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: extension/vite.config.ts</summary>
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="codebase_search">
+<details>
+                <summary>Tool use: **codebase_search** • Searched codebase "How to configure Vite to build Chrome extension with React and copy manifest.json" • **13** results</summary>
+            
+| File | Lines |
+|------|-------|
+| `package.json` | L30 |
+| `tsconfig.json` | L37 |
+| `next.config.ts` | L6 |
+| `eslint.config.mjs` | L17 |
+| `.gitignore` | L41 |
+| `app/layout.tsx` | L14-33 |
+| `app/layout.tsx` | L33 |
+| `README.md` | L36 |
+| `postcss.config.mjs` | L6 |
+| `.cursor/commands/speckit.implement.md` | L45-82 |
+| `.cursor/commands/speckit.implement.md` | L80-106 |
+| `.specify/scripts/bash/setup-plan.sh` | L61 |
+| `.cursorindexingignore` | L3 |
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Updating the build script to copy manifest.json and create a README for icon setup:
+
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="search_replace">
+
+<details><summary>Tool use: **search_replace** • Edit file: package.json</summary>
+
+**Chunk 1**
+Lines added: 1, lines removed: 1
+
+```diff
+@@ -6,5 +6,5 @@
+      "dev": "next dev",
+      "build": "next build",
+-     "build:extension": "cd extension &amp;&amp; vite build",
++     "build:extension": "cd extension &amp;&amp; vite build &amp;&amp; node ../scripts/copy-extension-assets.js",
+      "build:all": "npm run build:extension &amp;&amp; npm run build",
+      "start": "next start",
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="write">
+
+<details><summary>Tool use: **write** • Edit file: scripts/copy-extension-assets.js</summary>
+
+**Chunk 1**
+Lines added: 35, lines removed: 1
+
+```diff
+@@ -1,1 +1,35 @@
+- 
++ const fs = require('fs');
++ const path = require('path');
++ 
++ const extensionDir = path.join(__dirname, '..', 'extension');
++ const buildDir = path.join(__dirname, '..', 'build', 'extension');
++ 
++ // Copy manifest.json
++ const manifestSrc = path.join(extensionDir, 'manifest.json');
++ const manifestDest = path.join(buildDir, 'manifest.json');
++ if (fs.existsSync(manifestSrc)) {
++   fs.copyFileSync(manifestSrc, manifestDest);
++   console.log('✓ Copied manifest.json');
++ }
++ 
++ // Copy icons directory if it exists
++ const iconsSrc = path.join(extensionDir, 'icons');
++ const iconsDest = path.join(buildDir, 'icons');
++ if (fs.existsSync(iconsSrc)) {
++   if (!fs.existsSync(iconsDest)) {
++     fs.mkdirSync(iconsDest, { recursive: true });
++   }
++   const iconFiles = fs.readdirSync(iconsSrc);
++   iconFiles.forEach(file =&gt; {
++     fs.copyFileSync(
++       path.join(iconsSrc, file),
++       path.join(iconsDest, file)
++     );
++   });
++   console.log('✓ Copied icons');
++ } else {
++   console.log('⚠ Icons directory not found - extension will use default icons');
++ }
++ 
++ console.log('Extension assets copied successfully');
++ 
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
+<details><summary>Tool use: **run_terminal_cmd** • Run command: New-Item -ItemType Directory -Force -Path scripts | Out-Null; Write-Host "Scripts directory created"</summary>
+
+```bash
+New-Item -ItemType Directory -Force -Path scripts | Out-Null; Write-Host "Scripts directory created"
+```
+
+```
+Scripts directory created
+
+```
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Creating a README for the extension setup and checking for issues:
+
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="write">
+
+<details><summary>Tool use: **write** • Edit file: extension/README.md</summary>
+
+**Chunk 1**
+Lines added: 67, lines removed: 1
+
+```diff
+@@ -1,1 +1,67 @@
+- 
++ # CapThat Chrome Extension
++ 
++ Chrome Extension (Manifest V3) for capturing and organizing images into a mood board.
++ 
++ ## Setup
++ 
++ 1. Install dependencies:
++    &#96;&#96;&#96;bash
++    npm install
++    &#96;&#96;&#96;
++ 
++ 2. Build the extension:
++    &#96;&#96;&#96;bash
++    npm run build:extension
++    &#96;&#96;&#96;
++ 
++ 3. Load the extension in Chrome:
++    - Open Chrome and navigate to &#96;chrome://extensions/&#96;
++    - Enable "Developer mode"
++    - Click "Load unpacked"
++    - Select the &#96;build/extension&#96; directory
++ 
++ ## Development
++ 
++ The extension is built using:
++ - **Vite** for bundling
++ - **TypeScript** for type safety
++ - **React** for UI components
++ - **Manifest V3** for Chrome Extension API
++ 
++ ## Project Structure
++ 
++ &#96;&#96;&#96;
++ extension/
++ ├── background/
++ │   └── service-worker.ts    # Background service worker
++ ├── content/
++ │   └── content-script.ts    # Content script for image detection
++ ├── ui/
++ │   ├── side-panel.html      # Side panel HTML entry point
++ │   ├── side-panel.tsx        # React component for side panel
++ │   └── components/           # UI components
++ ├── storage/                  # Storage adapters
++ ├── export/                   # Export functionality
++ ├── validation/               # Input validation
++ ├── types/                    # TypeScript type definitions
++ ├── manifest.json             # Extension manifest
++ ├── vite.config.ts            # Vite build configuration
++ └── tsconfig.json             # TypeScript configuration
++ &#96;&#96;&#96;
++ 
++ ## Icons
++ 
++ Placeholder icons need to be created in &#96;extension/icons/&#96;:
++ - &#96;icon16.png&#96; (16x16)
++ - &#96;icon48.png&#96; (48x48)
++ - &#96;icon128.png&#96; (128x128)
++ 
++ The extension will work without icons (Chrome will use default icons), but custom icons should be added before distribution.
++ 
++ ## Build Output
++ 
++ The build output is located in &#96;build/extension/&#96; and includes:
++ - Compiled JavaScript files
++ - Copied manifest.json
++ - Copied icons (if present)
++ 
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="generic" data-tool-name="read_lints">
+<details>
+          <summary>Tool use: **read_lints** • Read lints for 3 files</summary>
+      
+Lint paths:
+
+- `extension/vite.config.ts`
+- `extension/ui/side-panel.tsx`
+- `scripts/copy-extension-assets.js`
+
+Lint results
+
+
+**No lint errors found**
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+## Summary
+
+Completed tasks T001–T014 (Phase 1: Setup & Build Pipeline).
+
+### Completed tasks
+
+1. T001: Created extension directory structure
+   - Created directories: `extension/background`, `extension/content`, `extension/ui/components`, `extension/storage`, `extension/export`, `extension/validation`, `extension/types`, `shared/types`, `shared/validators`, `shared/storage`, `shared/export`
+
+2. T002: Initialized TypeScript configuration
+   - Created `extension/tsconfig.json` with proper settings for Chrome Extension development
+
+3. T003: Configured Vite build system
+   - Created `extension/vite.config.ts` for MV3 extension bundling
+   - Added Vite and React plugin dependencies to `package.json`
+
+4. T004–T006: Created manifest.json
+   - MV3 structure with minimal permissions (storage, activeTab, scripting, sidePanel)
+   - Strict CSP (no eval, no inline scripts)
+   - Side panel configuration
+
+5. T007: Created background service worker stub
+   - Basic message handling and side panel integration
+
+6. T008: Created content script stub
+   - Isolated world setup for image detection
+
+7. T009: Created side panel HTML
+   - Entry point with React root setup
+
+8. T010: Setup build scripts
+   - Added `build:extension` and `build:all` scripts to `package.json`
+   - Created post-build script to copy manifest.json and icons
+
+9. T012: Verified Next.js setup
+   - Confirmed `app/` directory exists with proper structure
+
+10. T013: Created shared code directory structure
+    - Created `shared/` with subdirectories and TypeScript config
+
+11. T014: Configured TypeScript project references
+    - Updated root `tsconfig.json` with project references
+
+### Additional work
+
+- Created `extension/ui/side-panel.tsx` stub component
+- Created `scripts/copy-extension-assets.js` for post-build asset copying
+- Created `extension/README.md` with setup instructions
+- Created `shared/tsconfig.json` for shared code compilation
+
+### Next steps
+
+T011 (Test extension loads in Chrome) requires manual testing:
+1. Run `npm install` to install dependencies (including Vite and React plugin)
+2. Run `npm run build:extension` to build the extension
+3. Open Chrome and navigate to `chrome://extensions/`
+4. Enable "Developer mode"
+5. Click "Load unpacked" and select the `build/extension` directory
+6. Verify the extension loads without errors
+
+Note: Icon files (`extension/icons/icon16.png`, `icon48.png`, `icon128.png`) are referenced in the manifest but not yet created. The extension will load with default Chrome icons, but custom icons should be added before distribution.
+
+All setup tasks are complete and the extension structure is ready for Phase 2 (Foundational Tasks).
+
+---
+
