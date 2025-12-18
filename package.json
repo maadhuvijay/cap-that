@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "build:extension": "cd extension && vite build && node ../scripts/copy-extension-assets.js",
+    "build:extension:watch": "cd extension && vite build --watch",
     "build:all": "npm run build:extension && npm run build",
+    "clean:extension": "rimraf build/extension",
+    "clean:all": "rimraf build .next",
+    "validate:extension": "node scripts/validate-extension.js",
     "start": "next start",
     "lint": "eslint"
   },
@@ -24,6 +28,7 @@
     "@vitejs/plugin-react": "^4.3.1",
     "eslint": "^9",
     "eslint-config-next": "16.0.10",
+    "rimraf": "^5.0.5",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vite": "^5.4.0"

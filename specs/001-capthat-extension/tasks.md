@@ -43,11 +43,11 @@ description: "Task list for CapThat Chrome Extension implementation"
 - [X] T007 Create background service worker stub at `extension/background/service-worker.ts`
 - [X] T008 Create content script stub at `extension/content/content-script.ts`
 - [X] T009 Create side panel HTML at `extension/ui/side-panel.html`
-- [ ] T010 Setup build scripts in `package.json` for extension build
-- [ ] T011 Test extension loads in Chrome via "Load unpacked" without errors
-- [ ] T012 Verify Next.js setup exists at `app/` directory
-- [ ] T013 Create shared code directory structure at `shared/`
-- [ ] T014 Configure TypeScript project references for shared code in `tsconfig.json`
+- [X] T010 Setup build scripts in `package.json` for extension build
+- [X] T011 Test extension loads in Chrome via "Load unpacked" without errors
+- [X] T012 Verify Next.js setup exists at `app/` directory
+- [X] T013 Create shared code directory structure at `shared/`
+- [X] T014 Configure TypeScript project references for shared code in `tsconfig.json`
 
 ---
 
