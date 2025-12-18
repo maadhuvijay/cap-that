@@ -159,11 +159,11 @@ description: "Task list for CapThat Chrome Extension implementation"
 - Page interactions work normally
 - No console errors on common websites
 
-- [ ] T045 [US3] Implement image detection in `extension/content/content-script.ts` (scan page for `<img>` elements with valid src attributes, filter out broken or invalid images, mark images as capturable)
-- [ ] T046 [US3] Inject capture controls into page in `extension/content/content-script.ts` (add "Cap!" button overlay to capturable images, use isolated world to avoid page conflicts, style with Tailwind-like classes or inline styles)
-- [ ] T047 [US3] Ensure content script uses isolated world in `extension/manifest.json` (verify content_scripts configuration uses isolated world, no unsafeWindow access)
-- [ ] T048 [US3] Test image detection on common websites (e-commerce sites, social media, image galleries, verify no page layout breaks, verify no console errors)
-- [ ] T049 [US3] Handle edge cases: pages with no images, broken images, lazy-loaded images (graceful handling, no errors, extension still functional)
+- [X] T045 [US3] Implement image detection in `extension/content/content-script.ts` (scan page for `<img>` elements with valid src attributes, filter out broken or invalid images, mark images as capturable)
+- [X] T046 [US3] Inject capture controls into page in `extension/content/content-script.ts` (add "Cap!" button overlay to capturable images, use isolated world to avoid page conflicts, style with Tailwind-like classes or inline styles)
+- [X] T047 [US3] Ensure content script uses isolated world in `extension/manifest.json` (verify content_scripts configuration uses isolated world, no unsafeWindow access)
+- [X] T048 [US3] Test image detection on common websites (e-commerce sites, social media, image galleries, verify no page layout breaks, verify no console errors)
+- [X] T049 [US3] Handle edge cases: pages with no images, broken images, lazy-loaded images (graceful handling, no errors, extension still functional)
 
 **Checkpoint**: At this point, User Story 3 should be fully functional and testable independently
 

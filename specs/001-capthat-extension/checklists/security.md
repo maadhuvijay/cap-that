@@ -80,8 +80,8 @@
 **Requirement**: Content scripts MUST be isolated from page context and prevent XSS.
 
 **Security Controls**:
-- [ ] Use isolated world for content scripts (default in Manifest V3)
-- [ ] Never use `unsafeWindow` or direct page context access
+- [x] Use isolated world for content scripts (default in Manifest V3)
+- [x] Never use `unsafeWindow` or direct page context access
 - [ ] Validate all data passed between extension and page context
 - [ ] Use `postMessage` for secure communication
 - [ ] Sanitize any DOM manipulation to prevent XSS
