@@ -31,5 +31,26 @@ if (fs.existsSync(iconsSrc)) {
   console.log('⚠ Icons directory not found - extension will use default icons');
 }
 
+// Fix HTML paths to use relative paths for Chrome extension compatibility
+const sidePanelHtmlPath = path.join(buildDir, 'ui', 'side-panel.html');
+if (fs.existsSync(sidePanelHtmlPath)) {
+  let htmlContent = fs.readFileSync(sidePanelHtmlPath, 'utf8');
+  
+  // Fix script path: should be relative to HTML file location
+  htmlContent = htmlContent.replace(
+    /src=["']([^"']*\/)?ui\/side-panel\.js["']/g,
+    'src="./side-panel.js"'
+  );
+  
+  // Fix CSS path: should be relative to HTML file location (one level up, then assets)
+  htmlContent = htmlContent.replace(
+    /href=["']([^"']*\/)?assets\/([^"']+)["']/g,
+    'href="../assets/$2"'
+  );
+  
+  fs.writeFileSync(sidePanelHtmlPath, htmlContent, 'utf8');
+  console.log('✓ Fixed HTML paths for Chrome extension compatibility');
+}
+
 console.log('Extension assets copied successfully');
 

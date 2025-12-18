@@ -4,6 +4,8 @@ import { resolve } from 'path';
 
 export default defineConfig({
   plugins: [react()],
+  // Use relative paths for Chrome extension compatibility
+  base: './',
   // Define Chrome extension globals for type checking
   define: {
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
