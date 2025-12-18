@@ -1,0 +1,35 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad128" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#14b8a6;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#2dd4bf;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow128">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="shadow128">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  <!-- Background circle with glow and shadow -->
+  <circle cx="64" cy="64" r="60" fill="url(#grad128)" filter="url(#glow128)" opacity="0.95"/>
+  <circle cx="64" cy="64" r="60" fill="none" stroke="#0d9488" stroke-width="2"/>
+  <!-- Camera body with shadow -->
+  <rect x="24" y="40" width="80" height="48" rx="4" fill="#0a0a0a" opacity="0.9" filter="url(#shadow128)"/>
+  <!-- Camera lens outer ring -->
+  <circle cx="64" cy="64" r="22" fill="none" stroke="#22d3ee" stroke-width="3" opacity="0.5"/>
+  <!-- Camera lens middle ring -->
+  <circle cx="64" cy="64" r="20" fill="url(#grad128)"/>
+  <circle cx="64" cy="64" r="12" fill="#0a0a0a"/>
+  <!-- Lens highlight -->
+  <ellipse cx="58" cy="58" rx="4" ry="6" fill="#ffffff" opacity="0.3"/>
+  <!-- Flash indicator -->
+  <circle cx="88" cy="48" r="6" fill="#22d3ee" filter="url(#glow128)"/>
+  <circle cx="88" cy="48" r="4" fill="#ffffff"/>
+</svg>
+

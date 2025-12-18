@@ -100,11 +100,11 @@ description: "Task list for CapThat Chrome Extension implementation"
 - Extension shows icon and name "CapThat" in extensions list
 - Reloading extension after code changes reflects updates
 
-- [ ] T029 [US1] Create extension icon assets and configure in `extension/manifest.json` (add icons field with 16x16, 48x48, 128x128 icon paths)
-- [ ] T030 [US1] Configure extension name "CapThat" in `extension/manifest.json` (set name field to "CapThat")
-- [ ] T031 [US1] Verify extension loads without console errors in Chrome DevTools
-- [ ] T032 [US1] Test extension reload functionality (make code change, rebuild, reload extension, verify changes appear)
-- [ ] T033 [US1] Verify extension appears in chrome://extensions list with correct name and icon
+- [X] T029 [US1] Create extension icon assets and configure in `extension/manifest.json` (add icons field with 16x16, 48x48, 128x128 icon paths)
+- [X] T030 [US1] Configure extension name "CapThat" in `extension/manifest.json` (set name field to "CapThat")
+- [X] T031 [US1] Verify extension loads without console errors in Chrome DevTools
+- [X] T032 [US1] Test extension reload functionality (make code change, rebuild, reload extension, verify changes appear)
+- [X] T033 [US1] Verify extension appears in chrome://extensions list with correct name and icon
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 

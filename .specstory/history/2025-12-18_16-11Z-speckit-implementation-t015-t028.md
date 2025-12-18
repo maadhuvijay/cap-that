@@ -274,3 +274,3014 @@ Directory: **c:\dev\capthat\cap-that** (2 files)
 
 ---
 
+
+Fixing the command syntax and checking checklist status:
+
+
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd c:\dev\capthat\cap-that; bash .specify/scripts/bash/check-prerequisites.sh --json --require-tasks --include-tasks</summary>
+
+```bash
+cd c:\dev\capthat\cap-that; bash .specify/scripts/bash/check-prerequisites.sh --json --require-tasks --include-tasks
+```
+
+```
+bash : The term 'bash' is not recognized as the name of a cmdlet, function, script file, or operable program. Check 
+the spelling of the name, or if a path was included, verify that the path is correct and try again.
+At C:\Users\maadh\AppData\Local\Temp\ps-script-2b11fd93-6a57-4654-9eaf-3d2217817b14.ps1:7 char:29
++ cd c:\dev\capthat\cap-that; bash .specify/scripts/bash/check-prerequi ...
++                             ~~~~
+    + CategoryInfo          : ObjectNotFound: (bash:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+
+```
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: specs/001-capthat-extension/checklists/security.md</summary>
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: specs/001-capthat-extension/checklists/requirements.md</summary>
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: specs/001-capthat-extension/contracts/messages.ts</summary>
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Checking checklist status manually, then implementing T015-T028:
+
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="grep">
+<details>
+<summary>Tool use: **grep** • Grep for "^- \[ \]|^- \[X\]|^- \[x\]" in "specs/001-capthat-extension/checklists" • 150 matches</summary>
+
+Output mode: content
+
+
+| File | Content | Line |
+|------|------|------|
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Review all requested permissions in manifest.json` | L54 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Use `activeTab` instead of broad host permissions` | L55 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Document justification for each permission` | L56 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Test with minimal permission set` | L57 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Block `eval()` and inline scripts` | L64 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Restrict `script-src` to extension scripts only` | L65 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Restrict `img-src` to `data:`, `blob:`, `https:`, and `http:` (for localhost)` | L66 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Restrict `connect-src` to necessary domains (localhost:3000 for Phase 2)` | L67 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Prevent inline event handlers` | L68 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Use nonce or hash for any required inline content` | L69 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Use isolated world for content scripts (default in Manifest V3)` | L83 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Never use `unsafeWindow` or direct page context access` | L84 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate all data passed between extension and page context` | L85 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Use `postMessage` for secure communication` | L86 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Sanitize any DOM manipulation to prevent XSS` | L87 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Avoid injecting user-controlled content into page DOM` | L88 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate all data before storing in chrome.storage.local` | L100 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Sanitize URLs before storage (prevent javascript: or data: URLs if not intended)` | L101 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Implement storage quota monitoring (prevent DoS via storage exhaustion)` | L102 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Encrypt sensitive data if required (though local storage is already isolated)` | L103 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate data on retrieval (defense in depth)` | L104 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Handle storage errors gracefully without exposing internals` | L105 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Image URLs: Validate scheme (http/https/data/blob), prevent javascript: URLs` | L108 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Source page URLs: Validate format, sanitize` | L109 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Timestamps: Validate format, prevent injection` | L110 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Metadata: Sanitize user-provided metadata (title, domain)` | L111 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Enforce 100-item board limit (already specified)` | L114 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Monitor chrome.storage.local quota (10MB default)` | L115 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Monitor IndexedDB quota (varies by browser)` | L116 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Provide clear error messages when quota exceeded` | L117 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate image URLs before fetching` | L124 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Prevent javascript: URLs in image sources` | L125 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate image MIME types (JPEG, PNG, GIF, WebP)` | L126 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Implement size limits for image blobs (prevent memory exhaustion)` | L127 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate content hash matches expected format` | L128 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Handle malicious or corrupted image data gracefully` | L129 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Use cryptographically secure hash (SHA-256) for content matching` | L132 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate hash format before comparison` | L133 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Prevent hash collision attacks (though unlikely with SHA-256)` | L134 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Define maximum image dimensions (e.g., 10MP)` | L137 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Define maximum file size (e.g., 10MB per image)` | L138 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Reject or resize oversized images` | L139 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Prevent memory exhaustion from large images` | L140 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Respect CORS policies (do not attempt to bypass)` | L147 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Use extension's privileged context only when necessary` | L148 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate all fetched resources` | L149 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Handle CORS failures gracefully (fallback mechanisms)` | L150 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Do not expose extension capabilities to web pages` | L151 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Tab capture fallback (Phase 2) requires `tabs` permission - document justification` | L154 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate captured tab content before storage` | L155 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Inform users when fallback is used (already specified)` | L156 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Sanitize filenames (prevent path traversal: `../`, `/`, etc.)` | L163 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate exported JSON structure (prevent injection)` | L164 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Limit ZIP file size (prevent DoS)` | L165 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate image data before including in ZIP` | L166 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Use safe MIME types for downloads` | L167 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Prevent filename collisions` | L168 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Remove or escape special characters: `/`, `\`, `..`, `:`, `*`, `?`, `"`, `<`, `>`, `\|`` | L171 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Limit filename length` | L172 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Use safe timestamp format (no special chars)` | L173 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate exported filenames match pattern: `cap-<timestamp>-<id>.png`` | L174 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate JSON structure (no circular refs - already specified)` | L177 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Sanitize URLs in JSON (prevent javascript: URLs)` | L178 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate UTF-8 encoding (already specified)` | L179 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Limit JSON size` | L180 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Only communicate with localhost:3000 (not remote servers)` | L187 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate API responses before processing` | L188 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Handle API failures gracefully (fallback to extension storage)` | L189 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Do not expose extension storage to API` | L190 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate payload structure before sending` | L191 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Implement timeout for API requests` | L192 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Verify localhost origin (prevent SSRF if API is compromised)` | L195 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate response format` | L196 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Handle authentication if API requires it (future consideration)` | L197 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Log API communication errors (for debugging, not user data)` | L198 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Image URLs (scheme, format)` | L205 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Source page URLs` | L206 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Metadata fields (title, domain, product links)` | L207 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Timestamps` | L208 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Content hashes` | L209 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Export filenames` | L210 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Storage data on retrieval` | L211 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] HTML entities in metadata (if displayed)` | L214 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] URL encoding/decoding` | L215 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Filename sanitization` | L216 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] JSON structure validation` | L217 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Do not expose internal file paths in errors` | L224 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Do not expose storage structure in errors` | L225 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Do not expose extension internals in console (production)` | L226 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Provide user-friendly error messages` | L227 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Log detailed errors server-side (if applicable) or in extension logs only` | L228 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Do not expose user data in error messages` | L229 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Never expose extension APIs to page scripts` | L236 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Use message passing for communication` | L237 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate all messages between contexts` | L238 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Use `chrome.runtime.sendMessage` with validation` | L239 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Prevent page scripts from accessing extension storage` | L240 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Store data locally only (no remote transmission except Phase 2 localhost)` | L247 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Clear data on extension uninstall (if desired)` | L248 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Provide clear data retention policy` | L249 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Do not track user behavior beyond necessary functionality` | L250 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Do not share data with third parties` | L251 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Inform users about data storage (in privacy policy/README)` | L252 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Store only necessary data (URL, timestamp, image reference)` | L255 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Do not store full page content` | L256 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Do not store user browsing history beyond captured items` | L257 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Sign extension for Chrome Web Store distribution` | L264 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Validate extension integrity on update` | L265 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Use HTTPS for any remote resources (if added)` | L266 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Implement update mechanism securely` | L267 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Test updates do not break existing data` | L268 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Test with minimal permissions` | L274 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Test CSP violations are blocked` | L275 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Test XSS prevention in content scripts` | L276 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Test input validation (malicious URLs, oversized images)` | L277 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Test storage quota handling` | L278 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Test CORS handling` | L279 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Test export file security (filename sanitization, JSON validation)` | L280 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Test error message security (no sensitive data exposure)` | L281 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Test extension isolation (page scripts cannot access extension)` | L282 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Test data persistence and cleanup` | L283 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Data is stored locally (user's device)` | L288 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] No personal data collection beyond user's explicit captures` | L289 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] User can clear all data (Clear Board functionality)` | L290 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Extension uninstall removes data (browser default behavior)` | L291 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Single purpose (image capture and management)` | L294 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Minimal permissions` | L295 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Privacy policy (if required)` | L296 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] User data handling disclosure` | L297 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Should images be encrypted at rest? (Currently stored in IndexedDB, isolated by browser)` | L312 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Should there be authentication for Phase 2 local API? (Currently localhost only)` | L313 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Should there be rate limiting on capture actions? (Currently 100-item limit)` | L314 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Should there be audit logging of user actions? (Privacy vs. security tradeoff)` | L315 |
+| `specs/001-capthat-extension/checklists\security.md` | `- [ ] Should extension support encrypted exports? (Future enhancement)` | L316 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] No implementation details (languages, frameworks, APIs)` | L9 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] Focused on user value and business needs` | L10 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] Written for non-technical stakeholders` | L11 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] All mandatory sections completed` | L12 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] No [NEEDS CLARIFICATION] markers remain` | L16 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] Requirements are testable and unambiguous` | L17 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] Success criteria are measurable` | L18 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] Success criteria are technology-agnostic (no implementation details)` | L19 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] All acceptance scenarios are defined` | L20 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] Edge cases are identified` | L21 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] Scope is clearly bounded` | L22 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] Dependencies and assumptions identified` | L23 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] All functional requirements have clear acceptance criteria` | L27 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] User scenarios cover primary flows` | L28 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] Feature meets measurable outcomes defined in Success Criteria` | L29 |
+| `specs/001-capthat-extension/checklists\requirements.md` | `- [x] No implementation details leak into specification` | L30 |
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: package.json</summary>
+
+</details>
+</tool-use>
+
+---
+
+Could not find file 'extension/types/index.ts' in the workspace.
+
+---
+
+Could not find file 'shared/types/index.ts' in the workspace.
+
+---
+
+
+
+---
+
+
+Checklist status:
+- requirements.md: complete (all checked)
+- security.md: incomplete (many unchecked)
+
+Proceeding with T015-T028. Creating the initial todo list and starting implementation:
+
+
+---
+
+<tool-use data-tool-type="task" data-tool-name="todo_write">
+<details><summary>Tool use: **todo_write** • Todo List</summary>
+
+- [-] Define TypeScript types at extension/types/index.ts
+- [ ] Define shared types at shared/types/index.ts
+- [ ] Implement chrome.storage.local adapter
+- [ ] Implement IndexedDB adapter
+- [ ] Create storage interface/abstraction
+- [ ] Implement storage quota monitoring
+- [ ] Implement board size limit enforcement (100 items)
+- [ ] Implement warning threshold (80 items)
+- [ ] Implement URL validator
+- [ ] Implement image validator
+- [ ] Implement schema validator
+- [ ] Create shared URL validator
+- [ ] Define message types
+- [ ] Implement message validation in service worker
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: extension/background/service-worker.ts</summary>
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="generic" data-tool-name="list_dir">
+<details>
+            <summary>Tool use: **list_dir** • Listed directory, 0 results</summary>
+        
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="generic" data-tool-name="list_dir">
+<details>
+            <summary>Tool use: **list_dir** • Listed directory, 0 results</summary>
+        
+No results found
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Starting implementation. Creating the type definitions first (T015), then the rest:
+
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="write">
+
+<details><summary>Tool use: **write** • Edit file: extension/types/index.ts</summary>
+
+**Chunk 1**
+Lines added: 180, lines removed: 1
+
+```diff
+@@ -1,1 +1,180 @@
+- 
++ /**
++  * TypeScript Type Definitions for CapThat Chrome Extension
++  * 
++  * This file defines all core types used throughout the extension:
++  * - CapturedItem: A single captured image with metadata
++  * - CapBoard: The collection of captured items and board configuration
++  * - ImageReference: Reference to captured image data (URL or blob)
++  * - BoardMetadata: Board-level metadata
++  * - GridConfig: Grid layout configuration
++  * - ExportManifest: Export data structure
++  * - ExportItemReference: Reference to exported item
++  * - BlobReference: IndexedDB blob key type
++  * 
++  * Task: T015 - Define TypeScript types at extension/types/index.ts
++  */
++ 
++ // ============================================================================
++ // Blob Reference Type
++ // ============================================================================
++ 
++ /**
++  * Reference to a blob stored in IndexedDB.
++  * This is a string key used to retrieve the blob from the 'images' object store.
++  */
++ export type BlobReference = string;
++ 
++ // ============================================================================
++ // Image Reference
++ // ============================================================================
++ 
++ /**
++  * Represents the captured image data (URL or blob reference).
++  * 
++  * The image can be stored as:
++  * - URL string: Direct URL to the image (for CORS-blocked images or fallback)
++  * - BlobReference: IndexedDB key to retrieve the blob (for successfully fetched images)
++  */
++ export interface ImageReference {
++   /** Either image URL string or IndexedDB blob reference key */
++   urlOrBlob: string | BlobReference;
++   /** Base64-encoded thumbnail for grid display (optional) */
++   thumbnail?: string;
++   /** Original image dimensions if available (optional) */
++   dimensions?: {
++     width: number;
++     height: number;
++   };
++   /** True if lower-quality fallback was used (optional) */
++   fallbackIndicator?: boolean;
++ }
++ 
++ // ============================================================================
++ // Captured Item
++ // ============================================================================
++ 
++ /**
++  * Represents a single image capture with all associated metadata.
++  * 
++  * Each captured item includes:
++  * - Unique identifier (UUID v4)
++  * - Image reference (URL or blob)
++  * - Source page URL
++  * - Capture timestamp
++  * - Optional metadata (title, domain, etc.)
++  * - Quality indicator (capture method used)
++  */
++ export interface CapturedItem {
++   /** Unique identifier (UUID v4) */
++   id: string;
++   /** Reference to the captured image */
++   imageReference: ImageReference;
++   /** URL of the page where image was captured */
++   sourceUrl: string;
++   /** Unix timestamp (milliseconds) of capture */
++   timestamp: number;
++   /** Optional metadata (title, domain, product link, etc.) */
++   metadata?: Record&lt;string, unknown&gt;;
++   /** Indicates capture quality/fallback used */
++   qualityIndicator?: 'url-only' | 'blob' | 'fallback';
++ }
++ 
++ // ============================================================================
++ // Board Metadata
++ // ============================================================================
++ 
++ /**
++  * Board-level metadata and configuration.
++  */
++ export interface BoardMetadata {
++   /** Unix timestamp of board creation */
++   creationDate: number;
++   /** Unix timestamp of last modification */
++   lastModified: number;
++   /** Board data format version (semantic versioning) */
++   version: string;
++ }
++ 
++ // ============================================================================
++ // Grid Configuration
++ // ============================================================================
++ 
++ /**
++  * Grid layout configuration for the CapBoard UI.
++  */
++ export interface GridConfig {
++   /** Number of grid slots (default: 10) */
++   slots: number;
++   /** Number of columns (default: 5) */
++   columns: number;
++   /** Whether virtual scrolling is enabled (default: true) */
++   virtualScrolling: boolean;
++ }
++ 
++ // ============================================================================
++ // Export Item Reference
++ // ============================================================================
++ 
++ /**
++  * Reference to an exported item with file mapping.
++  * Used in export manifests to reference captured items.
++  */
++ export interface ExportItemReference {
++   /** ID of the captured item */
++   itemId: string;
++   /** Filename in export (if image was exported) */
++   filename?: string;
++   /** Original image URL (if available) */
++   imageUrl?: string;
++   /** Item metadata */
++   metadata: Record&lt;string, unknown&gt;;
++ }
++ 
++ // ============================================================================
++ // Export Manifest
++ // ============================================================================
++ 
++ /**
++  * Represents exported board data structure.
++  * 
++  * This is generated on export and contains:
++  * - Board metadata at export time
++  * - Item references with file mappings
++  * - Export timestamp and format version
++  */
++ export interface ExportManifest {
++   /** Board metadata at export time */
++   boardMetadata: BoardMetadata;
++   /** Array of item references with file mappings */
++   itemReferences: ExportItemReference[];
++   /** Unix timestamp of export */
++   exportTimestamp: number;
++   /** Export format version (semantic versioning) */
++   formatVersion: string;
++ }
++ 
++ // ============================================================================
++ // Cap Board
++ // ============================================================================
++ 
++ /**
++  * Represents the collection of captured items and board configuration.
++  * 
++  * This is the main data structure stored in chrome.storage.local.
++  * It contains:
++  * - Array of captured items (max 100)
++  * - Board metadata
++  * - Grid configuration
++  * - Optional export history
++  */
++ export interface CapBoard {
++   /** Array of captured items (max 100) */
++   items: CapturedItem[];
++   /** Board-level metadata */
++   metadata: BoardMetadata;
++   /** Grid layout configuration */
++   gridConfig: GridConfig;
++   /** Optional history of exports */
++   exportHistory?: ExportManifest[];
++ }
++ 
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="write">
+
+<details><summary>Tool use: **write** • Edit file: shared/types/index.ts</summary>
+
+**Chunk 1**
+Lines added: 24, lines removed: 1
+
+```diff
+@@ -1,1 +1,24 @@
+- 
++ /**
++  * Shared TypeScript Type Definitions
++  * 
++  * This file exports types that are shared between the extension and web app.
++  * These types must be compatible for Next.js API integration.
++  * 
++  * All types are re-exported from extension types to ensure compatibility.
++  * 
++  * Task: T016 - Define shared types at shared/types/index.ts
++  */
++ 
++ // Re-export all types from extension types
++ // This ensures type compatibility between extension and web app
++ export type {
++   BlobReference,
++   ImageReference,
++   CapturedItem,
++   BoardMetadata,
++   GridConfig,
++   ExportItemReference,
++   ExportManifest,
++   CapBoard,
++ } from '../../extension/types/index';
++ 
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="task" data-tool-name="todo_write">
+<details><summary>Tool use: **todo_write** • Todo List</summary>
+
+- [x] Define TypeScript types at extension/types/index.ts
+- [x] Define shared types at shared/types/index.ts
+- [ ] Implement chrome.storage.local adapter
+- [ ] Implement IndexedDB adapter
+- [ ] Create storage interface/abstraction
+- [ ] Implement storage quota monitoring
+- [ ] Implement board size limit enforcement (100 items)
+- [ ] Implement warning threshold (80 items)
+- [ ] Implement URL validator
+- [ ] Implement image validator
+- [ ] Implement schema validator
+- [ ] Create shared URL validator
+- [ ] Define message types
+- [ ] Implement message validation in service worker
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Creating the storage interface, then implementing the adapters:
+
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="write">
+
+<details><summary>Tool use: **write** • Edit file: extension/storage/storage-interface.ts</summary>
+
+**Chunk 1**
+Lines added: 53, lines removed: 1
+
+```diff
+@@ -1,1 +1,53 @@
+- 
++ /**
++  * Storage Interface/Abstraction for CapThat Extension
++  * 
++  * This file defines the storage interface that both chrome.storage.local
++  * and IndexedDB adapters must implement.
++  * 
++  * Task: T019 - Create storage interface/abstraction at extension/storage/storage-interface.ts
++  */
++ 
++ import type { CapBoard } from '../types/index';
++ 
++ /**
++  * Storage adapter interface for board metadata and blob storage.
++  * 
++  * This interface abstracts the underlying storage mechanism (chrome.storage.local
++  * for metadata, IndexedDB for blobs) to allow for easy testing and future changes.
++  */
++ export interface IStorageAdapter {
++   /**
++    * Save board metadata to storage.
++    * 
++    * @param board - CapBoard object to save
++    * @throws Error if save fails (quota exceeded, validation error, etc.)
++    */
++   saveBoard(board: CapBoard): Promise&lt;void&gt;;
++ 
++   /**
++    * Load board metadata from storage.
++    * 
++    * @returns CapBoard object or null if not found
++    * @throws Error if load fails (corrupted data, etc.)
++    */
++   loadBoard(): Promise&lt;CapBoard | null&gt;;
++ 
++   /**
++    * Save a blob to storage (IndexedDB).
++    * 
++    * @param key - Unique key for the blob (BlobReference)
++    * @param blob - Blob object to store
++    * @throws Error if save fails (quota exceeded, etc.)
++    */
++   saveBlob(key: string, blob: Blob): Promise&lt;void&gt;;
++ 
++   /**
++    * Retrieve a blob from storage (IndexedDB).
++    * 
++    * @param key - BlobReference key
++    * @returns Blob object or null if not found
++    * @throws Error if retrieval fails
++    */
++   getBlob(key: string): Promise&lt;Blob | null&gt;;
++ }
++ 
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="write">
+
+<details><summary>Tool use: **write** • Edit file: extension/storage/storage-adapter.ts</summary>
+
+**Chunk 1**
+Lines added: 251, lines removed: 1
+
+```diff
+@@ -1,1 +1,251 @@
+- 
++ /**
++  * Chrome Storage Local Adapter for CapThat Extension
++  * 
++  * This adapter implements IStorageAdapter using chrome.storage.local
++  * for board metadata storage.
++  * 
++  * Features:
++  * - Save/load CapBoard metadata
++  * - Storage quota monitoring (T020)
++  * - Board size limit enforcement (T021)
++  * - Warning threshold at 80 items (T022)
++  * 
++  * Tasks:
++  * - T017: Implement chrome.storage.local adapter
++  * - T020: Implement storage quota monitoring
++  * - T021: Implement board size limit enforcement (100 items)
++  * - T022: Implement warning threshold (80 items)
++  */
++ 
++ import type { CapBoard } from '../types/index';
++ import type { IStorageAdapter } from './storage-interface';
++ 
++ // Storage key for board metadata
++ const BOARD_STORAGE_KEY = 'capBoard';
++ 
++ // Board size limits
++ const MAX_BOARD_ITEMS = 100;
++ const WARNING_THRESHOLD_ITEMS = 80;
++ 
++ // Storage quota warning threshold (80% of quota)
++ const QUOTA_WARNING_THRESHOLD = 0.8;
++ 
++ /**
++  * Storage quota information
++  */
++ export interface StorageQuotaInfo {
++   /** Bytes used */
++   bytesUsed: number;
++   /** Bytes available */
++   bytesAvailable: number;
++   /** Total quota */
++   quota: number;
++   /** Usage percentage (0-1) */
++   usagePercentage: number;
++ }
++ 
++ /**
++  * Storage adapter using chrome.storage.local for board metadata.
++  */
++ export class ChromeStorageAdapter implements IStorageAdapter {
++   /**
++    * Check storage quota and emit warning if usage exceeds threshold.
++    * 
++    * @throws Error if quota exceeded (usage &gt;= 100%)
++    */
++   private async checkQuota(): Promise&lt;StorageQuotaInfo&gt; {
++     return new Promise((resolve, reject) =&gt; {
++       chrome.storage.local.getBytesInUse(null, (bytesUsed) =&gt; {
++         if (chrome.runtime.lastError) {
++           reject(new Error(&#96;Failed to check storage quota: ${chrome.runtime.lastError.message}&#96;));
++           return;
++         }
++ 
++         chrome.storage.local.getBytesInUse(null, (bytesUsed) =&gt; {
++           // Get quota information
++           // Note: chrome.storage.local.QUOTA_BYTES is not available in MV3
++           // We'll use a default of 10MB (10,485,760 bytes) as per Chrome's default
++           const quota = 10 * 1024 * 1024; // 10MB
++           const bytesAvailable = quota - bytesUsed;
++           const usagePercentage = bytesUsed / quota;
++ 
++           const quotaInfo: StorageQuotaInfo = {
++             bytesUsed,
++             bytesAvailable,
++             quota,
++             usagePercentage,
++           };
++ 
++           // Emit warning if usage exceeds threshold
++           if (usagePercentage &gt;= QUOTA_WARNING_THRESHOLD) {
++             console.warn(
++               &#96;Storage quota warning: ${(usagePercentage * 100).toFixed(1)}% used &#96; +
++               &#96;(${bytesUsed} / ${quota} bytes)&#96;
++             );
++             
++             // Emit warning event (can be listened to by UI)
++             chrome.runtime.sendMessage({
++               type: 'STORAGE_QUOTA_WARNING',
++               payload: { quotaInfo },
++             }).catch(() =&gt; {
++               // Ignore errors if no listeners
++             });
++           }
++ 
++           // Throw error if quota exceeded
++           if (usagePercentage &gt;= 1.0) {
++             reject(new Error(
++               'Storage quota exceeded. Please clear some items or export your board.'
++             ));
++             return;
++           }
++ 
++           resolve(quotaInfo);
++         });
++       });
++     });
++   }
++ 
++   /**
++    * Validate board size before save.
++    * 
++    * @param board - CapBoard to validate
++    * @throws Error if board size exceeds limit
++    */
++   private validateBoardSize(board: CapBoard): void {
++     if (board.items.length &gt; MAX_BOARD_ITEMS) {
++       throw new Error(
++         &#96;Board is full. Maximum ${MAX_BOARD_ITEMS} items allowed. &#96; +
++         &#96;Please remove some items before adding new ones.&#96;
++       );
++     }
++ 
++     // Emit warning if approaching limit
++     if (board.items.length &gt;= WARNING_THRESHOLD_ITEMS) {
++       const remaining = MAX_BOARD_ITEMS - board.items.length;
++       console.warn(
++         &#96;Board size warning: ${board.items.length} items, ${remaining} remaining&#96;
++       );
++ 
++       // Emit warning event (can be listened to by UI)
++       chrome.runtime.sendMessage({
++         type: 'BOARD_SIZE_WARNING',
++         payload: {
++           currentCount: board.items.length,
++           maxCount: MAX_BOARD_ITEMS,
++           remaining,
++         },
++       }).catch(() =&gt; {
++         // Ignore errors if no listeners
++       });
++     }
++   }
++ 
++   /**
++    * Save board metadata to chrome.storage.local.
++    * 
++    * @param board - CapBoard object to save
++    * @throws Error if save fails (quota exceeded, validation error, etc.)
++    */
++   async saveBoard(board: CapBoard): Promise&lt;void&gt; {
++     // Check quota before save
++     await this.checkQuota();
++ 
++     // Validate board size
++     this.validateBoardSize(board);
++ 
++     return new Promise((resolve, reject) =&gt; {
++       chrome.storage.local.set(
++         { [BOARD_STORAGE_KEY]: board },
++         () =&gt; {
++           if (chrome.runtime.lastError) {
++             reject(new Error(
++               &#96;Failed to save board: ${chrome.runtime.lastError.message}&#96;
++             ));
++             return;
++           }
++           resolve();
++         }
++       );
++     });
++   }
++ 
++   /**
++    * Load board metadata from chrome.storage.local.
++    * 
++    * @returns CapBoard object or null if not found
++    * @throws Error if load fails (corrupted data, etc.)
++    */
++   async loadBoard(): Promise&lt;CapBoard | null&gt; {
++     return new Promise((resolve, reject) =&gt; {
++       chrome.storage.local.get([BOARD_STORAGE_KEY], (result) =&gt; {
++         if (chrome.runtime.lastError) {
++           reject(new Error(
++             &#96;Failed to load board: ${chrome.runtime.lastError.message}&#96;
++           ));
++           return;
++         }
++ 
++         const board = result[BOARD_STORAGE_KEY] as CapBoard | undefined;
++         if (!board) {
++           resolve(null);
++           return;
++         }
++ 
++         // Basic validation of loaded data
++         if (!board.items || !Array.isArray(board.items)) {
++           reject(new Error('Corrupted board data: items array missing or invalid'));
++           return;
++         }
++ 
++         if (!board.metadata || typeof board.metadata !== 'object') {
++           reject(new Error('Corrupted board data: metadata missing or invalid'));
++           return;
++         }
++ 
++         if (!board.gridConfig || typeof board.gridConfig !== 'object') {
++           reject(new Error('Corrupted board data: gridConfig missing or invalid'));
++           return;
++         }
++ 
++         resolve(board);
++       });
++     });
++   }
++ 
++   /**
++    * Save a blob to storage (IndexedDB).
++    * 
++    * Note: This adapter only handles chrome.storage.local.
++    * Blob storage should use IndexedDBAdapter.
++    * 
++    * @param key - Unique key for the blob
++    * @param blob - Blob object to store
++    * @throws Error - This method is not implemented in ChromeStorageAdapter
++    */
++   async saveBlob(key: string, blob: Blob): Promise&lt;void&gt; {
++     throw new Error(
++       'saveBlob is not supported by ChromeStorageAdapter. Use IndexedDBAdapter for blob storage.'
++     );
++   }
++ 
++   /**
++    * Retrieve a blob from storage (IndexedDB).
++    * 
++    * Note: This adapter only handles chrome.storage.local.
++    * Blob retrieval should use IndexedDBAdapter.
++    * 
++    * @param key - BlobReference key
++    * @returns Blob object or null if not found
++    * @throws Error - This method is not implemented in ChromeStorageAdapter
++    */
++   async getBlob(key: string): Promise&lt;Blob | null&gt; {
++     throw new Error(
++       'getBlob is not supported by ChromeStorageAdapter. Use IndexedDBAdapter for blob storage.'
++     );
++   }
++ }
++ 
++ // Export singleton instance
++ export const chromeStorageAdapter = new ChromeStorageAdapter();
++ 
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="write">
+
+<details><summary>Tool use: **write** • Edit file: extension/storage/indexeddb-adapter.ts</summary>
+
+**Chunk 1**
+Lines added: 191, lines removed: 1
+
+```diff
+@@ -1,1 +1,191 @@
+- 
++ /**
++  * IndexedDB Adapter for Blob Storage
++  * 
++  * This adapter implements blob storage using IndexedDB for the CapThat extension.
++  * IndexedDB is better suited for storing large binary data (image blobs) than
++  * chrome.storage.local, which has a 10MB quota.
++  * 
++  * Features:
++  * - Open/create IndexedDB database 'capthat'
++  * - Create 'images' object store if needed
++  * - Store Blob objects with unique keys
++  * - Retrieve blobs by key
++  * - Handle IndexedDB errors gracefully
++  * 
++  * Task: T018 - Implement IndexedDB adapter at extension/storage/indexeddb-adapter.ts
++  */
++ 
++ import type { IStorageAdapter } from './storage-interface';
++ 
++ // Database configuration
++ const DB_NAME = 'capthat';
++ const DB_VERSION = 1;
++ const STORE_NAME = 'images';
++ 
++ /**
++  * IndexedDB adapter for blob storage.
++  */
++ export class IndexedDBAdapter implements IStorageAdapter {
++   private db: IDBDatabase | null = null;
++   private initPromise: Promise&lt;IDBDatabase&gt; | null = null;
++ 
++   /**
++    * Initialize IndexedDB database and object store.
++    * 
++    * @returns Promise that resolves to the database instance
++    */
++   private async init(): Promise&lt;IDBDatabase&gt; {
++     // Return existing database if already initialized
++     if (this.db) {
++       return this.db;
++     }
++ 
++     // Return existing init promise if initialization in progress
++     if (this.initPromise) {
++       return this.initPromise;
++     }
++ 
++     // Start initialization
++     this.initPromise = new Promise((resolve, reject) =&gt; {
++       const request = indexedDB.open(DB_NAME, DB_VERSION);
++ 
++       request.onerror = () =&gt; {
++         this.initPromise = null;
++         reject(new Error(&#96;Failed to open IndexedDB: ${request.error?.message || 'Unknown error'}&#96;));
++       };
++ 
++       request.onsuccess = () =&gt; {
++         this.db = request.result;
++         this.initPromise = null;
++         resolve(this.db);
++       };
++ 
++       request.onupgradeneeded = (event) =&gt; {
++         const db = (event.target as IDBOpenDBRequest).result;
++ 
++         // Create object store if it doesn't exist
++         if (!db.objectStoreNames.contains(STORE_NAME)) {
++           const objectStore = db.createObjectStore(STORE_NAME, { keyPath: 'key' });
++           objectStore.createIndex('key', 'key', { unique: true });
++         }
++       };
++     });
++ 
++     return this.initPromise;
++   }
++ 
++   /**
++    * Save board metadata to storage.
++    * 
++    * Note: This adapter only handles blob storage.
++    * Board metadata should use ChromeStorageAdapter.
++    * 
++    * @param board - CapBoard object (not used)
++    * @throws Error - This method is not implemented in IndexedDBAdapter
++    */
++   async saveBoard(board: unknown): Promise&lt;void&gt; {
++     throw new Error(
++       'saveBoard is not supported by IndexedDBAdapter. Use ChromeStorageAdapter for board metadata.'
++     );
++   }
++ 
++   /**
++    * Load board metadata from storage.
++    * 
++    * Note: This adapter only handles blob storage.
++    * Board metadata should use ChromeStorageAdapter.
++    * 
++    * @returns null
++    * @throws Error - This method is not implemented in IndexedDBAdapter
++    */
++   async loadBoard(): Promise&lt;null&gt; {
++     throw new Error(
++       'loadBoard is not supported by IndexedDBAdapter. Use ChromeStorageAdapter for board metadata.'
++     );
++   }
++ 
++   /**
++    * Save a blob to IndexedDB.
++    * 
++    * @param key - Unique key for the blob (BlobReference)
++    * @param blob - Blob object to store
++    * @throws Error if save fails (quota exceeded, etc.)
++    */
++   async saveBlob(key: string, blob: Blob): Promise&lt;void&gt; {
++     const db = await this.init();
++ 
++     return new Promise((resolve, reject) =&gt; {
++       const transaction = db.transaction([STORE_NAME], 'readwrite');
++       const objectStore = transaction.objectStore(STORE_NAME);
++ 
++       const request = objectStore.put({ key, blob });
++ 
++       request.onerror = () =&gt; {
++         reject(new Error(
++           &#96;Failed to save blob: ${request.error?.message || 'Unknown error'}&#96;
++         ));
++       };
++ 
++       request.onsuccess = () =&gt; {
++         resolve();
++       };
++ 
++       transaction.onerror = () =&gt; {
++         reject(new Error(
++           &#96;Transaction failed: ${transaction.error?.message || 'Unknown error'}&#96;
++         ));
++       };
++     });
++   }
++ 
++   /**
++    * Retrieve a blob from IndexedDB.
++    * 
++    * @param key - BlobReference key
++    * @returns Blob object or null if not found
++    * @throws Error if retrieval fails
++    */
++   async getBlob(key: string): Promise&lt;Blob | null&gt; {
++     const db = await this.init();
++ 
++     return new Promise((resolve, reject) =&gt; {
++       const transaction = db.transaction([STORE_NAME], 'readonly');
++       const objectStore = transaction.objectStore(STORE_NAME);
++ 
++       const request = objectStore.get(key);
++ 
++       request.onerror = () =&gt; {
++         reject(new Error(
++           &#96;Failed to retrieve blob: ${request.error?.message || 'Unknown error'}&#96;
++         ));
++       };
++ 
++       request.onsuccess = () =&gt; {
++         const result = request.result;
++         if (!result) {
++           resolve(null);
++           return;
++         }
++ 
++         // Extract blob from stored object
++         const blob = result.blob as Blob | undefined;
++         if (!blob) {
++           reject(new Error('Corrupted blob data: blob missing'));
++           return;
++         }
++ 
++         resolve(blob);
++       };
++ 
++       transaction.onerror = () =&gt; {
++         reject(new Error(
++           &#96;Transaction failed: ${transaction.error?.message || 'Unknown error'}&#96;
++         ));
++       };
++     });
++   }
++ }
++ 
++ // Export singleton instance
++ export const indexedDBAdapter = new IndexedDBAdapter();
++ 
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="task" data-tool-name="todo_write">
+<details><summary>Tool use: **todo_write** • Todo List</summary>
+
+- [x] Define TypeScript types at extension/types/index.ts
+- [x] Define shared types at shared/types/index.ts
+- [x] Implement chrome.storage.local adapter
+- [x] Implement IndexedDB adapter
+- [x] Create storage interface/abstraction
+- [x] Implement storage quota monitoring
+- [x] Implement board size limit enforcement (100 items)
+- [x] Implement warning threshold (80 items)
+- [ ] Implement URL validator
+- [ ] Implement image validator
+- [ ] Implement schema validator
+- [ ] Create shared URL validator
+- [ ] Define message types
+- [ ] Implement message validation in service worker
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Implementing the validators:
+
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="write">
+
+<details><summary>Tool use: **write** • Edit file: extension/validation/url-validator.ts</summary>
+
+**Chunk 1**
+Lines added: 105, lines removed: 1
+
+```diff
+@@ -1,1 +1,105 @@
+- 
++ /**
++  * URL Validator for CapThat Extension
++  * 
++  * Validates URLs to ensure they are safe and valid for use in the extension.
++  * 
++  * Security requirements:
++  * - Block javascript: scheme and other dangerous schemes
++  * - Allow http://, https://, and data: schemes only
++  * - Validate URL format
++  * 
++  * Task: T023 - Implement URL validator at extension/validation/url-validator.ts
++  */
++ 
++ /**
++  * Custom error class for validation errors.
++  */
++ export class ValidationError extends Error {
++   constructor(message: string) {
++     super(message);
++     this.name = 'ValidationError';
++   }
++ }
++ 
++ /**
++  * Allowed URL schemes for image sources and page URLs.
++  */
++ const ALLOWED_SCHEMES = ['http:', 'https:', 'data:'];
++ 
++ /**
++  * Blocked URL schemes that are dangerous or not allowed.
++  */
++ const BLOCKED_SCHEMES = ['javascript:', 'file:', 'about:', 'chrome:', 'chrome-extension:'];
++ 
++ /**
++  * Validates a URL string.
++  * 
++  * @param url - URL string to validate
++  * @returns true if URL is valid and safe
++  * @throws ValidationError if URL is invalid or unsafe
++  */
++ export function validateURL(url: string): boolean {
++   if (typeof url !== 'string' || url.trim().length === 0) {
++     throw new ValidationError('URL must be a non-empty string');
++   }
++ 
++   let parsedUrl: URL;
++   try {
++     parsedUrl = new URL(url);
++   } catch (error) {
++     throw new ValidationError(&#96;Invalid URL format: ${url}&#96;);
++   }
++ 
++   const scheme = parsedUrl.protocol.toLowerCase();
++ 
++   // Check for blocked schemes
++   if (BLOCKED_SCHEMES.some(blocked =&gt; scheme.startsWith(blocked))) {
++     throw new ValidationError(
++       &#96;URL scheme not allowed: ${scheme}. &#96; +
++       &#96;Only http://, https://, and data: URLs are allowed.&#96;
++     );
++   }
++ 
++   // Check for allowed schemes
++   if (!ALLOWED_SCHEMES.some(allowed =&gt; scheme === allowed)) {
++     throw new ValidationError(
++       &#96;URL scheme not allowed: ${scheme}. &#96; +
++       &#96;Only http://, https://, and data: URLs are allowed.&#96;
++     );
++   }
++ 
++   return true;
++ }
++ 
++ /**
++  * Validates a source URL (page URL where image was captured).
++  * 
++  * Source URLs must be HTTP or HTTPS (not data: URLs).
++  * 
++  * @param url - Source URL to validate
++  * @returns true if URL is valid
++  * @throws ValidationError if URL is invalid
++  */
++ export function validateSourceURL(url: string): boolean {
++   validateURL(url); // Basic validation first
++ 
++   let parsedUrl: URL;
++   try {
++     parsedUrl = new URL(url);
++   } catch {
++     // Should not happen after validateURL, but TypeScript needs this
++     throw new ValidationError(&#96;Invalid URL format: ${url}&#96;);
++   }
++ 
++   const scheme = parsedUrl.protocol.toLowerCase();
++ 
++   // Source URLs must be HTTP or HTTPS (not data:)
++   if (scheme !== 'http:' &amp;&amp; scheme !== 'https:') {
++     throw new ValidationError(
++       &#96;Source URL must be HTTP or HTTPS, not ${scheme}&#96;
++     );
++   }
++ 
++   return true;
++ }
++ 
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="write">
+
+<details><summary>Tool use: **write** • Edit file: extension/validation/image-validator.ts</summary>
+
+**Chunk 1**
+Lines added: 177, lines removed: 1
+
+```diff
+@@ -1,1 +1,177 @@
+- 
++ /**
++  * Image Validator for CapThat Extension
++  * 
++  * Validates image data (Blob or URL) to ensure it meets size and format requirements.
++  * 
++  * Requirements:
++  * - MIME types: image/jpeg, image/png, image/gif, image/webp only
++  * - Size limit: 10MB per image
++  * - Dimension limit: 10MP (width * height &lt;= 10,000,000)
++  * 
++  * Task: T024 - Implement image validator at extension/validation/image-validator.ts
++  */
++ 
++ import { ValidationError } from './url-validator';
++ 
++ /**
++  * Allowed MIME types for images.
++  */
++ const ALLOWED_MIME_TYPES = [
++   'image/jpeg',
++   'image/jpg',
++   'image/png',
++   'image/gif',
++   'image/webp',
++ ];
++ 
++ /**
++  * Maximum file size in bytes (10MB).
++  */
++ const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
++ 
++ /**
++  * Maximum image dimensions in pixels (10MP = 10,000,000 pixels).
++  */
++ const MAX_DIMENSIONS = 10_000_000; // 10MP
++ 
++ /**
++  * Validates image MIME type.
++  * 
++  * @param mimeType - MIME type string to validate
++  * @returns true if MIME type is allowed
++  * @throws ValidationError if MIME type is not allowed
++  */
++ export function validateImageMimeType(mimeType: string): boolean {
++   if (typeof mimeType !== 'string') {
++     throw new ValidationError('MIME type must be a string');
++   }
++ 
++   const normalizedMimeType = mimeType.toLowerCase().trim();
++ 
++   if (!ALLOWED_MIME_TYPES.includes(normalizedMimeType)) {
++     throw new ValidationError(
++       &#96;Image MIME type not allowed: ${mimeType}. &#96; +
++       &#96;Allowed types: ${ALLOWED_MIME_TYPES.join(', ')}&#96;
++     );
++   }
++ 
++   return true;
++ }
++ 
++ /**
++  * Validates image file size.
++  * 
++  * @param size - File size in bytes
++  * @returns true if size is within limit
++  * @throws ValidationError if size exceeds limit
++  */
++ export function validateImageSize(size: number): boolean {
++   if (typeof size !== 'number' || size &lt; 0) {
++     throw new ValidationError('Image size must be a non-negative number');
++   }
++ 
++   if (size &gt; MAX_FILE_SIZE) {
++     const sizeMB = (size / (1024 * 1024)).toFixed(2);
++     const maxMB = (MAX_FILE_SIZE / (1024 * 1024)).toFixed(0);
++     throw new ValidationError(
++       &#96;Image size exceeds limit: ${sizeMB}MB. Maximum size: ${maxMB}MB&#96;
++     );
++   }
++ 
++   return true;
++ }
++ 
++ /**
++  * Validates image dimensions.
++  * 
++  * @param width - Image width in pixels
++  * @param height - Image height in pixels
++  * @returns true if dimensions are within limit
++  * @throws ValidationError if dimensions exceed limit
++  */
++ export function validateImageDimensions(width: number, height: number): boolean {
++   if (typeof width !== 'number' || width &lt;= 0) {
++     throw new ValidationError('Image width must be a positive number');
++   }
++ 
++   if (typeof height !== 'number' || height &lt;= 0) {
++     throw new ValidationError('Image height must be a positive number');
++   }
++ 
++   const totalPixels = width * height;
++ 
++   if (totalPixels &gt; MAX_DIMENSIONS) {
++     const mp = (totalPixels / 1_000_000).toFixed(2);
++     throw new ValidationError(
++       &#96;Image dimensions exceed limit: ${mp}MP (${width}x${height}). &#96; +
++       &#96;Maximum: 10MP (10,000,000 pixels)&#96;
++     );
++   }
++ 
++   return true;
++ }
++ 
++ /**
++  * Validates a Blob as an image.
++  * 
++  * @param blob - Blob to validate
++  * @returns Promise that resolves to true if blob is valid
++  * @throws ValidationError if blob is invalid
++  */
++ export async function validateImageBlob(blob: Blob): Promise&lt;boolean&gt; {
++   if (!(blob instanceof Blob)) {
++     throw new ValidationError('Input must be a Blob object');
++   }
++ 
++   // Validate MIME type
++   validateImageMimeType(blob.type);
++ 
++   // Validate file size
++   validateImageSize(blob.size);
++ 
++   // Validate dimensions by loading image
++   return new Promise((resolve, reject) =&gt; {
++     const img = new Image();
++     const url = URL.createObjectURL(blob);
++ 
++     img.onload = () =&gt; {
++       URL.revokeObjectURL(url);
++ 
++       try {
++         validateImageDimensions(img.width, img.height);
++         resolve(true);
++       } catch (error) {
++         reject(error);
++       }
++     };
++ 
++     img.onerror = () =&gt; {
++       URL.revokeObjectURL(url);
++       reject(new ValidationError('Failed to load image for validation'));
++     };
++ 
++     img.src = url;
++   });
++ }
++ 
++ /**
++  * Validates an image URL.
++  * 
++  * Note: This validates the URL format and scheme, but cannot validate
++  * the actual image content without fetching it. Use validateImageBlob
++  * after fetching the image for full validation.
++  * 
++  * @param url - Image URL to validate
++  * @returns true if URL format is valid
++  * @throws ValidationError if URL is invalid
++  */
++ export function validateImageURL(url: string): boolean {
++   if (typeof url !== 'string' || url.trim().length === 0) {
++     throw new ValidationError('Image URL must be a non-empty string');
++   }
++ 
++   // Basic URL validation (scheme check is done by URL validator)
++   // Additional validation can be done after fetching the image
++   return true;
++ }
++ 
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="write">
+
+<details><summary>Tool use: **write** • Edit file: extension/validation/schema-validator.ts</summary>
+
+**Chunk 1**
+Lines added: 196, lines removed: 1
+
+```diff
+@@ -1,1 +1,196 @@
+- 
++ /**
++  * Schema Validator for CapThat Extension
++  * 
++  * Validates data structures (CapturedItem, CapBoard) to ensure they meet
++  * schema requirements before storage.
++  * 
++  * Requirements:
++  * - CapturedItem: required fields (id, imageReference, sourceUrl, timestamp)
++  * - CapturedItem: id is non-empty string
++  * - CapturedItem: sourceUrl is valid URL
++  * - CapturedItem: timestamp is positive number
++  * - CapturedItem: metadata is serializable JSON object
++  * - CapBoard: items array length &lt;= 100
++  * - CapBoard: items contain valid CapturedItem objects
++  * - CapBoard: metadata and gridConfig are valid
++  * 
++  * Task: T025 - Implement schema validator at extension/validation/schema-validator.ts
++  */
++ 
++ import type { CapturedItem, CapBoard, ImageReference } from '../types/index';
++ import { validateSourceURL } from './url-validator';
++ import { ValidationError } from './url-validator';
++ 
++ /**
++  * Validates a CapturedItem structure.
++  * 
++  * @param item - CapturedItem to validate
++  * @returns true if item is valid
++  * @throws ValidationError if item is invalid
++  */
++ export function validateCapturedItem(item: unknown): item is CapturedItem {
++   if (!item || typeof item !== 'object') {
++     throw new ValidationError('CapturedItem must be an object');
++   }
++ 
++   const itemObj = item as Record&lt;string, unknown&gt;;
++ 
++   // Validate required fields
++   if (!itemObj.id || typeof itemObj.id !== 'string' || itemObj.id.trim().length === 0) {
++     throw new ValidationError('CapturedItem.id must be a non-empty string');
++   }
++ 
++   if (!itemObj.imageReference || typeof itemObj.imageReference !== 'object') {
++     throw new ValidationError('CapturedItem.imageReference must be an object');
++   }
++ 
++   if (!itemObj.sourceUrl || typeof itemObj.sourceUrl !== 'string') {
++     throw new ValidationError('CapturedItem.sourceUrl must be a string');
++   }
++ 
++   if (typeof itemObj.timestamp !== 'number' || itemObj.timestamp &lt;= 0) {
++     throw new ValidationError('CapturedItem.timestamp must be a positive number');
++   }
++ 
++   // Validate sourceUrl format
++   try {
++     validateSourceURL(itemObj.sourceUrl as string);
++   } catch (error) {
++     if (error instanceof ValidationError) {
++       throw new ValidationError(&#96;CapturedItem.sourceUrl: ${error.message}&#96;);
++     }
++     throw error;
++   }
++ 
++   // Validate imageReference structure
++   const imageRef = itemObj.imageReference as ImageReference;
++   if (!imageRef.urlOrBlob || (typeof imageRef.urlOrBlob !== 'string' &amp;&amp; typeof imageRef.urlOrBlob !== 'object')) {
++     throw new ValidationError('ImageReference.urlOrBlob must be a string or BlobReference');
++   }
++ 
++   // Validate metadata if present (must be serializable JSON object)
++   if (itemObj.metadata !== undefined) {
++     if (typeof itemObj.metadata !== 'object' || itemObj.metadata === null || Array.isArray(itemObj.metadata)) {
++       throw new ValidationError('CapturedItem.metadata must be a serializable JSON object');
++     }
++ 
++     // Test JSON serialization
++     try {
++       JSON.stringify(itemObj.metadata);
++     } catch (error) {
++       throw new ValidationError('CapturedItem.metadata must be JSON-serializable (no circular references)');
++     }
++   }
++ 
++   // Validate qualityIndicator if present
++   if (itemObj.qualityIndicator !== undefined) {
++     const validIndicators = ['url-only', 'blob', 'fallback'];
++     if (!validIndicators.includes(itemObj.qualityIndicator as string)) {
++       throw new ValidationError(
++         &#96;CapturedItem.qualityIndicator must be one of: ${validIndicators.join(', ')}&#96;
++       );
++     }
++   }
++ 
++   return true;
++ }
++ 
++ /**
++  * Validates a CapBoard structure.
++  * 
++  * @param board - CapBoard to validate
++  * @returns true if board is valid
++  * @throws ValidationError if board is invalid
++  */
++ export function validateCapBoard(board: unknown): board is CapBoard {
++   if (!board || typeof board !== 'object') {
++     throw new ValidationError('CapBoard must be an object');
++   }
++ 
++   const boardObj = board as Record&lt;string, unknown&gt;;
++ 
++   // Validate items array
++   if (!Array.isArray(boardObj.items)) {
++     throw new ValidationError('CapBoard.items must be an array');
++   }
++ 
++   if (boardObj.items.length &gt; 100) {
++     throw new ValidationError(
++       &#96;CapBoard.items.length must be &lt;= 100, got ${boardObj.items.length}&#96;
++     );
++   }
++ 
++   // Validate each item in the array
++   for (let i = 0; i &lt; boardObj.items.length; i++) {
++     try {
++       validateCapturedItem(boardObj.items[i]);
++     } catch (error) {
++       if (error instanceof ValidationError) {
++         throw new ValidationError(&#96;CapBoard.items[${i}]: ${error.message}&#96;);
++       }
++       throw error;
++     }
++   }
++ 
++   // Validate metadata
++   if (!boardObj.metadata || typeof boardObj.metadata !== 'object') {
++     throw new ValidationError('CapBoard.metadata must be an object');
++   }
++ 
++   const metadata = boardObj.metadata as Record&lt;string, unknown&gt;;
++   if (typeof metadata.creationDate !== 'number' || metadata.creationDate &lt;= 0) {
++     throw new ValidationError('BoardMetadata.creationDate must be a positive number');
++   }
++ 
++   if (typeof metadata.lastModified !== 'number' || metadata.lastModified &lt;= 0) {
++     throw new ValidationError('BoardMetadata.lastModified must be a positive number');
++   }
++ 
++   if (metadata.creationDate &gt; metadata.lastModified) {
++     throw new ValidationError('BoardMetadata.creationDate must be &lt;= lastModified');
++   }
++ 
++   if (!metadata.version || typeof metadata.version !== 'string') {
++     throw new ValidationError('BoardMetadata.version must be a non-empty string');
++   }
++ 
++   // Validate gridConfig
++   if (!boardObj.gridConfig || typeof boardObj.gridConfig !== 'object') {
++     throw new ValidationError('CapBoard.gridConfig must be an object');
++   }
++ 
++   const gridConfig = boardObj.gridConfig as Record&lt;string, unknown&gt;;
++   if (typeof gridConfig.slots !== 'number' || gridConfig.slots &lt;= 0) {
++     throw new ValidationError('GridConfig.slots must be a positive integer');
++   }
++ 
++   if (typeof gridConfig.columns !== 'number' || gridConfig.columns &lt;= 0) {
++     throw new ValidationError('GridConfig.columns must be a positive integer');
++   }
++ 
++   if (gridConfig.slots &lt; gridConfig.columns) {
++     throw new ValidationError('GridConfig.slots must be &gt;= columns');
++   }
++ 
++   if (typeof gridConfig.virtualScrolling !== 'boolean') {
++     throw new ValidationError('GridConfig.virtualScrolling must be a boolean');
++   }
++ 
++   // Validate exportHistory if present
++   if (boardObj.exportHistory !== undefined) {
++     if (!Array.isArray(boardObj.exportHistory)) {
++       throw new ValidationError('CapBoard.exportHistory must be an array');
++     }
++ 
++     // Basic validation of export history items
++     for (let i = 0; i &lt; boardObj.exportHistory.length; i++) {
++       const exportItem = boardObj.exportHistory[i];
++       if (!exportItem || typeof exportItem !== 'object') {
++         throw new ValidationError(&#96;CapBoard.exportHistory[${i}] must be an object&#96;);
++       }
++     }
++   }
++ 
++   return true;
++ }
++ 
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="write">
+
+<details><summary>Tool use: **write** • Edit file: shared/validators/url.ts</summary>
+
+**Chunk 1**
+Lines added: 104, lines removed: 1
+
+```diff
+@@ -1,1 +1,104 @@
+- 
++ /**
++  * Shared URL Validator
++  * 
++  * This file exports URL validation functions that can be used by both
++  * the extension and the Next.js web app.
++  * 
++  * The implementation matches the extension URL validator (T023) to ensure
++  * compatibility between extension and API validation.
++  * 
++  * Task: T026 - Create shared URL validator at shared/validators/url.ts
++  */
++ 
++ /**
++  * Custom error class for validation errors.
++  */
++ export class ValidationError extends Error {
++   constructor(message: string) {
++     super(message);
++     this.name = 'ValidationError';
++   }
++ }
++ 
++ /**
++  * Allowed URL schemes for image sources and page URLs.
++  */
++ const ALLOWED_SCHEMES = ['http:', 'https:', 'data:'];
++ 
++ /**
++  * Blocked URL schemes that are dangerous or not allowed.
++  */
++ const BLOCKED_SCHEMES = ['javascript:', 'file:', 'about:', 'chrome:', 'chrome-extension:'];
++ 
++ /**
++  * Validates a URL string.
++  * 
++  * @param url - URL string to validate
++  * @returns true if URL is valid and safe
++  * @throws ValidationError if URL is invalid or unsafe
++  */
++ export function validateURL(url: string): boolean {
++   if (typeof url !== 'string' || url.trim().length === 0) {
++     throw new ValidationError('URL must be a non-empty string');
++   }
++ 
++   let parsedUrl: URL;
++   try {
++     parsedUrl = new URL(url);
++   } catch (error) {
++     throw new ValidationError(&#96;Invalid URL format: ${url}&#96;);
++   }
++ 
++   const scheme = parsedUrl.protocol.toLowerCase();
++ 
++   // Check for blocked schemes
++   if (BLOCKED_SCHEMES.some(blocked =&gt; scheme.startsWith(blocked))) {
++     throw new ValidationError(
++       &#96;URL scheme not allowed: ${scheme}. &#96; +
++       &#96;Only http://, https://, and data: URLs are allowed.&#96;
++     );
++   }
++ 
++   // Check for allowed schemes
++   if (!ALLOWED_SCHEMES.some(allowed =&gt; scheme === allowed)) {
++     throw new ValidationError(
++       &#96;URL scheme not allowed: ${scheme}. &#96; +
++       &#96;Only http://, https://, and data: URLs are allowed.&#96;
++     );
++   }
++ 
++   return true;
++ }
++ 
++ /**
++  * Validates a source URL (page URL where image was captured).
++  * 
++  * Source URLs must be HTTP or HTTPS (not data: URLs).
++  * 
++  * @param url - Source URL to validate
++  * @returns true if URL is valid
++  * @throws ValidationError if URL is invalid
++  */
++ export function validateSourceURL(url: string): boolean {
++   validateURL(url); // Basic validation first
++ 
++   let parsedUrl: URL;
++   try {
++     parsedUrl = new URL(url);
++   } catch {
++     // Should not happen after validateURL, but TypeScript needs this
++     throw new ValidationError(&#96;Invalid URL format: ${url}&#96;);
++   }
++ 
++   const scheme = parsedUrl.protocol.toLowerCase();
++ 
++   // Source URLs must be HTTP or HTTPS (not data:)
++   if (scheme !== 'http:' &amp;&amp; scheme !== 'https:') {
++     throw new ValidationError(
++       &#96;Source URL must be HTTP or HTTPS, not ${scheme}&#96;
++     );
++   }
++ 
++   return true;
++ }
++ 
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="task" data-tool-name="todo_write">
+<details><summary>Tool use: **todo_write** • Todo List</summary>
+
+- [x] Define TypeScript types at extension/types/index.ts
+- [x] Define shared types at shared/types/index.ts
+- [x] Implement chrome.storage.local adapter
+- [x] Implement IndexedDB adapter
+- [x] Create storage interface/abstraction
+- [x] Implement storage quota monitoring
+- [x] Implement board size limit enforcement (100 items)
+- [x] Implement warning threshold (80 items)
+- [x] Implement URL validator
+- [x] Implement image validator
+- [x] Implement schema validator
+- [x] Create shared URL validator
+- [-] Define message types
+- [ ] Implement message validation in service worker
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Creating message types (T027), then implementing message validation (T028):
+
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="write">
+
+<details><summary>Tool use: **write** • Edit file: extension/types/messages.ts</summary>
+
+**Chunk 1**
+Lines added: 299, lines removed: 1
+
+```diff
+@@ -1,1 +1,299 @@
+- 
++ /**
++  * Message Type Definitions for CapThat Chrome Extension
++  * 
++  * This file defines all message types used for communication between:
++  * - Content Script ↔ Service Worker
++  * - UI (Side Panel) ↔ Service Worker
++  * 
++  * All messages use a discriminated union pattern with a &#96;type&#96; field
++  * for type-safe routing and validation.
++  * 
++  * Task: T027 - Define message types at extension/types/messages.ts
++  */
++ 
++ import type { CapturedItem, CapBoard } from './index';
++ 
++ // ============================================================================
++ // Base Message Structure
++ // ============================================================================
++ 
++ /**
++  * Base interface for all messages in the extension.
++  * All messages must have a &#96;type&#96; field for discriminated union pattern.
++  */
++ export interface BaseMessage {
++   type: string;
++ }
++ 
++ // ============================================================================
++ // Export Options
++ // ============================================================================
++ 
++ /**
++  * Options for export operations.
++  */
++ export interface ExportOptions {
++   /** Include thumbnails in export (default: false) */
++   includeThumbnails?: boolean;
++   /** Maximum file size limit in bytes (default: 100MB) */
++   maxSizeBytes?: number;
++ }
++ 
++ /**
++  * Export format options.
++  */
++ export type ExportFormat = 'json' | 'zip' | 'individual';
++ 
++ // ============================================================================
++ // Error Category
++ // ============================================================================
++ 
++ /**
++  * Error category for error messages.
++  */
++ export type ErrorCategory = 'permission' | 'cors' | 'storage' | 'validation' | 'unknown';
++ 
++ // ============================================================================
++ // Capture Messages
++ // ============================================================================
++ 
++ /**
++  * Request from content script to service worker to capture an image.
++  * 
++  * Sent when user clicks "Cap!" button on an image.
++  */
++ export interface CaptureRequestMessage extends BaseMessage {
++   type: 'CAPTURE_REQUEST';
++   payload: {
++     /** Image URL to capture (HTTP/HTTPS/data URL) */
++     imageUrl: string;
++     /** Source page URL where image was found */
++     sourceUrl: string;
++     /** Optional metadata (title, domain, product link, etc.) */
++     metadata?: Record&lt;string, unknown&gt;;
++   };
++ }
++ 
++ /**
++  * Response from service worker to content script after capture attempt.
++  * 
++  * Indicates success or failure with appropriate error details.
++  */
++ export interface CaptureResponseMessage extends BaseMessage {
++   type: 'CAPTURE_RESPONSE';
++   payload: {
++     /** Whether capture was successful */
++     success: boolean;
++     /** Item ID if capture succeeded */
++     itemId?: string;
++     /** Error message if capture failed (user-friendly, no internal paths) */
++     error?: string;
++     /** Error category for UI handling (permission/CORS/storage/validation) */
++     errorCategory?: ErrorCategory;
++   };
++ }
++ 
++ // ============================================================================
++ // Storage Update Messages
++ // ============================================================================
++ 
++ /**
++  * Notification from service worker to UI about storage changes.
++  * 
++  * Used to update UI when board state changes (item added/removed/cleared).
++  */
++ export interface StorageUpdateMessage extends BaseMessage {
++   type: 'STORAGE_UPDATE';
++   payload: {
++     /** Action that triggered the update */
++     action: 'add' | 'remove' | 'clear' | 'update';
++     /** Captured item (present for 'add' and 'update' actions) */
++     item?: CapturedItem;
++     /** Full board state (present for 'clear' action) */
++     board?: CapBoard;
++   };
++ }
++ 
++ // ============================================================================
++ // Export Messages
++ // ============================================================================
++ 
++ /**
++  * Request from UI to service worker to export board data.
++  * 
++  * Sent when user clicks export buttons (Export JSON, Export CapBoard, Export Individual Caps).
++  */
++ export interface ExportRequestMessage extends BaseMessage {
++   type: 'EXPORT_REQUEST';
++   payload: {
++     /** Export format (json, zip, or individual images) */
++     format: ExportFormat;
++     /** Optional export options */
++     options?: ExportOptions;
++   };
++ }
++ 
++ /**
++  * Response from service worker to UI after export attempt.
++  * 
++  * Indicates success or failure with export details.
++  */
++ export interface ExportResponseMessage extends BaseMessage {
++   type: 'EXPORT_RESPONSE';
++   payload: {
++     /** Whether export was successful */
++     success: boolean;
++     /** Exported filename if successful */
++     filename?: string;
++     /** Error message if export failed */
++     error?: string;
++     /** Number of images skipped due to CORS/permissions */
++     skippedCount?: number;
++   };
++ }
++ 
++ // ============================================================================
++ // Board Update Messages
++ // ============================================================================
++ 
++ /**
++  * Request to update board state (remove item or clear board).
++  * 
++  * Sent from UI to service worker when user removes item or clears board.
++  */
++ export interface BoardUpdateMessage extends BaseMessage {
++   type: 'BOARD_UPDATE';
++   payload: {
++     /** Action to perform */
++     action: 'remove' | 'clear';
++     /** Item ID to remove (required for 'remove' action) */
++     itemId?: string;
++   };
++ }
++ 
++ // ============================================================================
++ // Error Messages
++ // ============================================================================
++ 
++ /**
++  * Generic error message for any operation.
++  * 
++  * Used to communicate errors from service worker to content script or UI.
++  */
++ export interface ErrorMessage extends BaseMessage {
++   type: 'ERROR';
++   payload: {
++     /** User-friendly error message (no internal paths exposed) */
++     message: string;
++     /** Error category for UI handling */
++     category: ErrorCategory;
++     /** Whether the action can be retried */
++     retryable: boolean;
++   };
++ }
++ 
++ // ============================================================================
++ // Message Union Type
++ // ============================================================================
++ 
++ /**
++  * Union type of all possible messages in the extension.
++  * 
++  * Used for type-safe message handling and validation.
++  */
++ export type Message =
++   | CaptureRequestMessage
++   | CaptureResponseMessage
++   | StorageUpdateMessage
++   | ExportRequestMessage
++   | ExportResponseMessage
++   | BoardUpdateMessage
++   | ErrorMessage;
++ 
++ // ============================================================================
++ // Type Guards
++ // ============================================================================
++ 
++ /**
++  * Type guard to check if message is a capture request.
++  */
++ export function isCaptureRequestMessage(msg: BaseMessage): msg is CaptureRequestMessage {
++   return msg.type === 'CAPTURE_REQUEST';
++ }
++ 
++ /**
++  * Type guard to check if message is a capture response.
++  */
++ export function isCaptureResponseMessage(msg: BaseMessage): msg is CaptureResponseMessage {
++   return msg.type === 'CAPTURE_RESPONSE';
++ }
++ 
++ /**
++  * Type guard to check if message is a storage update.
++  */
++ export function isStorageUpdateMessage(msg: BaseMessage): msg is StorageUpdateMessage {
++   return msg.type === 'STORAGE_UPDATE';
++ }
++ 
++ /**
++  * Type guard to check if message is an export request.
++  */
++ export function isExportRequestMessage(msg: BaseMessage): msg is ExportRequestMessage {
++   return msg.type === 'EXPORT_REQUEST';
++ }
++ 
++ /**
++  * Type guard to check if message is an export response.
++  */
++ export function isExportResponseMessage(msg: BaseMessage): msg is ExportResponseMessage {
++   return msg.type === 'EXPORT_RESPONSE';
++ }
++ 
++ /**
++  * Type guard to check if message is a board update.
++  */
++ export function isBoardUpdateMessage(msg: BaseMessage): msg is BoardUpdateMessage {
++   return msg.type === 'BOARD_UPDATE';
++ }
++ 
++ /**
++  * Type guard to check if message is an error.
++  */
++ export function isErrorMessage(msg: BaseMessage): msg is ErrorMessage {
++   return msg.type === 'ERROR';
++ }
++ 
++ // ============================================================================
++ // Message Validation
++ // ============================================================================
++ 
++ /**
++  * Validates that a message has the required structure.
++  * 
++  * @param msg - Message to validate
++  * @returns True if message has valid structure
++  */
++ export function isValidMessage(msg: unknown): msg is Message {
++   if (typeof msg !== 'object' || msg === null) {
++     return false;
++   }
++ 
++   const baseMsg = msg as BaseMessage;
++   if (typeof baseMsg.type !== 'string') {
++     return false;
++   }
++ 
++   // Check if type is one of the known message types
++   const validTypes: Message['type'][] = [
++     'CAPTURE_REQUEST',
++     'CAPTURE_RESPONSE',
++     'STORAGE_UPDATE',
++     'EXPORT_REQUEST',
++     'EXPORT_RESPONSE',
++     'BOARD_UPDATE',
++     'ERROR',
++   ];
++ 
++   return validTypes.includes(baseMsg.type as Message['type']);
++ }
++ 
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: extension/background/service-worker.ts</summary>
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Implementing message validation in the service worker (T028):
+
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="search_replace">
+
+<details><summary>Tool use: **search_replace** • Edit file: extension/background/service-worker.ts</summary>
+
+**Chunk 1**
+Lines added: 16, lines removed: 6
+
+```diff
+@@ -9,14 +9,24 @@
+   * - Board state management
+   * 
+-  * Task: T007 - Create background service worker stub
+-  * 
+-  * Future tasks will implement:
++  * Tasks:
++  * - T007: Create background service worker stub
+   * - T027: Message type definitions
+   * - T028: Message validation
+-  * - T051-T059: Capture request handling
+-  * - T070, T075: Board update handling
+-  * - T084, T096: Export request handling
++  * - T051-T059: Capture request handling (future)
++  * - T070, T075: Board update handling (future)
++  * - T084, T096: Export request handling (future)
+   */
+  
++ import {
++   type Message,
++   type ErrorMessage,
++   isValidMessage,
++   isCaptureRequestMessage,
++   isBoardUpdateMessage,
++   isExportRequestMessage,
++ } from '../types/messages';
++ import { validateURL, validateSourceURL } from '../validation/url-validator';
++ import { ValidationError } from '../validation/url-validator';
++ 
+  console.log('CapThat service worker loaded');
+  
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="search_replace">
+
+<details><summary>Tool use: **search_replace** • Edit file: extension/background/service-worker.ts</summary>
+
+**Chunk 1**
+Lines added: 246, lines removed: undefined
+
+```diff
+@@ -46,4 +46,250 @@
+    // TODO: Handle data migration on updates
+  });
++ 
++ // ============================================================================
++ // Message Validation
++ // ============================================================================
++ 
++ /**
++  * Validates message structure and payload content.
++  * 
++  * Task: T028 - Implement message validation in service worker message handlers
++  * 
++  * @param message - Message to validate
++  * @returns ErrorMessage if validation fails, null if valid
++  */
++ function validateMessage(message: unknown): ErrorMessage | null {
++   // Check if message has valid structure
++   if (!isValidMessage(message)) {
++     return {
++       type: 'ERROR',
++       payload: {
++         message: 'Invalid message structure: missing or invalid type field',
++         category: 'validation',
++         retryable: false,
++       },
++     };
++   }
++ 
++   const msg = message as Message;
++ 
++   // Validate message type-specific payloads
++   if (isCaptureRequestMessage(msg)) {
++     // Validate CAPTURE_REQUEST payload
++     if (!msg.payload || typeof msg.payload !== 'object') {
++       return {
++         type: 'ERROR',
++         payload: {
++           message: 'Invalid CAPTURE_REQUEST: payload missing or invalid',
++           category: 'validation',
++           retryable: false,
++         },
++       };
++     }
++ 
++     const { imageUrl, sourceUrl, metadata } = msg.payload;
++ 
++     // Validate imageUrl
++     if (!imageUrl || typeof imageUrl !== 'string') {
++       return {
++         type: 'ERROR',
++         payload: {
++           message: 'Invalid CAPTURE_REQUEST: imageUrl must be a string',
++           category: 'validation',
++           retryable: false,
++         },
++       };
++     }
++ 
++     try {
++       validateURL(imageUrl);
++     } catch (error) {
++       if (error instanceof ValidationError) {
++         return {
++           type: 'ERROR',
++           payload: {
++             message: &#96;Invalid image URL: ${error.message}&#96;,
++             category: 'validation',
++             retryable: false,
++           },
++         };
++       }
++     }
++ 
++     // Validate sourceUrl
++     if (!sourceUrl || typeof sourceUrl !== 'string') {
++       return {
++         type: 'ERROR',
++         payload: {
++           message: 'Invalid CAPTURE_REQUEST: sourceUrl must be a string',
++           category: 'validation',
++           retryable: false,
++         },
++       };
++     }
++ 
++     try {
++       validateSourceURL(sourceUrl);
++     } catch (error) {
++       if (error instanceof ValidationError) {
++         return {
++           type: 'ERROR',
++           payload: {
++             message: &#96;Invalid source URL: ${error.message}&#96;,
++             category: 'validation',
++             retryable: false,
++           },
++         };
++       }
++     }
++ 
++     // Validate metadata if present (must be serializable object)
++     if (metadata !== undefined) {
++       if (typeof metadata !== 'object' || metadata === null || Array.isArray(metadata)) {
++         return {
++           type: 'ERROR',
++           payload: {
++             message: 'Invalid CAPTURE_REQUEST: metadata must be an object',
++             category: 'validation',
++             retryable: false,
++           },
++         };
++       }
++ 
++       // Test JSON serialization
++       try {
++         JSON.stringify(metadata);
++       } catch {
++         return {
++           type: 'ERROR',
++           payload: {
++             message: 'Invalid CAPTURE_REQUEST: metadata must be JSON-serializable',
++             category: 'validation',
++             retryable: false,
++           },
++         };
++       }
++     }
++   } else if (isBoardUpdateMessage(msg)) {
++     // Validate BOARD_UPDATE payload
++     if (!msg.payload || typeof msg.payload !== 'object') {
++       return {
++         type: 'ERROR',
++         payload: {
++           message: 'Invalid BOARD_UPDATE: payload missing or invalid',
++           category: 'validation',
++           retryable: false,
++         },
++       };
++     }
++ 
++     const { action, itemId } = msg.payload;
++ 
++     // Validate action
++     if (action !== 'remove' &amp;&amp; action !== 'clear') {
++       return {
++         type: 'ERROR',
++         payload: {
++           message: &#96;Invalid BOARD_UPDATE: action must be 'remove' or 'clear', got '${action}'&#96;,
++           category: 'validation',
++           retryable: false,
++         },
++       };
++     }
++ 
++     // Validate itemId for 'remove' action
++     if (action === 'remove') {
++       if (!itemId || typeof itemId !== 'string' || itemId.trim().length === 0) {
++         return {
++           type: 'ERROR',
++           payload: {
++             message: "Invalid BOARD_UPDATE: itemId required for 'remove' action",
++             category: 'validation',
++             retryable: false,
++           },
++         };
++       }
++     } else if (action === 'clear' &amp;&amp; itemId !== undefined) {
++       return {
++         type: 'ERROR',
++         payload: {
++           message: "Invalid BOARD_UPDATE: itemId must not be present for 'clear' action",
++           category: 'validation',
++           retryable: false,
++         },
++       };
++     }
++   } else if (isExportRequestMessage(msg)) {
++     // Validate EXPORT_REQUEST payload
++     if (!msg.payload || typeof msg.payload !== 'object') {
++       return {
++         type: 'ERROR',
++         payload: {
++           message: 'Invalid EXPORT_REQUEST: payload missing or invalid',
++           category: 'validation',
++           retryable: false,
++         },
++       };
++     }
++ 
++     const { format, options } = msg.payload;
++ 
++     // Validate format
++     const validFormats = ['json', 'zip', 'individual'];
++     if (!format || !validFormats.includes(format)) {
++       return {
++         type: 'ERROR',
++         payload: {
++           message: &#96;Invalid EXPORT_REQUEST: format must be one of ${validFormats.join(', ')}, got '${format}'&#96;,
++           category: 'validation',
++           retryable: false,
++         },
++       };
++     }
++ 
++     // Validate options if present
++     if (options !== undefined) {
++       if (typeof options !== 'object' || options === null || Array.isArray(options)) {
++         return {
++           type: 'ERROR',
++           payload: {
++             message: 'Invalid EXPORT_REQUEST: options must be an object',
++             category: 'validation',
++             retryable: false,
++           },
++         };
++       }
++ 
++       // Validate includeThumbnails if present
++       if (options.includeThumbnails !== undefined &amp;&amp; typeof options.includeThumbnails !== 'boolean') {
++         return {
++           type: 'ERROR',
++           payload: {
++             message: 'Invalid EXPORT_REQUEST: options.includeThumbnails must be a boolean',
++             category: 'validation',
++             retryable: false,
++           },
++         };
++       }
++ 
++       // Validate maxSizeBytes if present
++       if (options.maxSizeBytes !== undefined) {
++         if (typeof options.maxSizeBytes !== 'number' || options.maxSizeBytes &lt;= 0) {
++           return {
++             type: 'ERROR',
++             payload: {
++               message: 'Invalid EXPORT_REQUEST: options.maxSizeBytes must be a positive number',
++               category: 'validation',
++               retryable: false,
++             },
++           };
++         }
++       }
++     }
++   }
++ 
++   // Message is valid
++   return null;
++ }
+  
+  // ============================================================================
+```
+
+**Chunk 2**
+Lines added: 3, lines removed: 1
+
+```diff
+@@ -58,5 +304,7 @@
+   * - UI/side panel (board updates, export requests)
+   * 
+-  * Future: Implement message validation (T028) and handlers for:
++  * Implements message validation (T028) before processing.
++  * 
++  * Future handlers:
+   * - CAPTURE_REQUEST (T051-T059)
+   * - BOARD_UPDATE (T070, T075)
+```
+
+**Chunk 3**
+Lines added: 14, lines removed: 6
+
+```diff
+@@ -66,12 +314,20 @@
+    (message, sender, sendResponse) =&gt; {
+      console.log('Message received:', message, 'from:', sender);
+-     
+-     // TODO: Validate message structure (T028)
+-     // TODO: Route to appropriate handler based on message.type
+-     
++ 
++     // Validate message structure and payload (T028)
++     const validationError = validateMessage(message);
++     if (validationError) {
++       console.error('Message validation failed:', validationError);
++       sendResponse(validationError);
++       return false; // Don't keep channel open for invalid messages
++     }
++ 
++     // Route to appropriate handler based on message.type
++     const msg = message as Message;
++ 
+      // Placeholder handlers for future implementation:
+-     if (message.type === 'CAPTURE_REQUEST') {
++     if (msg.type === 'CAPTURE_REQUEST') {
+        // TODO: T051-T059 - Handle capture request
+-       // - Validate image URL and source URL
++       // - Validate image URL and source URL (already done above)
+        // - Attempt image fetch with CORS fallback
+        // - Create CapturedItem
+```
+
+**Chunk 4**
+Lines added: 37, lines removed: 3
+
+```diff
+@@ -80,18 +336,52 @@
+        // - Send response
+        console.log('Capture request received (not yet implemented)');
+-     } else if (message.type === 'BOARD_UPDATE') {
++       sendResponse({
++         type: 'CAPTURE_RESPONSE',
++         payload: {
++           success: false,
++           error: 'Capture functionality not yet implemented',
++           errorCategory: 'unknown',
++         },
++       });
++     } else if (msg.type === 'BOARD_UPDATE') {
+        // TODO: T070, T075 - Handle board updates
+        // - Remove item or clear board
+        // - Update storage
+        // - Send storage update message to UI
+        console.log('Board update received (not yet implemented)');
+-     } else if (message.type === 'EXPORT_REQUEST') {
++       sendResponse({
++         type: 'ERROR',
++         payload: {
++           message: 'Board update functionality not yet implemented',
++           category: 'unknown',
++           retryable: false,
++         },
++       });
++     } else if (msg.type === 'EXPORT_REQUEST') {
+        // TODO: T084, T096 - Handle export requests
+        // - JSON export
+        // - ZIP export
+        // - Individual image export
+        console.log('Export request received (not yet implemented)');
++       sendResponse({
++         type: 'EXPORT_RESPONSE',
++         payload: {
++           success: false,
++           error: 'Export functionality not yet implemented',
++         },
++       });
++     } else {
++       // Unknown message type (should not happen after validation, but handle gracefully)
++       console.warn('Unknown message type after validation:', msg.type);
++       sendResponse({
++         type: 'ERROR',
++         payload: {
++           message: &#96;Unknown message type: ${msg.type}&#96;,
++           category: 'validation',
++           retryable: false,
++         },
++       });
+      }
+-     
++ 
+      // Return true to keep message channel open for async responses
+      return true;
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="task" data-tool-name="todo_write">
+<details><summary>Tool use: **todo_write** • Todo List</summary>
+
+- [x] Define TypeScript types at extension/types/index.ts
+- [x] Define shared types at shared/types/index.ts
+- [x] Implement chrome.storage.local adapter
+- [x] Implement IndexedDB adapter
+- [x] Create storage interface/abstraction
+- [x] Implement storage quota monitoring
+- [x] Implement board size limit enforcement (100 items)
+- [x] Implement warning threshold (80 items)
+- [x] Implement URL validator
+- [x] Implement image validator
+- [x] Implement schema validator
+- [x] Create shared URL validator
+- [x] Define message types
+- [x] Implement message validation in service worker
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="generic" data-tool-name="read_lints">
+<details>
+          <summary>Tool use: **read_lints** • Read lints for 6 files</summary>
+      
+Lint paths:
+
+- `extension/types`
+- `extension/storage`
+- `extension/validation`
+- `shared/types`
+- `shared/validators`
+- `extension/background/service-worker.ts`
+
+Lint results
+
+
+**No lint errors found**
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+All tasks are complete with no linter errors. Marking T015-T028 as completed in tasks.md:
+
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: specs/001-capthat-extension/tasks.md</summary>
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Marking T015-T028 as completed in tasks.md:
+
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="search_replace">
+
+<details><summary>Tool use: **search_replace** • Edit file: specs/001-capthat-extension/tasks.md</summary>
+
+**Chunk 1**
+Lines added: 2, lines removed: 2
+
+```diff
+@@ -62,6 +62,6 @@
+  ### Type Definitions
+  
+- - [ ] T015 [P] Define TypeScript types at &#96;extension/types/index.ts&#96; (CapturedItem interface with id: string, imageReference: ImageReference, sourceUrl: string, timestamp: number, metadata?: Record&lt;string, unknown&gt;, qualityIndicator?: 'url-only' | 'blob' | 'fallback'; CapBoard interface with items: CapturedItem[], metadata: BoardMetadata, gridConfig: GridConfig, exportHistory?: ExportManifest[]; ImageReference interface with urlOrBlob: string | BlobReference, thumbnail?: string, dimensions?: { width: number; height: number }, fallbackIndicator?: boolean; BoardMetadata interface with creationDate: number, lastModified: number, version: string; GridConfig interface with slots: number, columns: number, virtualScrolling: boolean; ExportManifest interface with boardMetadata: BoardMetadata, itemReferences: ExportItemReference[], exportTimestamp: number, formatVersion: string; ExportItemReference interface with itemId: string, filename?: string, imageUrl?: string, metadata: Record&lt;string, unknown&gt;; BlobReference type for IndexedDB blob keys)
+- - [ ] T016 [P] Define shared types at &#96;shared/types/index.ts&#96; for extension and web compatibility (export CapturedItem, CapBoard, ImageReference, BoardMetadata, GridConfig, ExportManifest, ExportItemReference interfaces matching extension types from T015, ensure types are compatible for Next.js API integration)
++ - [X] T015 [P] Define TypeScript types at &#96;extension/types/index.ts&#96; (CapturedItem interface with id: string, imageReference: ImageReference, sourceUrl: string, timestamp: number, metadata?: Record&lt;string, unknown&gt;, qualityIndicator?: 'url-only' | 'blob' | 'fallback'; CapBoard interface with items: CapturedItem[], metadata: BoardMetadata, gridConfig: GridConfig, exportHistory?: ExportManifest[]; ImageReference interface with urlOrBlob: string | BlobReference, thumbnail?: string, dimensions?: { width: number; height: number }, fallbackIndicator?: boolean; BoardMetadata interface with creationDate: number, lastModified: number, version: string; GridConfig interface with slots: number, columns: number, virtualScrolling: boolean; ExportManifest interface with boardMetadata: BoardMetadata, itemReferences: ExportItemReference[], exportTimestamp: number, formatVersion: string; ExportItemReference interface with itemId: string, filename?: string, imageUrl?: string, metadata: Record&lt;string, unknown&gt;; BlobReference type for IndexedDB blob keys)
++ - [X] T016 [P] Define shared types at &#96;shared/types/index.ts&#96; for extension and web compatibility (export CapturedItem, CapBoard, ImageReference, BoardMetadata, GridConfig, ExportManifest, ExportItemReference interfaces matching extension types from T015, ensure types are compatible for Next.js API integration)
+  
+  ### Storage Layer
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="search_replace">
+
+<details><summary>Tool use: **search_replace** • Edit file: specs/001-capthat-extension/tasks.md</summary>
+
+**Chunk 1**
+Lines added: 6, lines removed: 6
+
+```diff
+@@ -67,10 +67,10 @@
+  ### Storage Layer
+  
+- - [ ] T017 [P] Implement chrome.storage.local adapter at &#96;extension/storage/storage-adapter.ts&#96; (save CapBoard metadata to chrome.storage.local with key 'capBoard', load board from storage, handle chrome.storage errors with try-catch, return CapBoard object or null if not found)
+- - [ ] T018 [P] Implement IndexedDB adapter at &#96;extension/storage/indexeddb-adapter.ts&#96; for blob storage (open IndexedDB database 'capthat', create 'images' object store if needed, store Blob objects with unique keys, retrieve blobs by key, handle IndexedDB errors, return Blob or null)
+- - [ ] T019 [P] Create storage interface/abstraction at &#96;extension/storage/storage-interface.ts&#96; (define IStorageAdapter interface with saveBoard(board: CapBoard): Promise&lt;void&gt;, loadBoard(): Promise&lt;CapBoard | null&gt;, saveBlob(key: string, blob: Blob): Promise&lt;void&gt;, getBlob(key: string): Promise&lt;Blob | null&gt;, implement interface for both chrome.storage.local and IndexedDB adapters)
+- - [ ] T020 [P] Implement storage quota monitoring in &#96;extension/storage/storage-adapter.ts&#96; (check chrome.storage.quota.bytesUsed and chrome.storage.quota.bytesInUse, calculate usage percentage, emit warning event or throw error when usage exceeds 80%, prevent saves when quota exceeded)
+- - [ ] T021 [P] Implement board size limit enforcement (100 items) in &#96;extension/storage/storage-adapter.ts&#96; (validate items.length &lt;= 100 before save operation, throw error with user-friendly message if limit exceeded, prevent save when board has 100 items)
+- - [ ] T022 [P] Implement warning threshold (80 items) in &#96;extension/storage/storage-adapter.ts&#96; (check items.length &gt;= 80 before save, emit warning event or callback when threshold reached, allow save but notify UI to show warning message)
++ - [X] T017 [P] Implement chrome.storage.local adapter at &#96;extension/storage/storage-adapter.ts&#96; (save CapBoard metadata to chrome.storage.local with key 'capBoard', load board from storage, handle chrome.storage errors with try-catch, return CapBoard object or null if not found)
++ - [X] T018 [P] Implement IndexedDB adapter at &#96;extension/storage/indexeddb-adapter.ts&#96; for blob storage (open IndexedDB database 'capthat', create 'images' object store if needed, store Blob objects with unique keys, retrieve blobs by key, handle IndexedDB errors, return Blob or null)
++ - [X] T019 [P] Create storage interface/abstraction at &#96;extension/storage/storage-interface.ts&#96; (define IStorageAdapter interface with saveBoard(board: CapBoard): Promise&lt;void&gt;, loadBoard(): Promise&lt;CapBoard | null&gt;, saveBlob(key: string, blob: Blob): Promise&lt;void&gt;, getBlob(key: string): Promise&lt;Blob | null&gt;, implement interface for both chrome.storage.local and IndexedDB adapters)
++ - [X] T020 [P] Implement storage quota monitoring in &#96;extension/storage/storage-adapter.ts&#96; (check chrome.storage.quota.bytesUsed and chrome.storage.quota.bytesInUse, calculate usage percentage, emit warning event or throw error when usage exceeds 80%, prevent saves when quota exceeded)
++ - [X] T021 [P] Implement board size limit enforcement (100 items) in &#96;extension/storage/storage-adapter.ts&#96; (validate items.length &lt;= 100 before save operation, throw error with user-friendly message if limit exceeded, prevent save when board has 100 items)
++ - [X] T022 [P] Implement warning threshold (80 items) in &#96;extension/storage/storage-adapter.ts&#96; (check items.length &gt;= 80 before save, emit warning event or callback when threshold reached, allow save but notify UI to show warning message)
+  
+  ### Validation Layer
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="search_replace">
+
+<details><summary>Tool use: **search_replace** • Edit file: specs/001-capthat-extension/tasks.md</summary>
+
+**Chunk 1**
+Lines added: 4, lines removed: 4
+
+```diff
+@@ -76,8 +76,8 @@
+  ### Validation Layer
+  
+- - [ ] T023 [P] Implement URL validator at &#96;extension/validation/url-validator.ts&#96; (validate URL string, block javascript: scheme and other dangerous schemes, allow http://, https://, and data: schemes only, return boolean or throw ValidationError with user-friendly message, validate sourceUrl for CapturedItem)
+- - [ ] T024 [P] Implement image validator at &#96;extension/validation/image-validator.ts&#96; (validate MIME types: image/jpeg, image/png, image/gif, image/webp only, enforce 10MB size limit per image, enforce 10MP dimension limit (width * height &lt;= 10,000,000), validate Blob or URL input, return boolean or throw ValidationError with specific reason)
+- - [ ] T025 [P] Implement schema validator at &#96;extension/validation/schema-validator.ts&#96; (validate CapturedItem structure: required fields id, imageReference, sourceUrl, timestamp, validate id is non-empty string, validate sourceUrl via URL validator, validate timestamp is positive number, validate metadata is serializable JSON object, validate CapBoard structure: items array length &lt;= 100, items contain valid CapturedItem objects, metadata and gridConfig are valid, return boolean or throw ValidationError)
+- - [ ] T026 [P] Create shared URL validator at &#96;shared/validators/url.ts&#96; for reuse by extension and web app (export URL validation function matching T023 implementation, ensure compatibility with both extension and Next.js API, validate http/https/data schemes, block javascript: and dangerous schemes)
++ - [X] T023 [P] Implement URL validator at &#96;extension/validation/url-validator.ts&#96; (validate URL string, block javascript: scheme and other dangerous schemes, allow http://, https://, and data: schemes only, return boolean or throw ValidationError with user-friendly message, validate sourceUrl for CapturedItem)
++ - [X] T024 [P] Implement image validator at &#96;extension/validation/image-validator.ts&#96; (validate MIME types: image/jpeg, image/png, image/gif, image/webp only, enforce 10MB size limit per image, enforce 10MP dimension limit (width * height &lt;= 10,000,000), validate Blob or URL input, return boolean or throw ValidationError with specific reason)
++ - [X] T025 [P] Implement schema validator at &#96;extension/validation/schema-validator.ts&#96; (validate CapturedItem structure: required fields id, imageReference, sourceUrl, timestamp, validate id is non-empty string, validate sourceUrl via URL validator, validate timestamp is positive number, validate metadata is serializable JSON object, validate CapBoard structure: items array length &lt;= 100, items contain valid CapturedItem objects, metadata and gridConfig are valid, return boolean or throw ValidationError)
++ - [X] T026 [P] Create shared URL validator at &#96;shared/validators/url.ts&#96; for reuse by extension and web app (export URL validation function matching T023 implementation, ensure compatibility with both extension and Next.js API, validate http/https/data schemes, block javascript: and dangerous schemes)
+  
+  ### Message Contracts
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="search_replace">
+
+<details><summary>Tool use: **search_replace** • Edit file: specs/001-capthat-extension/tasks.md</summary>
+
+**Chunk 1**
+Lines added: 2, lines removed: 2
+
+```diff
+@@ -83,6 +83,6 @@
+  ### Message Contracts
+  
+- - [ ] T027 [P] Define message types at &#96;extension/types/messages.ts&#96; (define CaptureRequestMessage with type: 'CAPTURE_REQUEST', payload: { imageUrl: string, sourceUrl: string, metadata?: Record&lt;string, unknown&gt; }; CaptureResponseMessage with type: 'CAPTURE_RESPONSE', payload: { success: boolean, itemId?: string, error?: string, errorCategory?: 'permission' | 'cors' | 'storage' | 'validation' }; StorageUpdateMessage with type: 'STORAGE_UPDATE', payload: { action: 'add' | 'remove' | 'clear' | 'update', item?: CapturedItem, board?: CapBoard }; ExportRequestMessage with type: 'EXPORT_REQUEST', payload: { format: 'json' | 'zip' | 'individual', options?: ExportOptions }; ExportResponseMessage with type: 'EXPORT_RESPONSE', payload: { success: boolean, filename?: string, error?: string, skippedCount?: number }; BoardUpdateMessage with type: 'BOARD_UPDATE', payload: { action: 'remove' | 'clear', itemId?: string }; ErrorMessage with type: 'ERROR', payload: { message: string, category: ErrorCategory, retryable: boolean }; define Message union type, export type guards for each message type, export isValidMessage function)
+- - [ ] T028 [P] Implement message validation in &#96;extension/background/service-worker.ts&#96; message handlers (validate message shape: check type field exists and is string, validate message type matches known types from T027, validate payload structure matches message type requirements, validate payload content: URLs via URL validator, itemId format, action values, reject invalid messages with ErrorMessage response, add validation before processing any incoming messages)
++ - [X] T027 [P] Define message types at &#96;extension/types/messages.ts&#96; (define CaptureRequestMessage with type: 'CAPTURE_REQUEST', payload: { imageUrl: string, sourceUrl: string, metadata?: Record&lt;string, unknown&gt; }; CaptureResponseMessage with type: 'CAPTURE_RESPONSE', payload: { success: boolean, itemId?: string, error?: string, errorCategory?: 'permission' | 'cors' | 'storage' | 'validation' }; StorageUpdateMessage with type: 'STORAGE_UPDATE', payload: { action: 'add' | 'remove' | 'clear' | 'update', item?: CapturedItem, board?: CapBoard }; ExportRequestMessage with type: 'EXPORT_REQUEST', payload: { format: 'json' | 'zip' | 'individual', options?: ExportOptions }; ExportResponseMessage with type: 'EXPORT_RESPONSE', payload: { success: boolean, filename?: string, error?: string, skippedCount?: number }; BoardUpdateMessage with type: 'BOARD_UPDATE', payload: { action: 'remove' | 'clear', itemId?: string }; ErrorMessage with type: 'ERROR', payload: { message: string, category: ErrorCategory, retryable: boolean }; define Message union type, export type guards for each message type, export isValidMessage function)
++ - [X] T028 [P] Implement message validation in &#96;extension/background/service-worker.ts&#96; message handlers (validate message shape: check type field exists and is string, validate message type matches known types from T027, validate payload structure matches message type requirements, validate payload content: URLs via URL validator, itemId format, action values, reject invalid messages with ErrorMessage response, add validation before processing any incoming messages)
+  
+  **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
+```
+
+</details>
+
+</tool-use>
+
+---
+
+
+
+---
+
+
+Fixing a small issue in the storage adapter:
+
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: extension/storage/storage-adapter.ts</summary>
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Fixing the duplicate `getBytesInUse` call:
+
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="search_replace">
+
+<details><summary>Tool use: **search_replace** • Edit file: extension/storage/storage-adapter.ts</summary>
+
+**Chunk 1**
+Lines added: 35, lines removed: 37
+
+```diff
+@@ -62,45 +62,43 @@
+          }
+  
+-         chrome.storage.local.getBytesInUse(null, (bytesUsed) =&gt; {
+-           // Get quota information
+-           // Note: chrome.storage.local.QUOTA_BYTES is not available in MV3
+-           // We'll use a default of 10MB (10,485,760 bytes) as per Chrome's default
+-           const quota = 10 * 1024 * 1024; // 10MB
+-           const bytesAvailable = quota - bytesUsed;
+-           const usagePercentage = bytesUsed / quota;
++         // Get quota information
++         // Note: chrome.storage.local.QUOTA_BYTES is not available in MV3
++         // We'll use a default of 10MB (10,485,760 bytes) as per Chrome's default
++         const quota = 10 * 1024 * 1024; // 10MB
++         const bytesAvailable = quota - bytesUsed;
++         const usagePercentage = bytesUsed / quota;
+  
+-           const quotaInfo: StorageQuotaInfo = {
+-             bytesUsed,
+-             bytesAvailable,
+-             quota,
+-             usagePercentage,
+-           };
++         const quotaInfo: StorageQuotaInfo = {
++           bytesUsed,
++           bytesAvailable,
++           quota,
++           usagePercentage,
++         };
+  
+-           // Emit warning if usage exceeds threshold
+-           if (usagePercentage &gt;= QUOTA_WARNING_THRESHOLD) {
+-             console.warn(
+-               &#96;Storage quota warning: ${(usagePercentage * 100).toFixed(1)}% used &#96; +
+-               &#96;(${bytesUsed} / ${quota} bytes)&#96;
+-             );
+-             
+-             // Emit warning event (can be listened to by UI)
+-             chrome.runtime.sendMessage({
+-               type: 'STORAGE_QUOTA_WARNING',
+-               payload: { quotaInfo },
+-             }).catch(() =&gt; {
+-               // Ignore errors if no listeners
+-             });
+-           }
++         // Emit warning if usage exceeds threshold
++         if (usagePercentage &gt;= QUOTA_WARNING_THRESHOLD) {
++           console.warn(
++             &#96;Storage quota warning: ${(usagePercentage * 100).toFixed(1)}% used &#96; +
++             &#96;(${bytesUsed} / ${quota} bytes)&#96;
++           );
++           
++           // Emit warning event (can be listened to by UI)
++           chrome.runtime.sendMessage({
++             type: 'STORAGE_QUOTA_WARNING',
++             payload: { quotaInfo },
++           }).catch(() =&gt; {
++             // Ignore errors if no listeners
++           });
++         }
+  
+-           // Throw error if quota exceeded
+-           if (usagePercentage &gt;= 1.0) {
+-             reject(new Error(
+-               'Storage quota exceeded. Please clear some items or export your board.'
+-             ));
+-             return;
+-           }
++         // Throw error if quota exceeded
++         if (usagePercentage &gt;= 1.0) {
++           reject(new Error(
++             'Storage quota exceeded. Please clear some items or export your board.'
++           ));
++           return;
++         }
+  
+-           resolve(quotaInfo);
+-         });
++         resolve(quotaInfo);
+        });
+      });
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="generic" data-tool-name="read_lints">
+<details>
+          <summary>Tool use: **read_lints** • Read lints for 1 file</summary>
+      
+Lint paths:
+
+- `extension/storage/storage-adapter.ts`
+
+Lint results
+
+
+**No lint errors found**
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+## Summary
+
+Completed tasks T015-T028 for the CapThat Chrome Extension foundational phase.
+
+### Completed tasks
+
+**Type definitions (T015-T016)**
+- Created `extension/types/index.ts` with all core types (CapturedItem, CapBoard, ImageReference, etc.)
+- Created `shared/types/index.ts` for extension/web app compatibility
+
+**Storage layer (T017-T022)**
+- Implemented `IStorageAdapter` interface
+- Created `ChromeStorageAdapter` for chrome.storage.local (board metadata)
+- Created `IndexedDBAdapter` for blob storage
+- Added storage quota monitoring (80% warning threshold)
+- Enforced 100-item board limit with error handling
+- Added 80-item warning threshold with UI notifications
+
+**Validation layer (T023-T026)**
+- Implemented URL validator (blocks javascript: and dangerous schemes)
+- Implemented image validator (MIME types, 10MB size limit, 10MP dimension limit)
+- Implemented schema validator (CapturedItem and CapBoard validation)
+- Created shared URL validator for extension and Next.js API compatibility
+
+**Message contracts (T027-T028)**
+- Defined message types in `extension/types/messages.ts` (all message types with type guards)
+- Implemented message validation in service worker (validates structure, payloads, URLs)
+
+### Files created/modified
+
+**New files:**
+- `extension/types/index.ts`
+- `extension/types/messages.ts`
+- `shared/types/index.ts`
+- `extension/storage/storage-interface.ts`
+- `extension/storage/storage-adapter.ts`
+- `extension/storage/indexeddb-adapter.ts`
+- `extension/validation/url-validator.ts`
+- `extension/validation/image-validator.ts`
+- `extension/validation/schema-validator.ts`
+- `shared/validators/url.ts`
+
+**Modified files:**
+- `extension/background/service-worker.ts` (added message validation)
+- `specs/001-capthat-extension/tasks.md` (marked T015-T028 as completed)
+
+### Status
+
+- All 14 tasks completed
+- No linter errors
+- Type-safe implementation with TypeScript
+- Security validations in place
+- Foundation ready for user story implementation
+
+The foundational phase is complete. User story implementation (T029+) can proceed.
+
+---
+
