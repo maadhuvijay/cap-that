@@ -9,9 +9,29 @@
  * for type-safe routing and validation.
  * 
  * Task: T027 - Define message types at extension/types/messages.ts
+ * 
+ * NOTE: This is a documentation/reference file in the specs folder.
+ * The actual implementation should be in extension/types/messages.ts
  */
 
-import type { CapturedItem, CapBoard } from '../data-model';
+// Type references (defined in data-model.md and extension/types/index.ts)
+// These are minimal type definitions for documentation purposes only
+// Full definitions should be imported from extension/types/index.ts in actual implementation
+interface CapturedItem {
+  id: string;
+  imageReference: unknown;
+  sourceUrl: string;
+  timestamp: number;
+  metadata?: Record<string, unknown>;
+  qualityIndicator?: 'url-only' | 'blob' | 'fallback';
+}
+
+interface CapBoard {
+  items: CapturedItem[];
+  metadata: unknown;
+  gridConfig: unknown;
+  exportHistory?: unknown[];
+}
 
 // ============================================================================
 // Base Message Structure

@@ -50,13 +50,21 @@ body {
 
 /* Panel Glassmorphism */
 .glass-panel {
-  @apply glass rounded-glass;
+  background: rgba(26, 26, 26, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 /* Card Glassmorphism */
 .glass-card {
-  @apply glass-light rounded-card;
+  background: rgba(26, 26, 26, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
@@ -142,7 +150,12 @@ body {
 
 /* Focus States for Keyboard Navigation (UI-017) */
 .focus-ring {
-  @apply focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-dark-bg;
+  outline: none;
+}
+
+.focus-ring:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.5), 0 0 0 4px rgba(6, 182, 212, 0.2);
 }
 
 /* Scrollbar Styling */
