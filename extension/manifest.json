@@ -29,7 +29,7 @@
     "default_title": "Open CapThat Panel"
   },
   "content_security_policy": {
-    "extension_pages": "script-src 'self'; object-src 'self'; img-src 'self' data: blob: https: http:; connect-src 'self' http://localhost:3000"
+    "extension_pages": "script-src 'self'; object-src 'self'; base-uri 'self'; img-src 'self' data: blob: https: http:; connect-src 'self' http://localhost:3000"
   }
 }
 

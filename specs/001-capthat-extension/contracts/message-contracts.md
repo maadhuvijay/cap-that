@@ -275,3 +275,4 @@ chrome.runtime.onMessage.addListener((message: StorageUpdateMessage) => {
 - Implementation: See `tasks.md` for task T027 (message types) and T028 (message validation)
 
 
+

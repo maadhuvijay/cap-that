@@ -323,3 +323,4 @@
 - [Chrome Extension Permissions](https://developer.chrome.com/docs/extensions/mv3/declare_permissions/)
 
 
+

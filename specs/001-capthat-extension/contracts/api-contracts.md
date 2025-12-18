@@ -192,3 +192,4 @@ When the local app is not available:
 - Message Contracts: See `contracts/message-contracts.md` for extension messaging
 
 
+
