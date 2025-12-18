@@ -163,3 +163,367 @@ Lines added: 2, lines removed: undefined
 
 ---
 
+
+Fixing the built HTML file so you can test immediately, then we'll rebuild:
+
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="search_replace">
+
+<details><summary>Tool use: **search_replace** • Edit file: build/extension/ui/side-panel.html</summary>
+
+**Chunk 1**
+Lines added: 2, lines removed: 2
+
+```diff
+@@ -11,6 +11,6 @@
+      }
+    &lt;/style&gt;
+-   &lt;script type="module" crossorigin src="/ui/side-panel.js"&gt;&lt;/script&gt;
+-   &lt;link rel="stylesheet" crossorigin href="/assets/side-panel-CUuHvEV2.css"&gt;
++   &lt;script type="module" crossorigin src="./side-panel.js"&gt;&lt;/script&gt;
++   &lt;link rel="stylesheet" crossorigin href="../assets/side-panel-CUuHvEV2.css"&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="read_lints">
+<details>
+<summary>Tool use: **read_lints**</summary>
+
+
+Parameters:
+
+```json
+{
+  "path": "extension/vite.config.ts"
+}
+```
+Result:
+
+```json
+{
+  "path": "extension/vite.config.ts"
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Rebuilding the extension to apply the fix:
+
+
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
+<details><summary>Tool use: **run_terminal_cmd** • Run command: npm run build:extension</summary>
+
+```bash
+npm run build:extension
+```
+
+```
+
+&gt; nextjs@0.1.0 build:extension
+&gt; cd extension &amp;&amp; vite build &amp;&amp; node ../scripts/copy-extension-assets.js
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+vite v5.4.21 building for production...
+transforming...
+✓ 38 modules transformed.
+rendering chunks...
+computing gzip size...
+../build/extension/ui/side-panel.html                0.45 kB │ gzip:  0.30 kB
+../build/extension/assets/side-panel-CUuHvEV2.css   39.81 kB │ gzip:  6.70 kB
+../build/extension/content/content-script.js         0.31 kB │ gzip:  0.21 kB
+../build/extension/background/service-worker.js      5.97 kB │ gzip:  1.69 kB
+../build/extension/ui/side-panel.js                193.69 kB │ gzip: 60.59 kB
+✓ built in 706ms
+✓ Copied manifest.json
+✓ Copied icons
+Extension assets copied successfully
+
+```
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Verifying the built HTML file has the correct paths:
+
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: build/extension/ui/side-panel.html</summary>
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Fixing the JS path: it should be `./side-panel.js` (same directory), not `../ui/side-panel.js`.
+
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="search_replace">
+
+<details><summary>Tool use: **search_replace** • Edit file: build/extension/ui/side-panel.html</summary>
+
+**Chunk 1**
+Lines added: 1, lines removed: 1
+
+```diff
+@@ -11,5 +11,5 @@
+      }
+    &lt;/style&gt;
+-   &lt;script type="module" crossorigin src="../ui/side-panel.js"&gt;&lt;/script&gt;
++   &lt;script type="module" crossorigin src="./side-panel.js"&gt;&lt;/script&gt;
+    &lt;link rel="stylesheet" crossorigin href="../assets/side-panel-CUuHvEV2.css"&gt;
+  &lt;/head&gt;
+```
+
+</details>
+
+</tool-use>
+
+---
+
+
+
+---
+
+
+Checking where Vite outputs the side-panel.js file:
+
+
+---
+
+<tool-use data-tool-type="generic" data-tool-name="glob_file_search">
+<details>
+<summary>Tool use: **glob_file_search** • Searched codebase "side-panel.js" • **1** result in **1** directory</summary>
+
+Directory: **c:\dev\capthat\cap-that\build\extension** (1 file)
+
+| File |
+|------|
+| `ui\side-panel.js` |
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: extension/vite.config.ts</summary>
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+The file is in the correct location. Verifying the final HTML file:
+
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: build/extension/ui/side-panel.html</summary>
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Paths look correct. Checking the copy script to see if we can add an automatic fix for future builds:
+
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: scripts/copy-extension-assets.js</summary>
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Updating the copy script to automatically fix the HTML paths after each build:
+
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="search_replace">
+
+<details><summary>Tool use: **search_replace** • Edit file: scripts/copy-extension-assets.js</summary>
+
+**Chunk 1**
+Lines added: 21, lines removed: undefined
+
+```diff
+@@ -31,4 +31,25 @@
+    console.log('⚠ Icons directory not found - extension will use default icons');
+  }
++ 
++ // Fix HTML paths to use relative paths for Chrome extension compatibility
++ const sidePanelHtmlPath = path.join(buildDir, 'ui', 'side-panel.html');
++ if (fs.existsSync(sidePanelHtmlPath)) {
++   let htmlContent = fs.readFileSync(sidePanelHtmlPath, 'utf8');
++   
++   // Fix script path: should be relative to HTML file location
++   htmlContent = htmlContent.replace(
++     /src=["']([^"']*\/)?ui\/side-panel\.js["']/g,
++     'src="./side-panel.js"'
++   );
++   
++   // Fix CSS path: should be relative to HTML file location (one level up, then assets)
++   htmlContent = htmlContent.replace(
++     /href=["']([^"']*\/)?assets\/([^"']+)["']/g,
++     'href="../assets/$2"'
++   );
++   
++   fs.writeFileSync(sidePanelHtmlPath, htmlContent, 'utf8');
++   console.log('✓ Fixed HTML paths for Chrome extension compatibility');
++ }
+  
+  console.log('Extension assets copied successfully');
+```
+
+</details>
+
+</tool-use>
+
+---
+
+
+
+---
+
+
+Rebuilding to verify the script fixes the paths automatically:
+
+
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
+<details><summary>Tool use: **run_terminal_cmd** • Run command: npm run build:extension</summary>
+
+```bash
+npm run build:extension
+```
+
+```
+
+&gt; nextjs@0.1.0 build:extension
+&gt; cd extension &amp;&amp; vite build &amp;&amp; node ../scripts/copy-extension-assets.js
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+vite v5.4.21 building for production...
+transforming...
+✓ 38 modules transformed.
+rendering chunks...
+computing gzip size...
+../build/extension/ui/side-panel.html                0.45 kB │ gzip:  0.30 kB
+../build/extension/assets/side-panel-CUuHvEV2.css   39.81 kB │ gzip:  6.70 kB
+../build/extension/content/content-script.js         0.31 kB │ gzip:  0.21 kB
+../build/extension/background/service-worker.js      5.97 kB │ gzip:  1.69 kB
+../build/extension/ui/side-panel.js                193.69 kB │ gzip: 60.59 kB
+✓ built in 739ms
+✓ Copied manifest.json
+✓ Copied icons
+✓ Fixed HTML paths for Chrome extension compatibility
+Extension assets copied successfully
+
+```
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Verifying the HTML file has the correct paths:
+
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: build/extension/ui/side-panel.html</summary>
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+## The Problem
+The HTML file used absolute paths (`/ui/side-panel.js` and `/assets/...`), which Chrome extensions don't support. Extensions require relative paths.
+
+## The Fix
+1. Updated Vite config: added `base: './'` to generate relative paths.
+2. Updated the build script: `scripts/copy-extension-assets.js` now fixes HTML paths after each build.
+3. Fixed the current build: paths are now relative.
+
+## Next Steps
+1. Open Chrome and go to `chrome://extensions`
+2. Enable "Developer mode" (toggle in the top right)
+3. Click "Load unpacked"
+4. Select the `build/extension` directory (not the `extension` directory)
+
+The extension should load. The paths in the HTML are now:
+- `./side-panel.js` (same directory)
+- `../assets/side-panel-CUuHvEV2.css` (one level up, then assets)
+
+Future builds will automatically have the correct paths thanks to the updated build script.
+
+---
+
