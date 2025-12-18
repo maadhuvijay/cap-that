@@ -28,7 +28,7 @@ import {
 import { validateURL, validateSourceURL } from '../validation/url-validator';
 import { ValidationError } from '../validation/url-validator';
 
-console.log('CapThat service worker loaded - T032 reload test verified');
+console.log('CapThat service worker loaded');
 
 // ============================================================================
 // Extension Lifecycle
