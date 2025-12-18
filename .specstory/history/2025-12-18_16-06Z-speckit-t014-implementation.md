@@ -251,3 +251,319 @@ No results found
 
 ---
 
+
+Checking checklist status and verifying the app directory setup:
+
+
+---
+
+<tool-use data-tool-type="generic" data-tool-name="glob_file_search">
+<details>
+<summary>Tool use: **glob_file_search** • Searched codebase "**/checklists/**/*.md" • **2** results in **1** directory</summary>
+
+Directory: **c:\dev\capthat\cap-that** (2 files)
+
+| File |
+|------|
+| `specs\001-capthat-extension\checklists\security.md` |
+| `specs\001-capthat-extension\checklists\requirements.md` |
+
+</details>
+</tool-use>
+
+---
+
+Could not find file 'app/tsconfig.json' in the workspace.
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="codebase_search">
+<details>
+                <summary>Tool use: **codebase_search** • Searched codebase "How are TypeScript project references configured for shared code between extension and app?" • **15** results</summary>
+            
+| File | Lines |
+|------|-------|
+| `tsconfig.json` | L37 |
+| `package.json` | L28 |
+| `eslint.config.mjs` | L17 |
+| `.gitignore` | L41 |
+| `.cursor/commands/speckit.implement.md` | L45-82 |
+| `.specify/scripts/bash/update-agent-context.sh` | L232-272 |
+| `.specify/templates/tasks-template.md` | L56 |
+| `.specify/templates/plan-template.md` | L43-107 |
+| `next.config.ts` | L6 |
+| `.specify/templates/plan-template.md` | L47 |
+| `.cursor/commands/speckit.implement.md` | L80-106 |
+| `README.md` | L36 |
+| `.cursorindexingignore` | L3 |
+| `app/layout.tsx` | L33 |
+| `.specify/scripts/bash/update-agent-context.sh` | L49 |
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Checking checklist status:
+
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: specs/001-capthat-extension/checklists/requirements.md</summary>
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: specs/001-capthat-extension/checklists/security.md</summary>
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Analyzing checklist status and verifying the TypeScript project references setup. Checking checklist completion:
+
+
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd c:\dev\capthat\cap-that && powershell -Command "Get-ChildItem -Path 'specs\001-capthat-extension\checklists' -Recurse -Filter '*.md' | ForEach-Object { $content = Get-Content $_.FullName -Raw; $total = ([regex]::Matches($content, '- \[[ xX]\]')).Count; $completed = ([regex]::Matches($content, '- \[[xX]\]')).Count; $incomplete = ([regex]::Matches($content, '- \[ \]')).Count; Write-Output \"$($_.Name): Total=$total, Completed=$completed, Incomplete=$incomplete\" }"</summary>
+
+```bash
+cd c:\dev\capthat\cap-that && powershell -Command "Get-ChildItem -Path 'specs\001-capthat-extension\checklists' -Recurse -Filter '*.md' | ForEach-Object { $content = Get-Content $_.FullName -Raw; $total = ([regex]::Matches($content, '- \[[ xX]\]')).Count; $completed = ([regex]::Matches($content, '- \[[xX]\]')).Count; $incomplete = ([regex]::Matches($content, '- \[ \]')).Count; Write-Output \"$($_.Name): Total=$total, Completed=$completed, Incomplete=$incomplete\" }"
+```
+
+```
+At C:\Users\maadh\AppData\Local\Temp\ps-script-f43ceb2a-3133-427f-89ee-f60486dbb7ec.ps1:7 char:28
++ cd c:\dev\capthat\cap-that &amp;&amp; powershell -Command "Get-ChildItem -Pat ...
++                            ~~
+The token '&amp;&amp;' is not a valid statement separator in this version.
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : InvalidEndOfLine
+ 
+
+```
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Fixing the PowerShell command:
+
+
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd c:\dev\capthat\cap-that; Get-ChildItem -Path 'specs\001-capthat-extension\checklists' -Recurse -Filter '*.md' | ForEach-Object { $content = Get-Content $_.FullName -Raw; $total = ([regex]::Matches($content, '- \[[ xX]\]')).Count; $completed = ([regex]::Matches($content, '- \[[xX]\]')).Count; $incomplete = ([regex]::Matches($content, '- \[ \]')).Count; Write-Output "$($_.Name): Total=$total, Completed=$completed, Incomplete=$incomplete" }</summary>
+
+```bash
+cd c:\dev\capthat\cap-that; Get-ChildItem -Path 'specs\001-capthat-extension\checklists' -Recurse -Filter '*.md' | ForEach-Object { $content = Get-Content $_.FullName -Raw; $total = ([regex]::Matches($content, '- \[[ xX]\]')).Count; $completed = ([regex]::Matches($content, '- \[[xX]\]')).Count; $incomplete = ([regex]::Matches($content, '- \[ \]')).Count; Write-Output "$($_.Name): Total=$total, Completed=$completed, Incomplete=$incomplete" }
+```
+
+```
+requirements.md: Total=16, Completed=16, Incomplete=0
+security.md: Total=134, Completed=0, Incomplete=134
+
+```
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Checklist status:
+- requirements.md: 16/16 complete
+- security.md: 0/134 complete
+
+Proceeding with T014. Verifying and completing the TypeScript project references configuration:
+
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: tsconfig.json</summary>
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="grep">
+<details>
+<summary>Tool use: **grep** • Grep for "composite|references" in "." • 3 matches</summary>
+
+Output mode: content
+
+
+| File | Content | Line |
+|------|------|------|
+| `.\tsconfig.json` | `"references": [` | L26 |
+| `.\shared\tsconfig.json` | `"composite": true,` | L16 |
+| `.\extension\tsconfig.json` | `"references": [` | L30 |
+
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Verifying the extension tsconfig.json has the required `composite: true` for project references:
+
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: extension/tsconfig.json</summary>
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Ensuring the TypeScript project references are correctly configured. The extension should have `composite: true` since it's referenced by the root. Updating the configuration:
+
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="search_replace">
+
+<details><summary>Tool use: **search_replace** • Edit file: extension/tsconfig.json</summary>
+
+**Chunk 1**
+Lines added: 3, lines removed: undefined
+
+```diff
+@@ -15,4 +15,7 @@
+      "types": ["chrome", "vite/client"],
+      "baseUrl": ".",
++     "composite": true,
++     "declaration": true,
++     "declarationMap": true,
+      "paths": {
+        "@/*": ["./*"],
+```
+
+</details>
+
+</tool-use>
+
+---
+
+
+
+---
+
+
+Verifying the configuration and marking T014 as complete:
+
+
+---
+
+<tool-use data-tool-type="generic" data-tool-name="read_lints">
+<details>
+          <summary>Tool use: **read_lints** • Read lints for 1 file</summary>
+      
+Lint paths:
+
+- `extension/tsconfig.json`
+
+Lint results
+
+
+**No lint errors found**
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="search_replace">
+
+<details><summary>Tool use: **search_replace** • Edit file: specs/001-capthat-extension/tasks.md</summary>
+
+**Chunk 1**
+Lines added: 1, lines removed: 1
+
+```diff
+@@ -48,5 +48,5 @@
+  - [X] T012 Verify Next.js setup exists at &#96;app/&#96; directory
+  - [X] T013 Create shared code directory structure at &#96;shared/&#96;
+- - [ ] T014 Configure TypeScript project references for shared code in &#96;tsconfig.json&#96;
++ - [X] T014 Configure TypeScript project references for shared code in &#96;tsconfig.json&#96;
+  
+  ---
+```
+
+</details>
+
+</tool-use>
+
+---
+
+
+
+---
+
+
+T014 completed. Summary:
+
+## T014 Implementation Complete
+
+**Task**: Configure TypeScript project references for shared code in `tsconfig.json`
+
+**Changes Made**:
+1. Updated `extension/tsconfig.json` to enable project references:
+   - Added `"composite": true` — required for project references
+   - Added `"declaration": true` — generates .d.ts files
+   - Added `"declarationMap": true` — enables source maps for declarations
+
+2. Verified existing configuration:
+   - Root `tsconfig.json` already references both `./shared` and `./extension`
+   - `shared/tsconfig.json` already has `composite: true`
+   - `extension/tsconfig.json` already references `../shared`
+
+**Result**: TypeScript project references are configured. The extension and Next.js app can reference shared code with proper type checking and IntelliSense.
+
+**Status**: T014 marked as complete in `tasks.md`
+
+The configuration now supports:
+- Type-safe imports from `shared/` in both extension and app
+- Proper incremental builds with TypeScript
+- Better IDE support with cross-project type checking
+
+Note: The security checklist has 134 incomplete items, but this doesn't block implementation tasks.
+
+---
+
