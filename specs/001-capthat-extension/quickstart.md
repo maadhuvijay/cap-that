@@ -1,336 +1,462 @@
-# Quickstart: CapThat Message Passing
+# Quickstart: CapThat Chrome Extension
 
 **Feature**: 001-capthat-extension  
 **Date**: 2025-01-27  
-**Purpose**: Quick reference for implementing message passing in CapThat extension
+**Status**: Test Scenarios
 
 ## Overview
 
-CapThat uses Chrome Extension message passing (`chrome.runtime.sendMessage` / `chrome.runtime.onMessage`) for communication between:
-- Content Script ↔ Service Worker
-- UI (Side Panel) ↔ Service Worker
+This document provides test scenarios for validating the CapThat Chrome Extension implementation. Each scenario maps to user stories and can be executed independently to verify functionality.
 
-All messages are type-safe TypeScript interfaces defined in `contracts/messages.ts`.
+## Prerequisites
 
-## Message Types
+1. Extension built and ready to load
+2. Chrome browser with developer mode enabled
+3. Test pages with images (e.g., e-commerce sites, image galleries)
 
-### 1. Capture Request (Content Script → Service Worker)
+## Setup
 
-**When**: User clicks "Cap!" button on an image
+### Load Extension
 
-```typescript
-import type { CaptureRequestMessage } from '../types/messages';
+1. Run build command: `npm run build:extension`
+2. Open Chrome and navigate to `chrome://extensions`
+3. Enable "Developer mode" (toggle in top right)
+4. Click "Load unpacked"
+5. Select the `extension/dist` directory (or build output directory)
+6. Verify extension appears in extensions list with name "CapThat" and icon
 
-// In content script
-chrome.runtime.sendMessage<CaptureRequestMessage>({
-  type: 'CAPTURE_REQUEST',
-  payload: {
-    imageUrl: 'https://example.com/image.jpg',
-    sourceUrl: 'https://example.com',
-    metadata: {
-      title: 'Example Image',
-      domain: 'example.com',
-    },
-  }
-}, (response) => {
-  // Handle response (CaptureResponseMessage)
-  if (response?.success) {
-    console.log('Image captured:', response.itemId);
-  } else {
-    console.error('Capture failed:', response?.error);
-  }
-});
-```
+**Expected Result**: Extension loads without errors, appears in extensions list
 
-### 2. Capture Response (Service Worker → Content Script)
+---
 
-**When**: Service worker completes capture attempt
+## Test Scenarios
 
-```typescript
-import type { CaptureResponseMessage } from '../types/messages';
+### Scenario 1: Load Extension (User Story 1)
 
-// In service worker
-function handleCaptureRequest(msg: CaptureRequestMessage, sendResponse: (response: CaptureResponseMessage) => void) {
-  try {
-    // Perform capture logic...
-    const itemId = 'generated-uuid';
-    
-    sendResponse({
-      type: 'CAPTURE_RESPONSE',
-      payload: {
-        success: true,
-        itemId: itemId,
-      },
-    });
-  } catch (error) {
-    sendResponse({
-      type: 'CAPTURE_RESPONSE',
-      payload: {
-        success: false,
-        error: 'Failed to capture image',
-        errorCategory: 'storage',
-      },
-    });
-  }
-}
-```
+**Goal**: Verify extension loads successfully in Chrome
 
-### 3. Storage Update (Service Worker → UI)
+**Steps**:
+1. Run build command
+2. Open `chrome://extensions`
+3. Enable Developer mode
+4. Click "Load unpacked"
+5. Select extension build output directory
+6. Verify extension appears in list
 
-**When**: Board state changes (item added/removed/cleared)
+**Expected Results**:
+- ✅ Extension loads without console errors
+- ✅ Extension shows name "CapThat" in extensions list
+- ✅ Extension shows icon in extensions list
+- ✅ Reloading extension after code changes reflects updates
 
-```typescript
-import type { StorageUpdateMessage } from '../types/messages';
+**Independent Test**: Extension loads in Chrome via "Load unpacked" without errors
 
-// In service worker (after saving item)
-function notifyUIUpdate(item: CapturedItem) {
-  chrome.runtime.sendMessage<StorageUpdateMessage>({
-    type: 'STORAGE_UPDATE',
-    payload: {
-      action: 'add',
-      item: item,
-    },
-  });
-}
+---
 
-// In UI (side panel)
-chrome.runtime.onMessage.addListener((msg) => {
-  if (msg.type === 'STORAGE_UPDATE') {
-    const update = msg as StorageUpdateMessage;
-    if (update.payload.action === 'add' && update.payload.item) {
-      // Update UI with new item
-      addItemToGrid(update.payload.item);
-    }
-  }
-});
-```
+### Scenario 2: Open CapThat Panel (User Story 2)
 
-### 4. Export Request (UI → Service Worker)
+**Goal**: Verify panel UI displays correctly
 
-**When**: User clicks export button (Export JSON, Export CapBoard, Export Individual Caps)
+**Steps**:
+1. Load extension (from Scenario 1)
+2. Click extension action button (or open side panel)
+3. Observe panel interface
 
-```typescript
-import type { ExportRequestMessage } from '../types/messages';
+**Expected Results**:
+- ✅ Panel opens within 1 second
+- ✅ Title "CapThat!" is visible
+- ✅ Empty grid with N slots (e.g., 10) is visible
+- ✅ Placeholder text appears: "Click Cap! to capture images"
+- ✅ Action buttons are visible: Clear, Export JSON, Export CapBoard, Export Individual Caps
+- ✅ UI is styled with Tailwind CSS
+- ✅ UI is usable at desktop width (1024px+)
 
-// In UI (side panel)
-function handleExportClick(format: 'json' | 'zip' | 'individual') {
-  chrome.runtime.sendMessage<ExportRequestMessage>({
-    type: 'EXPORT_REQUEST',
-    payload: {
-      format: format,
-      options: {
-        includeThumbnails: false,
-        maxSizeBytes: 100 * 1024 * 1024, // 100MB
-      },
-    }
-  }, (response) => {
-    // Handle response (ExportResponseMessage)
-    if (response?.success) {
-      showToast(`Exported: ${response.filename}`);
-    } else {
-      showError(`Export failed: ${response?.error}`);
-    }
-  });
-}
-```
+**Independent Test**: Panel opens and displays complete UI within 1 second
 
-### 5. Board Update (UI → Service Worker)
+---
 
-**When**: User removes item or clears board
+### Scenario 3: Detect Images on Page (User Story 3)
 
-```typescript
-import type { BoardUpdateMessage } from '../types/messages';
+**Goal**: Verify extension detects capturable images
 
-// In UI (side panel)
-function removeItem(itemId: string) {
-  chrome.runtime.sendMessage<BoardUpdateMessage>({
-    type: 'BOARD_UPDATE',
-    payload: {
-      action: 'remove',
-      itemId: itemId,
-    }
-  }, (response) => {
-    if (response?.success) {
-      // Item removed, UI will receive STORAGE_UPDATE message
-    }
-  });
-}
+**Steps**:
+1. Load extension
+2. Navigate to a page with images (e.g., e-commerce product page)
+3. Observe page behavior
+4. Check browser console for errors
 
-function clearBoard() {
-  if (confirm('Clear all items?')) {
-    chrome.runtime.sendMessage<BoardUpdateMessage>({
-      type: 'BOARD_UPDATE',
-      payload: {
-        action: 'clear',
-      }
-    });
-  }
-}
-```
+**Expected Results**:
+- ✅ Extension injects capture controls or enables capture mode
+- ✅ Images with valid `<img>` sources are marked as capturable
+- ✅ Page layout is not broken
+- ✅ Page interactions work normally
+- ✅ No console errors on common websites
 
-## Service Worker Message Handler
+**Test Pages**:
+- E-commerce site (product images)
+- Image gallery
+- Social media feed
+- News article with images
 
-Complete example of service worker message routing:
+**Independent Test**: Extension detects images without breaking page functionality
 
-```typescript
-import type { Message } from '../types/messages';
-import { 
-  isValidMessage,
-  isCaptureRequestMessage,
-  isExportRequestMessage,
-  isBoardUpdateMessage,
-} from '../types/messages';
+---
 
-chrome.runtime.onMessage.addListener((msg: unknown, sender, sendResponse) => {
-  // Validate message structure
-  if (!isValidMessage(msg)) {
-    sendResponse({
-      type: 'ERROR',
-      payload: {
-        message: 'Invalid message format',
-        category: 'validation',
-        retryable: false,
-      },
-    });
-    return true; // Keep channel open for async response
-  }
+### Scenario 4: Capture Image (User Story 4)
 
-  // Route message by type
-  if (isCaptureRequestMessage(msg)) {
-    handleCaptureRequest(msg, sendResponse);
-  } else if (isExportRequestMessage(msg)) {
-    handleExportRequest(msg, sendResponse);
-  } else if (isBoardUpdateMessage(msg)) {
-    handleBoardUpdate(msg, sendResponse);
-  } else {
-    sendResponse({
-      type: 'ERROR',
-      payload: {
-        message: 'Unknown message type',
-        category: 'validation',
-        retryable: false,
-      },
-    });
-  }
+**Goal**: Verify image capture functionality
 
-  return true; // Keep channel open for async response
-});
-```
+**Steps**:
+1. Load extension and open panel
+2. Navigate to page with images
+3. Click "Cap!" button on an image tile
+4. Observe panel for new item
+5. Check item metadata
 
-## Content Script Message Handler
+**Expected Results**:
+- ✅ Item appears in panel within 2 seconds
+- ✅ Item includes image reference (URL or blob)
+- ✅ Item includes source page URL
+- ✅ Item includes captured timestamp
+- ✅ Toast notification appears: "Captured"
 
-Example of content script receiving messages:
+**Duplicate Handling**:
+- Capture same image twice (same content hash)
+- Verify either duplicate is prevented OR already-captured indicator shows
 
-```typescript
-import type { Message } from '../types/messages';
-import { isCaptureResponseMessage, isErrorMessage } from '../types/messages';
+**Board Limits**:
+- Capture 80 items → Warning message appears
+- Capture 100 items → Capture blocked, "Board is full" message shown
 
-chrome.runtime.onMessage.addListener((msg: Message) => {
-  if (isCaptureResponseMessage(msg)) {
-    if (msg.payload.success) {
-      // Show success feedback
-      showToast('Image captured!');
-    } else {
-      // Show error feedback
-      showError(msg.payload.error || 'Capture failed');
-    }
-  } else if (isErrorMessage(msg)) {
-    // Handle generic error
-    showError(msg.payload.message);
-  }
-  
-  return true;
-});
-```
+**Independent Test**: Image appears in panel within 2 seconds with all metadata
 
-## Error Handling
+---
 
-All messages should handle errors gracefully:
+### Scenario 5: View Captured Items in Grid (User Story 5)
 
-```typescript
-// In content script
-chrome.runtime.sendMessage(message, (response) => {
-  if (chrome.runtime.lastError) {
-    // Handle Chrome API error
-    console.error('Message error:', chrome.runtime.lastError.message);
-    showError('Failed to communicate with extension');
-    return;
-  }
-  
-  // Handle response
-  if (response?.type === 'ERROR') {
-    const error = response as ErrorMessage;
-    showError(error.payload.message);
-    if (error.payload.retryable) {
-      // Show retry button
-    }
-  }
-});
-```
+**Goal**: Verify grid display and persistence
 
-## Type Safety
+**Steps**:
+1. Capture multiple items (Scenario 4)
+2. View grid in panel
+3. Verify thumbnails render
+4. Close and reopen panel
+5. Restart browser and reopen panel
 
-Always use TypeScript types for messages:
+**Expected Results**:
+- ✅ Empty slots show placeholders when no items
+- ✅ Captured items render as thumbnails in grid slots
+- ✅ Grid cells show thumbnail and optional metadata (title/domain)
+- ✅ Virtual scrolling works for 100+ items (fixed slots, content scrolls)
+- ✅ Board state persists after panel close/reopen
+- ✅ Board state persists after browser restart
 
-```typescript
-import type { 
-  Message,
-  CaptureRequestMessage,
-  CaptureResponseMessage 
-} from '../types/messages';
+**Independent Test**: Items display correctly and persist across sessions
 
-// Type-safe message sending
-function sendCaptureRequest(imageUrl: string, sourceUrl: string) {
-  const message: CaptureRequestMessage = {
-    type: 'CAPTURE_REQUEST',
-    payload: {
-      imageUrl,
-      sourceUrl,
-    },
-  };
-  
-  chrome.runtime.sendMessage(message, (response: CaptureResponseMessage) => {
-    // TypeScript knows response structure
-    if (response.payload.success) {
-      console.log('Item ID:', response.payload.itemId);
-    }
-  });
-}
-```
+---
 
-## Testing
+### Scenario 6: Remove Individual Item (User Story 6)
 
-Test message passing in Chrome DevTools:
+**Goal**: Verify item removal functionality
 
-```javascript
-// In content script console
-chrome.runtime.sendMessage({
-  type: 'CAPTURE_REQUEST',
-  payload: {
-    imageUrl: 'https://example.com/test.jpg',
-    sourceUrl: 'https://example.com',
-  }
-}, (response) => {
-  console.log('Response:', response);
-});
+**Steps**:
+1. Capture 3+ items
+2. Click remove control (X button) on one item
+3. Verify item disappears
+4. Verify other items remain
+5. Check storage (via DevTools) to confirm removal
 
-// In service worker console
-chrome.runtime.onMessage.addListener((msg) => {
-  console.log('Received:', msg);
-});
-```
+**Expected Results**:
+- ✅ Item disappears immediately from UI
+- ✅ Item is removed from storage
+- ✅ Other items remain on board
+- ✅ No unintended side effects
 
-## Next Steps
+**Independent Test**: Item removal works without affecting other items
 
-1. Implement message handlers in `extension/background/service-worker.ts`
-2. Implement message senders in `extension/content/content-script.ts`
-3. Implement message handlers in `extension/ui/side-panel.tsx`
-4. Add message validation using `isValidMessage()` at all boundaries
-5. Test message flow end-to-end
+---
 
-## References
+### Scenario 7: Clear Entire Board (User Story 7)
 
-- Message Type Definitions: `contracts/messages.ts`
-- Data Model: `data-model.md`
-- Chrome Extension Messaging: https://developer.chrome.com/docs/extensions/mv3/messaging/
+**Goal**: Verify board clearing functionality
 
+**Steps**:
+1. Capture multiple items
+2. Click "Clear Cap Board" button
+3. Confirm action in confirmation dialog
+4. Verify all items removed
+5. Check storage to confirm deletion
+
+**Expected Results**:
+- ✅ Confirmation step appears (modal or confirm prompt)
+- ✅ All items removed from UI after confirmation
+- ✅ All items deleted from storage
+- ✅ Board is empty
+
+**Independent Test**: Board clearing requires confirmation and removes all items
+
+---
+
+### Scenario 8: Persist Board (User Story 8)
+
+**Goal**: Verify board persistence
+
+**Steps**:
+1. Capture items
+2. Close panel
+3. Reopen panel
+4. Verify items load automatically
+5. Simulate storage error (if possible via DevTools)
+
+**Expected Results**:
+- ✅ Items load automatically when panel reopens
+- ✅ Board metadata persisted in chrome.storage.local
+- ✅ Image blobs stored in IndexedDB (if applicable)
+- ✅ Storage errors handled gracefully with non-blocking message
+
+**Independent Test**: Board persists and loads automatically after restart
+
+---
+
+### Scenario 9: Export JSON (User Story 9)
+
+**Goal**: Verify JSON export functionality
+
+**Steps**:
+1. Capture 3-5 items with various metadata
+2. Click "Export JSON"
+3. Verify file downloads
+4. Open downloaded JSON file
+5. Validate JSON structure
+
+**Expected Results**:
+- ✅ `.json` file downloads
+- ✅ JSON includes for each item:
+  - `id`
+  - `imageUrl` (or filename reference)
+  - `sourceUrl`
+  - `timestamp`
+  - Optional metadata fields
+- ✅ JSON validates (no circular refs, valid UTF-8)
+- ✅ Toast notification: "Exported successfully"
+
+**Independent Test**: Valid JSON file downloads with all required metadata
+
+---
+
+### Scenario 10: Export Individual Images (User Story 10)
+
+**Goal**: Verify individual image export
+
+**Steps**:
+1. Capture multiple items
+2. Click "Export Individual Caps"
+3. Verify multiple files download
+4. Check filenames
+5. Test with CORS-blocked image
+
+**Expected Results**:
+- ✅ Multiple image files download
+- ✅ Filenames are consistent and unique (e.g., `cap-<timestamp>-<id>.png`)
+- ✅ CORS-blocked images are skipped and reported in summary
+- ✅ Export completes successfully
+
+**Independent Test**: Individual images export with consistent filenames
+
+---
+
+### Scenario 11: Export CapBoard as ZIP (User Story 11)
+
+**Goal**: Verify ZIP export functionality
+
+**Steps**:
+1. Capture 5-10 items (stay within 50 item limit for v1)
+2. Click "Export CapBoard"
+3. Verify ZIP file downloads
+4. Extract ZIP file
+5. Verify contents
+
+**Expected Results**:
+- ✅ Single `.zip` file downloads
+- ✅ ZIP contains:
+  - `/images/` folder with images (if available)
+  - `board.json` manifest referencing those images
+- ✅ Export completes without crashing
+- ✅ Toast notification: "Exported successfully"
+
+**Independent Test**: ZIP export completes successfully for boards up to 50 items
+
+---
+
+### Scenario 12: Handle CORS-Blocked Images (User Story 12)
+
+**Goal**: Verify CORS fallback handling
+
+**Steps**:
+1. Navigate to page with CORS-blocked images
+2. Attempt to capture CORS-blocked image
+3. Verify fallback mechanism works
+4. Check item quality indicator
+
+**Expected Results**:
+- ✅ System tries capture in order: URL storage → blob fetch → fallback
+- ✅ Item is added to board even when fallback used
+- ✅ Item has usable thumbnail
+- ✅ User is informed via badge/tooltip if lower-quality fallback used
+
+**Test Pages**:
+- Sites with strict CORS policies
+- Sites with no-cors images
+
+**Independent Test**: CORS-blocked images are captured using fallback mechanisms
+
+---
+
+### Scenario 13: Status Feedback (User Story 13)
+
+**Goal**: Verify user feedback for actions
+
+**Steps**:
+1. Capture image → Verify "Captured" toast
+2. Export data → Verify "Exported successfully" message
+3. Trigger error (e.g., storage full) → Verify error toast with retry button
+4. Click retry button → Verify retry functionality
+5. Attempt clear board → Verify confirmation dialog (only blocking alert)
+
+**Expected Results**:
+- ✅ Capture shows "Captured" toast
+- ✅ Export shows "Exported successfully" message
+- ✅ Errors show toast with clear message and retry button
+- ✅ Retry button allows retry of failed action
+- ✅ Only "Clear board confirmation" shows blocking alert
+- ✅ All other feedback is non-blocking
+
+**Independent Test**: Appropriate feedback appears for all actions
+
+---
+
+### Scenario 14: Next.js API Integration (User Story 14 - Phase 2)
+
+**Goal**: Verify local Next.js app integration (optional Phase 2)
+
+**Prerequisites**: Next.js app running on `http://localhost:3000`
+
+**Steps**:
+1. Start Next.js app: `npm run dev`
+2. Capture item in extension
+3. Verify item posted to `/api/capture`
+4. Stop Next.js app
+5. Capture another item
+6. Verify fallback to extension-only storage
+
+**Expected Results**:
+- ✅ Items posted to `http://localhost:3000/api/capture` when app running
+- ✅ Items stored in Next.js app
+- ✅ Falls back to extension-only storage when app not running
+- ✅ "Local app not detected" message shown when app unavailable (non-blocking)
+- ✅ Extension functions normally regardless of app availability
+
+**Independent Test**: Integration works when app available, gracefully degrades when not
+
+---
+
+## Edge Case Scenarios
+
+### Edge Case 1: No Images on Page
+
+**Steps**: Navigate to page with no images  
+**Expected**: Extension does not break, no errors, panel still functional
+
+### Edge Case 2: Storage Quota Exceeded
+
+**Steps**: Fill storage quota, attempt capture  
+**Expected**: Graceful error handling, non-blocking error message
+
+### Edge Case 3: Very Large Images
+
+**Steps**: Attempt to capture image > 10MB or > 10MP  
+**Expected**: Image rejected or resized, appropriate error message
+
+### Edge Case 4: Export Empty Board
+
+**Steps**: Attempt export with no captured items  
+**Expected**: Appropriate message or empty export, no errors
+
+### Edge Case 5: Multiple Tabs Capturing
+
+**Steps**: Open multiple tabs, capture simultaneously  
+**Expected**: No conflicts, all captures work correctly
+
+---
+
+## Performance Validation
+
+### Performance Targets
+
+- Panel opens: < 1 second
+- Capture appears in panel: < 2 seconds
+- Export (50 items): < 30 seconds
+- Virtual scrolling: Smooth (60fps) for 100+ items
+
+### Load Testing
+
+1. Capture 100 items (board limit)
+2. Verify virtual scrolling performance
+3. Verify export performance with 50 items
+4. Monitor memory usage during large exports
+
+---
+
+## Security Validation
+
+### Security Checks
+
+1. **CSP**: Verify no `eval()` or inline scripts
+2. **Permissions**: Verify minimal permissions (activeTab over *://*/*)
+3. **URL Validation**: Test with malicious URLs (`javascript:`, `data:` schemes)
+4. **Filename Sanitization**: Test export with path traversal characters
+5. **Error Messages**: Verify no internal paths exposed
+
+See `checklists/security.md` for comprehensive security testing requirements.
+
+---
+
+## Regression Testing
+
+After each implementation phase, re-run all scenarios to ensure no regressions:
+
+- Phase 1: Scenarios 1-2 (Extension load, Panel UI)
+- Phase 2: Scenarios 1-8 (Foundation + Core features)
+- Phase 3: Scenarios 1-13 (All core features)
+- Phase 4: Scenarios 1-14 (Including Phase 2 integration)
+
+---
+
+## Success Criteria Validation
+
+Each scenario validates corresponding success criteria from `spec.md`:
+
+- SC-001: Scenario 1
+- SC-002: Scenario 2
+- SC-003: Scenario 3
+- SC-004: Scenario 4
+- SC-005: Scenario 5
+- SC-006: Scenario 6
+- SC-007: Scenario 7
+- SC-008: Scenario 8
+- SC-009: Scenario 9
+- SC-010: Scenario 10
+- SC-011: Scenario 11
+- SC-012: Scenario 12
+- SC-013: Scenario 13
+- SC-014: Scenario 14
+
+---
+
+## Notes
+
+- All scenarios should be executable independently
+- Each scenario maps to specific user stories and acceptance criteria
+- Edge cases supplement core scenarios
+- Performance and security validations are ongoing
+- Regression testing ensures stability across phases

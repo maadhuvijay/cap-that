@@ -274,3 +274,4 @@ chrome.runtime.onMessage.addListener((message: StorageUpdateMessage) => {
 - Data Model: See `data-model.md` for entity definitions
 - Implementation: See `tasks.md` for task T027 (message types) and T028 (message validation)
 
+

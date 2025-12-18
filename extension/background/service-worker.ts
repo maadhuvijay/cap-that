@@ -20,9 +20,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   return true; // Keep message channel open for async response
 });
 
-// Listen for side panel open
-chrome.sidePanel.onOpened.addListener(() => {
-  console.log('CapThat side panel opened');
+// Listen for side panel connection (to detect when it opens)
+chrome.runtime.onConnect.addListener((port) => {
+  if (port.name === 'sidePanel') {
+    console.log('CapThat side panel opened');
+    
+    port.onDisconnect.addListener(() => {
+      console.log('CapThat side panel closed');
+    });
+  }
 });
 
 // Listen for action button click

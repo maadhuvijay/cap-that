@@ -10,6 +10,14 @@ function SidePanel() {
   );
 }
 
+// Establish connection with service worker to notify it that side panel is open
+const port = chrome.runtime.connect({ name: 'sidePanel' });
+
+// Handle disconnection when side panel closes
+window.addEventListener('beforeunload', () => {
+  port.disconnect();
+});
+
 const container = document.getElementById('root');
 if (container) {
   const root = createRoot(container);

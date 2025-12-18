@@ -191,3 +191,4 @@ When the local app is not available:
 - Data Model: See `data-model.md` for entity definitions
 - Message Contracts: See `contracts/message-contracts.md` for extension messaging
 
+

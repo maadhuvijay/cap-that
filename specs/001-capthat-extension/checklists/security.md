@@ -322,3 +322,4 @@
 - [Content Security Policy](https://developer.chrome.com/docs/extensions/mv3/content_security_policy/)
 - [Chrome Extension Permissions](https://developer.chrome.com/docs/extensions/mv3/declare_permissions/)
 
+
