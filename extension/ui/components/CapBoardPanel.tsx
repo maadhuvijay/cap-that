@@ -1,26 +1,21 @@
 /**
  * CapBoardPanel Component
- * Right-side floating panel with board grid and action buttons
- * Futuristic glassmorphism design
+ * Main panel component with Header, ImageGrid for captured items, action buttons
+ * Empty state with placeholder text "Click Cap! to capture images"
+ * Styled with Tailwind CSS
+ * 
+ * Task: T037 - Create CapBoardPanel component at extension/ui/components/CapBoardPanel.tsx
  */
 
 import React, { useState } from 'react';
+import { Header } from './Header';
+import { ImageGrid } from './ImageGrid';
 import { ActionButton } from './ActionButton';
-
-interface CapturedItem {
-  id: string;
-  imageUrl: string;
-  thumbnailUrl?: string;
-  sourceUrl: string;
-  timestamp: number;
-  metadata?: {
-    title?: string;
-    domain?: string;
-  };
-}
+import type { CapturedItem, GridConfig } from '../../types';
 
 interface CapBoardPanelProps {
   items: CapturedItem[];
+  gridConfig?: GridConfig;
   onClear: () => void;
   onExportJSON: () => void;
   onExportZIP: () => void;
@@ -32,6 +27,7 @@ interface CapBoardPanelProps {
 
 export const CapBoardPanel: React.FC<CapBoardPanelProps> = ({
   items,
+  gridConfig = { slots: 10, columns: 5, virtualScrolling: true },
   onClear,
   onExportJSON,
   onExportZIP,
@@ -56,103 +52,39 @@ export const CapBoardPanel: React.FC<CapBoardPanelProps> = ({
   };
 
   return (
-    <div className="fixed right-0 top-0 h-full w-96 bg-gradient-to-br from-slate-900/95 via-slate-800/95 to-slate-900/95 backdrop-blur-xl border-l border-cyan-500/20 shadow-2xl shadow-cyan-500/10 flex flex-col">
-      {/* Header */}
-      <div className="px-6 py-4 border-b border-cyan-500/20 bg-slate-900/50 backdrop-blur-sm">
-        <h2 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">
-          CapThat!
-        </h2>
-        {isNearLimit && (
-          <div
-            className={`mt-2 text-xs px-2 py-1 rounded ${
-              isAtLimit
-                ? 'bg-red-500/20 text-red-400 border border-red-500/30'
-                : 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30'
-            }`}
-          >
-            {isAtLimit
-              ? `Board full (${itemCount}/${maxItems})`
-              : `Approaching limit (${itemCount}/${maxItems})`}
-          </div>
-        )}
-      </div>
+    <div className="w-full h-full flex flex-col bg-dark-bg">
+      {/* Header Component */}
+      <Header />
 
-      {/* Board Grid */}
-      <div className="flex-1 overflow-y-auto p-4">
-        {items.length === 0 ? (
-          <div className="flex items-center justify-center h-full">
-            <div className="text-center">
-              <div className="w-20 h-20 mx-auto mb-4 rounded-xl bg-slate-800/40 backdrop-blur-sm border border-cyan-500/20 flex items-center justify-center">
-                <svg
-                  className="w-10 h-10 text-cyan-400/40"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                  />
-                </svg>
-              </div>
-              <p className="text-slate-400 text-sm mb-1">Empty Cap Board</p>
-              <p className="text-slate-500 text-xs">
-                Click "Cap!" to capture images
-              </p>
-            </div>
-          </div>
-        ) : (
-          <div
-            className="grid grid-cols-4 gap-2 auto-rows-fr"
-            role="grid"
-            aria-label="Cap board grid"
-          >
-            {items.map((item) => (
-              <div
-                key={item.id}
-                className="group relative aspect-square rounded-lg overflow-hidden bg-slate-800/40 backdrop-blur-sm border border-cyan-500/20 hover:border-cyan-500/40 transition-all duration-200 hover:shadow-lg hover:shadow-cyan-500/10"
-              >
-                <img
-                  src={item.thumbnailUrl || item.imageUrl}
-                  alt={item.metadata?.title || 'Captured image'}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-                {/* Remove button on hover */}
-                {onRemoveItem && (
-                  <button
-                    onClick={() => onRemoveItem(item.id)}
-                    className="absolute top-1 right-1 w-5 h-5 rounded-full bg-red-500/80 hover:bg-red-500 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center text-xs font-bold shadow-lg"
-                    aria-label="Remove item"
-                  >
-                    ×
-                  </button>
-                )}
-                {/* Metadata tooltip on hover */}
-                {item.metadata && (
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900/90 to-transparent p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                    {item.metadata.title && (
-                      <div className="text-xs text-slate-200 truncate">
-                        {item.metadata.title}
-                      </div>
-                    )}
-                    {item.metadata.domain && (
-                      <div className="text-[10px] text-cyan-400/80 truncate">
-                        {item.metadata.domain}
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
+      {/* Warning Banner */}
+      {isNearLimit && (
+        <div
+          className={`px-6 py-2 text-xs border-b ${
+            isAtLimit
+              ? 'bg-red-500/20 text-red-400 border-red-500/30'
+              : 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30'
+          }`}
+        >
+          {isAtLimit
+            ? `Board full (${itemCount}/${maxItems})`
+            : `Approaching limit (${itemCount}/${maxItems})`}
+        </div>
+      )}
+
+      {/* ImageGrid Component */}
+      <div className="flex-1 overflow-y-auto">
+        <ImageGrid
+          items={items}
+          slots={gridConfig.slots}
+          columns={gridConfig.columns}
+          virtualScrolling={gridConfig.virtualScrolling}
+          placeholderText="Click Cap! to capture images"
+          onRemoveItem={onRemoveItem}
+        />
       </div>
 
       {/* Action Buttons */}
-      <div className="px-4 py-4 border-t border-cyan-500/20 bg-slate-900/50 backdrop-blur-sm space-y-2">
+      <div className="px-4 py-4 border-t border-teal-500/20 glass-light space-y-2">
         <div className="grid grid-cols-2 gap-2">
           <ActionButton
             label="Clear Cap Board"
@@ -246,7 +178,7 @@ export const CapBoardPanel: React.FC<CapBoardPanelProps> = ({
       {/* Clear Confirmation Modal */}
       {showClearConfirm && (
         <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-slate-800/95 backdrop-blur-xl rounded-xl border border-red-500/30 shadow-2xl p-6 max-w-sm mx-4">
+          <div className="glass-strong rounded-xl border border-red-500/30 shadow-2xl p-6 max-w-sm mx-4">
             <h3 className="text-lg font-semibold text-slate-200 mb-2">
               Clear Cap Board?
             </h3>

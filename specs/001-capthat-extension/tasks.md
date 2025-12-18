@@ -127,11 +127,11 @@ description: "Task list for CapThat Chrome Extension implementation"
 
 ### UI Components
 
-- [ ] T034 [P] [US2] Create Header component at `extension/ui/components/Header.tsx` (browser-like header with title "CapThat!", styled with Tailwind dark mode, glassmorphism effects, teal/cyan accents)
-- [ ] T035 [P] [US2] Create ImageGrid component at `extension/ui/components/ImageGrid.tsx` (grid layout with N slots, placeholder support, virtual scrolling configuration, Tailwind styling)
-- [ ] T036 [P] [US2] Create ImageCard component at `extension/ui/components/ImageCard.tsx` (individual image card with thumbnail display, metadata display, hover states, Tailwind styling)
-- [ ] T037 [P] [US2] Create CapBoardPanel component at `extension/ui/components/CapBoardPanel.tsx` (main panel component with Header, ImageGrid for captured items, action buttons, empty state with placeholder text "Click Cap! to capture images", Tailwind styling)
-- [ ] T038 [P] [US2] Create ActionButton component at `extension/ui/components/ActionButton.tsx` (reusable button component with states: default, hover, active, disabled, keyboard accessible, Tailwind styling with teal/cyan accents, smooth transitions)
+- [X] T034 [P] [US2] Create Header component at `extension/ui/components/Header.tsx` (browser-like header with title "CapThat!", styled with Tailwind dark mode, glassmorphism effects, teal/cyan accents)
+- [X] T035 [P] [US2] Create ImageGrid component at `extension/ui/components/ImageGrid.tsx` (grid layout with N slots, placeholder support, virtual scrolling configuration, Tailwind styling)
+- [X] T036 [P] [US2] Create ImageCard component at `extension/ui/components/ImageCard.tsx` (individual image card with thumbnail display, metadata display, hover states, Tailwind styling)
+- [X] T037 [P] [US2] Create CapBoardPanel component at `extension/ui/components/CapBoardPanel.tsx` (main panel component with Header, ImageGrid for captured items, action buttons, empty state with placeholder text "Click Cap! to capture images", Tailwind styling)
+- [X] T038 [P] [US2] Create ActionButton component at `extension/ui/components/ActionButton.tsx` (reusable button component with states: default, hover, active, disabled, keyboard accessible, Tailwind styling with teal/cyan accents, smooth transitions)
 
 ### Panel Integration
 
