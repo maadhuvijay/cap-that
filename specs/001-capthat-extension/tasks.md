@@ -42,7 +42,7 @@ description: "Task list for CapThat Chrome Extension implementation"
 - [X] T006 Implement strict CSP in `extension/manifest.json` (no eval, no inline scripts)
 - [X] T007 Create background service worker stub at `extension/background/service-worker.ts`
 - [X] T008 Create content script stub at `extension/content/content-script.ts`
-- [ ] T009 Create side panel HTML at `extension/ui/side-panel.html`
+- [X] T009 Create side panel HTML at `extension/ui/side-panel.html`
 - [ ] T010 Setup build scripts in `package.json` for extension build
 - [ ] T011 Test extension loads in Chrome via "Load unpacked" without errors
 - [ ] T012 Verify Next.js setup exists at `app/` directory
