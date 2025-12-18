@@ -35,6 +35,8 @@ chrome.runtime.onConnect.addListener((port) => {
 chrome.action.onClicked.addListener((tab) => {
   console.log('Action button clicked for tab:', tab.id);
   // Open side panel
-  chrome.sidePanel.open({ tabId: tab.id });
+  if (tab.id !== undefined) {
+    chrome.sidePanel.open({ tabId: tab.id });
+  }
 });
 
