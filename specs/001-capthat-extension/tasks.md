@@ -34,10 +34,10 @@ description: "Task list for CapThat Chrome Extension implementation"
 
 **Independent Test**: Extension loads in Chrome via "Load unpacked" without errors.
 
-- [ ] T001 Create extension directory structure at `extension/`
-- [ ] T002 Initialize TypeScript configuration at `extension/tsconfig.json`
-- [ ] T003 Configure Vite build system at `extension/vite.config.ts` for MV3 extension
-- [ ] T004 Create manifest.json at `extension/manifest.json` with MV3 structure
+- [X] T001 Create extension directory structure at `extension/`
+- [X] T002 Initialize TypeScript configuration at `extension/tsconfig.json`
+- [X] T003 Configure Vite build system at `extension/vite.config.ts` for MV3 extension
+- [X] T004 Create manifest.json at `extension/manifest.json` with MV3 structure
 - [ ] T005 Configure minimal permissions in `extension/manifest.json` (storage, activeTab, scripting, sidePanel)
 - [ ] T006 Implement strict CSP in `extension/manifest.json` (no eval, no inline scripts)
 - [ ] T007 Create background service worker stub at `extension/background/service-worker.ts`
