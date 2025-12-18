@@ -167,12 +167,194 @@ Checking prerequisites and loading the implementation context for T044.
 ```bash
 cd c:\dev\capthat\cap-that && bash .specify/scripts/bash/check-prerequisites.sh --json --require-tasks --include-tasks
 ```
+
+```
+At C:\Users\maadh\AppData\Local\Temp\ps-script-b835872d-205c-45da-8294-1ffc07edb939.ps1:7 char:28
++ cd c:\dev\capthat\cap-that &amp;&amp; bash .specify/scripts/bash/check-prereq ...
++                            ~~
+The token '&amp;&amp;' is not a valid statement separator in this version.
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : InvalidEndOfLine
+ 
+
+```
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: specs/001-capthat-extension/tasks.md</summary>
+
 </details>
 </tool-use>
 
 ---
 
 
+
+---
+
+
+Reviewing the current CapBoardPanel and ActionButton components to add the action buttons.
+
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: extension/ui/components/CapBoardPanel.tsx</summary>
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: extension/ui/components/ActionButton.tsx</summary>
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: extension/ui/components/index.ts</summary>
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Checking how CapBoardPanel is used in the side panel to verify the buttons are wired:
+
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: extension/ui/side-panel.tsx</summary>
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Action buttons are already implemented in CapBoardPanel. Verifying completeness and marking the task as done:
+
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="grep">
+<details>
+<summary>Tool use: **grep** • Grep for "T044" in "specs/001-capthat-extension/tasks.md" • 1 match</summary>
+
+Output mode: content
+
+
+| File | Content | Line |
+|------|------|------|
+| `specs/001-capthat-extension/tasks.md` | `- [ ] T044 [US2] Add action buttons to CapBoardPanel: Clear Cap Board, Export JSON, Export CapBoard, Export Individual Caps (wire up button components, add to panel layout, style with Tailwind)` | L143 |
+
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Action buttons are implemented. Marking T044 as complete:
+
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="search_replace">
+
+<details><summary>Tool use: **search_replace** • Edit file: specs/001-capthat-extension/tasks.md</summary>
+
+**Chunk 1**
+Lines added: 1, lines removed: 1
+
+```diff
+@@ -141,5 +141,5 @@
+  - [X] T042 [US2] Import global styles at &#96;extension/ui/globals.css&#96; (Tailwind directives, dark mode base styles, custom utilities for glassmorphism)
+  - [X] T043 [US2] Implement empty grid placeholder in &#96;extension/ui/components/ImageGrid.tsx&#96; (display placeholder text "Click Cap! to capture images" when items array is empty, style with Tailwind)
+- - [ ] T044 [US2] Add action buttons to CapBoardPanel: Clear Cap Board, Export JSON, Export CapBoard, Export Individual Caps (wire up button components, add to panel layout, style with Tailwind)
++ - [X] T044 [US2] Add action buttons to CapBoardPanel: Clear Cap Board, Export JSON, Export CapBoard, Export Individual Caps (wire up button components, add to panel layout, style with Tailwind)
+  
+  **Checkpoint**: At this point, User Story 2 should be fully functional and testable independently
+```
+
+</details>
+
+</tool-use>
+
+---
+
+
+
+---
+
+
+Verifying the implementation and checking for lint errors:
+
+
+---
+
+<tool-use data-tool-type="generic" data-tool-name="read_lints">
+<details>
+          <summary>Tool use: **read_lints** • Read lints for 2 files</summary>
+      
+Lint paths:
+
+- `extension/ui/components/CapBoardPanel.tsx`
+- `specs/001-capthat-extension/tasks.md`
+
+Lint results
+
+
+**No lint errors found**
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+**Task T044 is complete.**
+
+## Summary
+
+T044 required adding action buttons to CapBoardPanel. The buttons are already implemented:
+
+1. **Clear Cap Board** — wired to `handleClear` with confirmation modal
+2. **Export JSON** — wired to `handleExportJSON`
+3. **Export CapBoard** — wired to `handleExportZIP`
+4. **Export Individual Caps** — wired to `handleExportIndividual`
+
+All buttons:
+- Use the `ActionButton` component
+- Include icons
+- Styled with Tailwind CSS
+- Arranged in a 2x2 grid at the bottom of the panel
+- Connected to handlers in `side-panel.tsx`
+
+The task has been marked as complete in `tasks.md`. The implementation meets the requirements: buttons are wired, added to the panel layout, and styled with Tailwind.
 
 ---
 
