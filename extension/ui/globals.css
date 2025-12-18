@@ -1,6 +1,11 @@
 /**
  * Global Styles for CapThat Extension
  * Glassmorphism utilities and dark theme base styles
+ * 
+ * Task: T042 - Import global styles at extension/ui/globals.css
+ * - Tailwind directives: @import "tailwindcss" (Tailwind v4 syntax)
+ * - Dark mode base styles: :root and body styles
+ * - Custom utilities for glassmorphism: .glass, .glass-light, .glass-strong, etc.
  */
 
 @import "tailwindcss";

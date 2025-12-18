@@ -135,12 +135,12 @@ description: "Task list for CapThat Chrome Extension implementation"
 
 ### Panel Integration
 
-- [ ] T039 [US2] Integrate React components in `extension/ui/side-panel.tsx` (import and render CapBoardPanel, setup React root, configure Tailwind CSS, handle side panel lifecycle)
-- [ ] T040 [US2] Configure side panel in `extension/manifest.json` (add side_panel field with default_path: "ui/side-panel.html", configure side panel action)
-- [ ] T041 [US2] Setup Tailwind CSS configuration at `extension/ui/tailwind.config.js` (configure dark mode, glassmorphism utilities, teal/cyan color palette, responsive breakpoints)
-- [ ] T042 [US2] Import global styles at `extension/ui/globals.css` (Tailwind directives, dark mode base styles, custom utilities for glassmorphism)
-- [ ] T043 [US2] Implement empty grid placeholder in `extension/ui/components/ImageGrid.tsx` (display placeholder text "Click Cap! to capture images" when items array is empty, style with Tailwind)
-- [ ] T044 [US2] Add action buttons to CapBoardPanel: Clear Cap Board, Export JSON, Export CapBoard, Export Individual Caps (wire up button components, add to panel layout, style with Tailwind)
+- [X] T039 [US2] Integrate React components in `extension/ui/side-panel.tsx` (import and render CapBoardPanel, setup React root, configure Tailwind CSS, handle side panel lifecycle)
+- [X] T040 [US2] Configure side panel in `extension/manifest.json` (add side_panel field with default_path: "ui/side-panel.html", configure side panel action)
+- [X] T041 [US2] Setup Tailwind CSS configuration at `extension/ui/tailwind.config.js` (configure dark mode, glassmorphism utilities, teal/cyan color palette, responsive breakpoints)
+- [X] T042 [US2] Import global styles at `extension/ui/globals.css` (Tailwind directives, dark mode base styles, custom utilities for glassmorphism)
+- [X] T043 [US2] Implement empty grid placeholder in `extension/ui/components/ImageGrid.tsx` (display placeholder text "Click Cap! to capture images" when items array is empty, style with Tailwind)
+- [X] T044 [US2] Add action buttons to CapBoardPanel: Clear Cap Board, Export JSON, Export CapBoard, Export Individual Caps (wire up button components, add to panel layout, style with Tailwind)
 
 **Checkpoint**: At this point, User Story 2 should be fully functional and testable independently
 

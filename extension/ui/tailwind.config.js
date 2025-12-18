@@ -1,3 +1,13 @@
+/**
+ * Tailwind CSS Configuration for CapThat Extension
+ * 
+ * Task: T041 - Setup Tailwind CSS configuration
+ * - Dark mode: class-based
+ * - Glassmorphism utilities: backdrop blur and glass effects
+ * - Teal/cyan color palette: primary accent colors
+ * - Responsive breakpoints: desktop-first (1024px+)
+ */
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -7,6 +17,14 @@ export default {
   ],
   darkMode: 'class', // Enable class-based dark mode
   theme: {
+    // Responsive breakpoints (desktop-first approach)
+    screens: {
+      'sm': '640px',   // Small devices (tablets)
+      'md': '768px',   // Medium devices (small laptops)
+      'lg': '1024px',  // Large devices (desktops) - primary target
+      'xl': '1280px',  // Extra large devices
+      '2xl': '1536px', // 2X large devices
+    },
     extend: {
       // Color Palette: Teal/Cyan/Electric Blue (UI-003)
       colors: {
