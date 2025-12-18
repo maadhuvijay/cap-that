@@ -507,3 +507,1300 @@ Output mode: content
 
 ---
 
+
+Updating components to match the task requirements. Creating a todo list and implementing T034-T038:
+
+
+---
+
+<tool-use data-tool-type="task" data-tool-name="todo_write">
+<details><summary>Tool use: **todo_write** • Todo List</summary>
+
+- [-] T034: Create Header component with title 'CapThat!' and glassmorphism styling
+- [ ] T035: Create ImageGrid component with N slots, placeholder support, virtual scrolling config
+- [ ] T036: Create ImageCard component with thumbnail display, metadata, hover states
+- [ ] T037: Create CapBoardPanel component with Header, ImageGrid, action buttons, empty state
+- [ ] T038: Create ActionButton component with states, keyboard accessible, smooth transitions
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: specs/001-capthat-extension/ui-components/Header.tsx</summary>
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Updating components to match the task requirements, starting with the Header component:
+
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="search_replace">
+
+<details><summary>Tool use: **search_replace** • Edit file: extension/ui/components/Header.tsx</summary>
+
+**Chunk 1**
+Lines added: 12, lines removed: 74
+
+```diff
+@@ -1,86 +1,24 @@
+  /**
+   * Header Component
+-  * Browser-like header with URL bar and navigation arrows
+-  * Futuristic dark theme with glassmorphism
++  * Browser-like header with title "CapThat!"
++  * Styled with Tailwind dark mode, glassmorphism effects, teal/cyan accents
++  * 
++  * Task: T034 - Create Header component at extension/ui/components/Header.tsx
+   */
+  
+  import React from 'react';
+  
+  interface HeaderProps {
+-   currentUrl?: string;
+-   onBack?: () =&gt; void;
+-   onForward?: () =&gt; void;
+-   canGoBack?: boolean;
+-   canGoForward?: boolean;
++   className?: string;
+  }
+  
+- export const Header: React.FC&lt;HeaderProps&gt; = ({
+-   currentUrl = 'https://www.example.com',
+-   onBack,
+-   onForward,
+-   canGoBack = false,
+-   canGoForward = false,
+- }) =&gt; {
++ export const Header: React.FC&lt;HeaderProps&gt; = ({ className = '' }) =&gt; {
+    return (
+-     &lt;header className="relative w-full bg-gradient-to-r from-slate-900/95 via-slate-800/95 to-slate-900/95 backdrop-blur-md border-b border-cyan-500/20 shadow-lg shadow-cyan-500/10"&gt;
+-       &lt;div className="flex items-center gap-2 px-4 py-3"&gt;
+-         {/* Navigation Arrows */}
+-         &lt;div className="flex items-center gap-1"&gt;
+-           &lt;button
+-             onClick={onBack}
+-             disabled={!canGoBack}
+-             className="flex items-center justify-center w-8 h-8 rounded-md bg-slate-700/50 hover:bg-slate-600/70 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200 hover:scale-105 border border-cyan-500/10 hover:border-cyan-500/30 hover:shadow-sm hover:shadow-cyan-500/20"
+-             aria-label="Go back"
+-           &gt;
+-             &lt;svg
+-               className="w-4 h-4 text-cyan-400"
+-               fill="none"
+-               stroke="currentColor"
+-               viewBox="0 0 24 24"
+-             &gt;
+-               &lt;path
+-                 strokeLinecap="round"
+-                 strokeLinejoin="round"
+-                 strokeWidth={2}
+-                 d="M15 19l-7-7 7-7"
+-               /&gt;
+-             &lt;/svg&gt;
+-           &lt;/button&gt;
+-           &lt;button
+-             onClick={onForward}
+-             disabled={!canGoForward}
+-             className="flex items-center justify-center w-8 h-8 rounded-md bg-slate-700/50 hover:bg-slate-600/70 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200 hover:scale-105 border border-cyan-500/10 hover:border-cyan-500/30 hover:shadow-sm hover:shadow-cyan-500/20"
+-             aria-label="Go forward"
+-           &gt;
+-             &lt;svg
+-               className="w-4 h-4 text-cyan-400"
+-               fill="none"
+-               stroke="currentColor"
+-               viewBox="0 0 24 24"
+-             &gt;
+-               &lt;path
+-                 strokeLinecap="round"
+-                 strokeLinejoin="round"
+-                 strokeWidth={2}
+-                 d="M9 5l7 7-7 7"
+-               /&gt;
+-             &lt;/svg&gt;
+-           &lt;/button&gt;
+-         &lt;/div&gt;
+- 
+-         {/* URL Bar */}
+-         &lt;div className="flex-1 relative"&gt;
+-           &lt;input
+-             type="text"
+-             value={currentUrl}
+-             readOnly
+-             className="w-full px-4 py-2 pr-10 bg-slate-800/60 backdrop-blur-sm border border-cyan-500/20 rounded-lg text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 transition-all duration-200"
+-             aria-label="Current page URL"
+-           /&gt;
+-           &lt;div className="absolute right-3 top-1/2 -translate-y-1/2"&gt;
+-             &lt;div className="w-2 h-2 rounded-full bg-cyan-400/60 animate-pulse" /&gt;
+-           &lt;/div&gt;
+-         &lt;/div&gt;
+-       &lt;/div&gt;
++     &lt;header
++       className={&#96;glass-panel w-full px-6 py-4 border-b border-teal-500/20 shadow-lg shadow-teal-500/10 ${className}&#96;}
++     &gt;
++       &lt;h1 className="text-2xl font-bold bg-gradient-to-r from-teal-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent"&gt;
++         CapThat!
++       &lt;/h1&gt;
+      &lt;/header&gt;
+    );
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="task" data-tool-name="todo_write">
+<details><summary>Tool use: **todo_write** • Todo List</summary>
+
+- [x] T034: Create Header component with title 'CapThat!' and glassmorphism styling
+- [-] T035: Create ImageGrid component with N slots, placeholder support, virtual scrolling config
+- [ ] T036: Create ImageCard component with thumbnail display, metadata, hover states
+- [ ] T037: Create CapBoardPanel component with Header, ImageGrid, action buttons, empty state
+- [ ] T038: Create ActionButton component with states, keyboard accessible, smooth transitions
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Updating the ImageGrid component to match T035 requirements:
+
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: extension/types/index.ts</summary>
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="search_replace">
+
+<details><summary>Tool use: **search_replace** • Edit file: extension/ui/components/ImageGrid.tsx</summary>
+
+**Chunk 1**
+Lines added: 30, lines removed: 30
+
+```diff
+@@ -1,48 +1,48 @@
+  /**
+   * ImageGrid Component
+-  * Main content grid of image cards
+-  * Handles empty state placeholders
++  * Grid layout with N slots, placeholder support, virtual scrolling configuration
++  * Styled with Tailwind CSS
++  * 
++  * Task: T035 - Create ImageGrid component at extension/ui/components/ImageGrid.tsx
+   */
+  
+  import React from 'react';
+  import { ImageCard } from './ImageCard';
+- 
+- interface ImageItem {
+-   id: string;
+-   imageUrl: string;
+-   alt?: string;
+-   metadata?: {
+-     title?: string;
+-     domain?: string;
+-   };
+-   isCaptured?: boolean;
+- }
++ import type { CapturedItem } from '../../types';
+  
+  interface ImageGridProps {
+-   images: ImageItem[];
+-   onCapture: (id: string) =&gt; void;
+-   emptyMessage?: string;
+-   gridCols?: number;
++   items: CapturedItem[];
++   slots?: number;
++   columns?: number;
++   virtualScrolling?: boolean;
++   placeholderText?: string;
++   onRemoveItem?: (itemId: string) =&gt; void;
+  }
+  
+  export const ImageGrid: React.FC&lt;ImageGridProps&gt; = ({
+-   images,
+-   onCapture,
+-   emptyMessage = 'No images found on this page',
+-   gridCols = 2,
++   items,
++   slots = 10,
++   columns = 5,
++   virtualScrolling = true,
++   placeholderText = 'Click Cap! to capture images',
++   onRemoveItem,
+  }) =&gt; {
+-   const gridColsClass = {
+-     2: 'grid-cols-2',
+-     3: 'grid-cols-3',
+-     4: 'grid-cols-4',
+-   }[gridCols] || 'grid-cols-2';
+- 
+-   if (images.length === 0) {
++   // Create array of slots (filled with items + empty placeholders)
++   const slotCount = Math.max(slots, items.length);
++   const slotsArray = Array.from({ length: slotCount }, (_, index) =&gt; {
++     return items[index] || null;
++   });
++ 
++   // Grid columns class based on columns prop
++   const gridColsClass = &#96;grid-cols-${columns}&#96;;
++ 
++   // Empty state
++   if (items.length === 0) {
+      return (
+        &lt;div className="flex items-center justify-center min-h-[400px] p-8"&gt;
+          &lt;div className="text-center"&gt;
+-           &lt;div className="w-16 h-16 mx-auto mb-4 rounded-full bg-slate-800/60 backdrop-blur-sm border border-cyan-500/20 flex items-center justify-center"&gt;
++           &lt;div className="w-16 h-16 mx-auto mb-4 rounded-full glass-card flex items-center justify-center"&gt;
+              &lt;svg
+-               className="w-8 h-8 text-cyan-400/60"
++               className="w-8 h-8 text-teal-400/60"
+                fill="none"
+                stroke="currentColor"
+```
+
+**Chunk 2**
+Lines added: 1, lines removed: 1
+
+```diff
+@@ -57,5 +57,5 @@
+              &lt;/svg&gt;
+            &lt;/div&gt;
+-           &lt;p className="text-slate-400 text-sm"&gt;{emptyMessage}&lt;/p&gt;
++           &lt;p className="text-slate-400 text-sm"&gt;{placeholderText}&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+```
+
+**Chunk 3**
+Lines added: 50, lines removed: 13
+
+```diff
+@@ -65,18 +65,55 @@
+    return (
+      &lt;div
+-       className={&#96;grid ${gridColsClass} gap-4 p-4 auto-rows-fr&#96;}
++       className={&#96;grid ${gridColsClass} gap-3 p-4 auto-rows-fr&#96;}
+        role="grid"
+-       aria-label="Image grid"
+-     &gt;
+-       {images.map((image) =&gt; (
+-         &lt;ImageCard
+-           key={image.id}
+-           imageUrl={image.imageUrl}
+-           alt={image.alt}
+-           onCapture={() =&gt; onCapture(image.id)}
+-           isCaptured={image.isCaptured}
+-           metadata={image.metadata}
+-         /&gt;
+-       ))}
++       aria-label="Cap board grid"
++     &gt;
++       {slotsArray.map((item, index) =&gt; {
++         if (!item) {
++           // Empty slot placeholder
++           return (
++             &lt;div
++               key={&#96;empty-${index}&#96;}
++               className="aspect-square rounded-lg glass-card border border-teal-500/10 flex items-center justify-center"
++             &gt;
++               &lt;div className="text-center p-4"&gt;
++                 &lt;div className="w-8 h-8 mx-auto mb-2 rounded-full bg-teal-500/10 flex items-center justify-center"&gt;
++                   &lt;svg
++                     className="w-4 h-4 text-teal-400/40"
++                     fill="none"
++                     stroke="currentColor"
++                     viewBox="0 0 24 24"
++                   &gt;
++                     &lt;path
++                       strokeLinecap="round"
++                       strokeLinejoin="round"
++                       strokeWidth={2}
++                       d="M12 4v16m8-8H4"
++                     /&gt;
++                   &lt;/svg&gt;
++                 &lt;/div&gt;
++                 &lt;p className="text-xs text-slate-500"&gt;{placeholderText}&lt;/p&gt;
++               &lt;/div&gt;
++             &lt;/div&gt;
++           );
++         }
++ 
++         // Filled slot with captured item
++         const imageUrl =
++           typeof item.imageReference.urlOrBlob === 'string'
++             ? item.imageReference.urlOrBlob
++             : item.imageReference.thumbnail || '';
++ 
++         return (
++           &lt;ImageCard
++             key={item.id}
++             item={item}
++             imageUrl={imageUrl}
++             thumbnail={item.imageReference.thumbnail}
++             metadata={item.metadata}
++             onRemove={onRemoveItem ? () =&gt; onRemoveItem(item.id) : undefined}
++           /&gt;
++         );
++       })}
+      &lt;/div&gt;
+    );
+```
+
+</details>
+
+</tool-use>
+
+---
+
+
+
+---
+
+
+Updating the ImageCard component to match T036 requirements:
+
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="search_replace">
+
+<details><summary>Tool use: **search_replace** • Edit file: extension/ui/components/ImageCard.tsx</summary>
+
+**Chunk 1**
+Lines added: 64, lines removed: 61
+
+```diff
+@@ -1,92 +1,95 @@
+  /**
+   * ImageCard Component
+-  * Individual image card with floating "Cap!" button overlay
+-  * Hover effects with lift and glow
++  * Individual image card with thumbnail display, metadata display, hover states
++  * Styled with Tailwind CSS
++  * 
++  * Task: T036 - Create ImageCard component at extension/ui/components/ImageCard.tsx
+   */
+  
+  import React from 'react';
+- import { ActionButton } from './ActionButton';
++ import type { CapturedItem } from '../../types';
+  
+  interface ImageCardProps {
++   item: CapturedItem;
+    imageUrl: string;
+-   alt?: string;
+-   onCapture: () =&gt; void;
+-   isCaptured?: boolean;
+-   metadata?: {
+-     title?: string;
+-     domain?: string;
+-   };
++   thumbnail?: string;
++   metadata?: Record&lt;string, unknown&gt;;
++   onRemove?: () =&gt; void;
+  }
+  
+  export const ImageCard: React.FC&lt;ImageCardProps&gt; = ({
++   item,
+    imageUrl,
+-   alt = 'Capturable image',
+-   onCapture,
+-   isCaptured = false,
++   thumbnail,
+    metadata,
++   onRemove,
+  }) =&gt; {
++   // Extract metadata fields
++   const title = metadata?.title as string | undefined;
++   const domain = metadata?.domain as string | undefined;
++ 
++   // Use thumbnail if available, otherwise fall back to imageUrl
++   const displayImage = thumbnail || imageUrl;
++ 
++   // Quality indicator badge
++   const showQualityIndicator =
++     item.qualityIndicator === 'url-only' || item.qualityIndicator === 'fallback';
++ 
+    return (
+-     &lt;div className="group relative w-full aspect-square rounded-xl overflow-hidden bg-slate-800/40 backdrop-blur-sm border border-cyan-500/20 hover:border-cyan-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/20 hover:-translate-y-1"&gt;
+-       {/* Image */}
++     &lt;div className="group relative w-full aspect-square rounded-lg overflow-hidden glass-card border border-teal-500/20 hover:border-teal-500/40 transition-all duration-300 hover-lift hover-glow-teal"&gt;
++       {/* Thumbnail Image */}
+        &lt;div className="absolute inset-0"&gt;
+          &lt;img
+-           src={imageUrl}
+-           alt={alt}
++           src={displayImage}
++           alt={title || 'Captured image'}
+            className="w-full h-full object-cover"
+            loading="lazy"
++           onError={(e) =&gt; {
++             // Fallback to a placeholder if image fails to load
++             const target = e.target as HTMLImageElement;
++             target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100"%3E%3Crect fill="%231a1a1a" width="100" height="100"/%3E%3Ctext x="50" y="50" text-anchor="middle" dominant-baseline="middle" fill="%23a0a0a0" font-size="12"%3EImage%3C/text%3E%3C/svg%3E';
++           }}
+          /&gt;
+-         {/* Overlay gradient for better button visibility */}
+-         &lt;div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" /&gt;
++         {/* Overlay gradient for better metadata visibility */}
++         &lt;div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" /&gt;
+        &lt;/div&gt;
+  
+-       {/* Metadata (optional) */}
+-       {metadata &amp;&amp; (metadata.title || metadata.domain) &amp;&amp; (
+-         &lt;div className="absolute top-2 left-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"&gt;
+-           &lt;div className="bg-slate-900/80 backdrop-blur-sm rounded-lg px-2 py-1 text-xs text-slate-200"&gt;
+-             {metadata.title &amp;&amp; (
+-               &lt;div className="font-medium truncate"&gt;{metadata.title}&lt;/div&gt;
+-             )}
+-             {metadata.domain &amp;&amp; (
+-               &lt;div className="text-cyan-400/80 text-[10px] truncate"&gt;
+-                 {metadata.domain}
+-               &lt;/div&gt;
+-             )}
++       {/* Quality Indicator Badge */}
++       {showQualityIndicator &amp;&amp; (
++         &lt;div className="absolute top-2 left-2 z-10"&gt;
++           &lt;div className="glass-strong rounded-full px-2 py-1 text-xs font-medium text-yellow-400 border border-yellow-500/30"&gt;
++             ⚠ Fallback
+            &lt;/div&gt;
+          &lt;/div&gt;
+        )}
+  
+-       {/* Cap! Button - Floating in bottom-right */}
+-       &lt;div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0"&gt;
++       {/* Remove Button (X) - appears on hover */}
++       {onRemove &amp;&amp; (
+          &lt;button
+-           onClick={onCapture}
+-           disabled={isCaptured}
+-           className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-white font-bold text-sm shadow-lg shadow-cyan-500/40 hover:shadow-cyan-400/50 transition-all duration-200 hover:scale-110 active:scale-95 border border-cyan-300/30 disabled:opacity-50 disabled:cursor-not-allowed"
+-           aria-label={isCaptured ? 'Already captured' : 'Capture image'}
+-         &gt;
+-           {isCaptured ? (
+-             &lt;svg
+-               className="w-5 h-5"
+-               fill="none"
+-               stroke="currentColor"
+-               viewBox="0 0 24 24"
+-             &gt;
+-               &lt;path
+-                 strokeLinecap="round"
+-                 strokeLinejoin="round"
+-                 strokeWidth={2}
+-                 d="M5 13l4 4L19 7"
+-               /&gt;
+-             &lt;/svg&gt;
+-           ) : (
+-             'Cap!'
+-           )}
++           onClick={(e) =&gt; {
++             e.stopPropagation();
++             onRemove();
++           }}
++           className="absolute top-2 right-2 z-10 w-6 h-6 rounded-full bg-red-500/90 hover:bg-red-500 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center text-xs font-bold shadow-lg focus-ring"
++           aria-label="Remove item"
++         &gt;
++           ×
+          &lt;/button&gt;
+-       &lt;/div&gt;
++       )}
+  
+-       {/* Captured indicator badge */}
+-       {isCaptured &amp;&amp; (
+-         &lt;div className="absolute top-2 right-2"&gt;
+-           &lt;div className="bg-cyan-500/90 backdrop-blur-sm rounded-full px-2 py-1 text-xs font-medium text-white shadow-lg"&gt;
+-             ✓ Captured
++       {/* Metadata Display - appears on hover */}
++       {(title || domain) &amp;&amp; (
++         &lt;div className="absolute bottom-0 left-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"&gt;
++           &lt;div className="glass-strong rounded-t-lg px-3 py-2"&gt;
++             {title &amp;&amp; (
++               &lt;div className="text-xs font-medium text-slate-200 truncate mb-1"&gt;
++                 {title}
++               &lt;/div&gt;
++             )}
++             {domain &amp;&amp; (
++               &lt;div className="text-[10px] text-teal-400/80 truncate"&gt;
++                 {domain}
++               &lt;/div&gt;
++             )}
+            &lt;/div&gt;
+          &lt;/div&gt;
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="task" data-tool-name="todo_write">
+<details><summary>Tool use: **todo_write** • Todo List</summary>
+
+- [x] T034: Create Header component with title 'CapThat!' and glassmorphism styling
+- [x] T035: Create ImageGrid component with N slots, placeholder support, virtual scrolling config
+- [x] T036: Create ImageCard component with thumbnail display, metadata, hover states
+- [-] T037: Create CapBoardPanel component with Header, ImageGrid, action buttons, empty state
+- [ ] T038: Create ActionButton component with states, keyboard accessible, smooth transitions
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Updating the CapBoardPanel component to match T037 requirements:
+
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="search_replace">
+
+<details><summary>Tool use: **search_replace** • Edit file: extension/ui/components/CapBoardPanel.tsx</summary>
+
+**Chunk 1**
+Lines added: 9, lines removed: 14
+
+```diff
+@@ -1,25 +1,20 @@
+  /**
+   * CapBoardPanel Component
+-  * Right-side floating panel with board grid and action buttons
+-  * Futuristic glassmorphism design
++  * Main panel component with Header, ImageGrid for captured items, action buttons
++  * Empty state with placeholder text "Click Cap! to capture images"
++  * Styled with Tailwind CSS
++  * 
++  * Task: T037 - Create CapBoardPanel component at extension/ui/components/CapBoardPanel.tsx
+   */
+  
+  import React, { useState } from 'react';
++ import { Header } from './Header';
++ import { ImageGrid } from './ImageGrid';
+  import { ActionButton } from './ActionButton';
+- 
+- interface CapturedItem {
+-   id: string;
+-   imageUrl: string;
+-   thumbnailUrl?: string;
+-   sourceUrl: string;
+-   timestamp: number;
+-   metadata?: {
+-     title?: string;
+-     domain?: string;
+-   };
+- }
++ import type { CapturedItem, GridConfig } from '../../types';
+  
+  interface CapBoardPanelProps {
+    items: CapturedItem[];
++   gridConfig?: GridConfig;
+    onClear: () =&gt; void;
+    onExportJSON: () =&gt; void;
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="search_replace">
+
+<details><summary>Tool use: **search_replace** • Edit file: extension/ui/components/CapBoardPanel.tsx</summary>
+
+**Chunk 1**
+Lines added: 1, lines removed: undefined
+
+```diff
+@@ -28,4 +28,5 @@
+  export const CapBoardPanel: React.FC&lt;CapBoardPanelProps&gt; = ({
+    items,
++   gridConfig = { slots: 10, columns: 5, virtualScrolling: true },
+    onClear,
+    onExportJSON,
+```
+
+**Chunk 2**
+Lines added: 29, lines removed: 93
+
+```diff
+@@ -52,101 +53,37 @@
+  
+    return (
+-     &lt;div className="fixed right-0 top-0 h-full w-96 bg-gradient-to-br from-slate-900/95 via-slate-800/95 to-slate-900/95 backdrop-blur-xl border-l border-cyan-500/20 shadow-2xl shadow-cyan-500/10 flex flex-col"&gt;
+-       {/* Header */}
+-       &lt;div className="px-6 py-4 border-b border-cyan-500/20 bg-slate-900/50 backdrop-blur-sm"&gt;
+-         &lt;h2 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent"&gt;
+-           CapThat!
+-         &lt;/h2&gt;
+-         {isNearLimit &amp;&amp; (
+-           &lt;div
+-             className={&#96;mt-2 text-xs px-2 py-1 rounded ${
+-               isAtLimit
+-                 ? 'bg-red-500/20 text-red-400 border border-red-500/30'
+-                 : 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30'
+-             }&#96;}
+-           &gt;
+-             {isAtLimit
+-               ? &#96;Board full (${itemCount}/${maxItems})&#96;
+-               : &#96;Approaching limit (${itemCount}/${maxItems})&#96;}
+-           &lt;/div&gt;
+-         )}
+-       &lt;/div&gt;
++     &lt;div className="w-full h-full flex flex-col bg-dark-bg"&gt;
++       {/* Header Component */}
++       &lt;Header /&gt;
++ 
++       {/* Warning Banner */}
++       {isNearLimit &amp;&amp; (
++         &lt;div
++           className={&#96;px-6 py-2 text-xs border-b ${
++             isAtLimit
++               ? 'bg-red-500/20 text-red-400 border-red-500/30'
++               : 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30'
++           }&#96;}
++         &gt;
++           {isAtLimit
++             ? &#96;Board full (${itemCount}/${maxItems})&#96;
++             : &#96;Approaching limit (${itemCount}/${maxItems})&#96;}
++         &lt;/div&gt;
++       )}
+  
+-       {/* Board Grid */}
+-       &lt;div className="flex-1 overflow-y-auto p-4"&gt;
+-         {items.length === 0 ? (
+-           &lt;div className="flex items-center justify-center h-full"&gt;
+-             &lt;div className="text-center"&gt;
+-               &lt;div className="w-20 h-20 mx-auto mb-4 rounded-xl bg-slate-800/40 backdrop-blur-sm border border-cyan-500/20 flex items-center justify-center"&gt;
+-                 &lt;svg
+-                   className="w-10 h-10 text-cyan-400/40"
+-                   fill="none"
+-                   stroke="currentColor"
+-                   viewBox="0 0 24 24"
+-                 &gt;
+-                   &lt;path
+-                     strokeLinecap="round"
+-                     strokeLinejoin="round"
+-                     strokeWidth={2}
+-                     d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+-                   /&gt;
+-                 &lt;/svg&gt;
+-               &lt;/div&gt;
+-               &lt;p className="text-slate-400 text-sm mb-1"&gt;Empty Cap Board&lt;/p&gt;
+-               &lt;p className="text-slate-500 text-xs"&gt;
+-                 Click "Cap!" to capture images
+-               &lt;/p&gt;
+-             &lt;/div&gt;
+-           &lt;/div&gt;
+-         ) : (
+-           &lt;div
+-             className="grid grid-cols-4 gap-2 auto-rows-fr"
+-             role="grid"
+-             aria-label="Cap board grid"
+-           &gt;
+-             {items.map((item) =&gt; (
+-               &lt;div
+-                 key={item.id}
+-                 className="group relative aspect-square rounded-lg overflow-hidden bg-slate-800/40 backdrop-blur-sm border border-cyan-500/20 hover:border-cyan-500/40 transition-all duration-200 hover:shadow-lg hover:shadow-cyan-500/10"
+-               &gt;
+-                 &lt;img
+-                   src={item.thumbnailUrl || item.imageUrl}
+-                   alt={item.metadata?.title || 'Captured image'}
+-                   className="w-full h-full object-cover"
+-                   loading="lazy"
+-                 /&gt;
+-                 {/* Remove button on hover */}
+-                 {onRemoveItem &amp;&amp; (
+-                   &lt;button
+-                     onClick={() =&gt; onRemoveItem(item.id)}
+-                     className="absolute top-1 right-1 w-5 h-5 rounded-full bg-red-500/80 hover:bg-red-500 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center text-xs font-bold shadow-lg"
+-                     aria-label="Remove item"
+-                   &gt;
+-                     ×
+-                   &lt;/button&gt;
+-                 )}
+-                 {/* Metadata tooltip on hover */}
+-                 {item.metadata &amp;&amp; (
+-                   &lt;div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900/90 to-transparent p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"&gt;
+-                     {item.metadata.title &amp;&amp; (
+-                       &lt;div className="text-xs text-slate-200 truncate"&gt;
+-                         {item.metadata.title}
+-                       &lt;/div&gt;
+-                     )}
+-                     {item.metadata.domain &amp;&amp; (
+-                       &lt;div className="text-[10px] text-cyan-400/80 truncate"&gt;
+-                         {item.metadata.domain}
+-                       &lt;/div&gt;
+-                     )}
+-                   &lt;/div&gt;
+-                 )}
+-               &lt;/div&gt;
+-             ))}
+-           &lt;/div&gt;
+-         )}
++       {/* ImageGrid Component */}
++       &lt;div className="flex-1 overflow-y-auto"&gt;
++         &lt;ImageGrid
++           items={items}
++           slots={gridConfig.slots}
++           columns={gridConfig.columns}
++           virtualScrolling={gridConfig.virtualScrolling}
++           placeholderText="Click Cap! to capture images"
++           onRemoveItem={onRemoveItem}
++         /&gt;
+        &lt;/div&gt;
+  
+        {/* Action Buttons */}
+-       &lt;div className="px-4 py-4 border-t border-cyan-500/20 bg-slate-900/50 backdrop-blur-sm space-y-2"&gt;
++       &lt;div className="px-4 py-4 border-t border-teal-500/20 glass-light space-y-2"&gt;
+          &lt;div className="grid grid-cols-2 gap-2"&gt;
+            &lt;ActionButton
+```
+
+**Chunk 3**
+Lines added: 1, lines removed: 1
+
+```diff
+@@ -242,5 +179,5 @@
+        {showClearConfirm &amp;&amp; (
+          &lt;div className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center z-50"&gt;
+-           &lt;div className="bg-slate-800/95 backdrop-blur-xl rounded-xl border border-red-500/30 shadow-2xl p-6 max-w-sm mx-4"&gt;
++           &lt;div className="glass-strong rounded-xl border border-red-500/30 shadow-2xl p-6 max-w-sm mx-4"&gt;
+              &lt;h3 className="text-lg font-semibold text-slate-200 mb-2"&gt;
+                Clear Cap Board?
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="task" data-tool-name="todo_write">
+<details><summary>Tool use: **todo_write** • Todo List</summary>
+
+- [x] T034: Create Header component with title 'CapThat!' and glassmorphism styling
+- [x] T035: Create ImageGrid component with N slots, placeholder support, virtual scrolling config
+- [x] T036: Create ImageCard component with thumbnail display, metadata, hover states
+- [x] T037: Create CapBoardPanel component with Header, ImageGrid, action buttons, empty state
+- [-] T038: Create ActionButton component with states, keyboard accessible, smooth transitions
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Updating the ActionButton component to match T038 requirements:
+
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="search_replace">
+
+<details><summary>Tool use: **search_replace** • Edit file: extension/ui/components/ActionButton.tsx</summary>
+
+**Chunk 1**
+Lines added: 5, lines removed: 2
+
+```diff
+@@ -1,6 +1,9 @@
+  /**
+   * ActionButton Component
+-  * Reusable button with hover states and micro-interactions
+-  * Futuristic styling with teal/cyan accents
++  * Reusable button component with states: default, hover, active, disabled
++  * Keyboard accessible with smooth transitions
++  * Styled with Tailwind CSS with teal/cyan accents
++  * 
++  * Task: T038 - Create ActionButton component at extension/ui/components/ActionButton.tsx
+   */
+  
+```
+
+**Chunk 2**
+Lines added: 1, lines removed: undefined
+
+```diff
+@@ -15,4 +18,5 @@
+    icon?: React.ReactNode;
+    className?: string;
++   type?: 'button' | 'submit' | 'reset';
+  }
+  
+```
+
+**Chunk 3**
+Lines added: 7, lines removed: 4
+
+```diff
+@@ -25,15 +29,18 @@
+    icon,
+    className = '',
++   type = 'button',
+  }) =&gt; {
++   // Base styles: smooth transitions, keyboard accessibility
+    const baseStyles =
+-     'inline-flex items-center justify-center gap-2 font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95';
++     'inline-flex items-center justify-center gap-2 font-medium rounded-lg transition-smooth focus-ring disabled:opacity-50 disabled:cursor-not-allowed';
+  
++   // State styles: default, hover, active, disabled
+    const variantStyles = {
+      primary:
+-       'bg-gradient-to-r from-cyan-500/90 to-teal-500/90 hover:from-cyan-400 hover:to-teal-400 text-white border border-cyan-400/30 hover:border-cyan-300/50 shadow-lg shadow-cyan-500/20 hover:shadow-cyan-400/30 focus:ring-cyan-500',
++       'bg-gradient-to-r from-teal-500/90 to-cyan-500/90 hover:from-teal-400 hover:to-cyan-400 active:from-teal-600 active:to-cyan-600 text-white border border-teal-400/30 hover:border-teal-300/50 active:border-teal-500/70 shadow-lg shadow-teal-500/20 hover:shadow-teal-400/30 active:shadow-teal-500/40 focus:ring-teal-500 disabled:from-teal-500/50 disabled:to-cyan-500/50',
+      secondary:
+-       'bg-slate-700/60 hover:bg-slate-600/80 text-slate-200 border border-slate-600/50 hover:border-slate-500/70 shadow-md shadow-slate-900/50 hover:shadow-lg focus:ring-slate-500',
++       'bg-slate-700/60 hover:bg-slate-600/80 active:bg-slate-500/90 text-slate-200 border border-slate-600/50 hover:border-slate-500/70 active:border-slate-400/90 shadow-md shadow-slate-900/50 hover:shadow-lg active:shadow-xl focus:ring-slate-500 disabled:bg-slate-700/30',
+      danger:
+-       'bg-gradient-to-r from-red-600/90 to-rose-600/90 hover:from-red-500 hover:to-rose-500 text-white border border-red-500/30 hover:border-red-400/50 shadow-lg shadow-red-500/20 hover:shadow-red-400/30 focus:ring-red-500',
++       'bg-gradient-to-r from-red-600/90 to-rose-600/90 hover:from-red-500 hover:to-rose-500 active:from-red-700 active:to-rose-700 text-white border border-red-500/30 hover:border-red-400/50 active:border-red-600/70 shadow-lg shadow-red-500/20 hover:shadow-red-400/30 active:shadow-red-500/40 focus:ring-red-500 disabled:from-red-600/50 disabled:to-rose-600/50',
+    };
+  
+```
+
+**Chunk 4**
+Lines added: 13, lines removed: undefined
+
+```diff
+@@ -43,11 +50,24 @@
+      lg: 'px-6 py-3 text-base',
+    };
++ 
++   // Handle keyboard events for accessibility
++   const handleKeyDown = (e: React.KeyboardEvent&lt;HTMLButtonElement&gt;) =&gt; {
++     if (e.key === 'Enter' || e.key === ' ') {
++       e.preventDefault();
++       if (!disabled) {
++         onClick();
++       }
++     }
++   };
+  
+    return (
+      &lt;button
++       type={type}
+        onClick={onClick}
++       onKeyDown={handleKeyDown}
+        disabled={disabled}
+        className={&#96;${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${className}&#96;}
+        aria-label={label}
++       aria-disabled={disabled}
+      &gt;
+        {icon &amp;&amp; &lt;span className="flex-shrink-0"&gt;{icon}&lt;/span&gt;}
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="task" data-tool-name="todo_write">
+<details><summary>Tool use: **todo_write** • Todo List</summary>
+
+- [x] T034: Create Header component with title 'CapThat!' and glassmorphism styling
+- [x] T035: Create ImageGrid component with N slots, placeholder support, virtual scrolling config
+- [x] T036: Create ImageCard component with thumbnail display, metadata, hover states
+- [x] T037: Create CapBoardPanel component with Header, ImageGrid, action buttons, empty state
+- [x] T038: Create ActionButton component with states, keyboard accessible, smooth transitions
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="generic" data-tool-name="read_lints">
+<details>
+          <summary>Tool use: **read_lints** • Read lints for 1 file</summary>
+      
+Lint paths:
+
+- `extension/ui/components`
+
+Lint results
+
+
+**No lint errors found**
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Fixing the grid columns issue in ImageGrid:
+
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="search_replace">
+
+<details><summary>Tool use: **search_replace** • Edit file: extension/ui/components/ImageGrid.tsx</summary>
+
+**Chunk 1**
+Lines added: 8, lines removed: 2
+
+```diff
+@@ -34,6 +34,12 @@
+    });
+  
+-   // Grid columns class based on columns prop
+-   const gridColsClass = &#96;grid-cols-${columns}&#96;;
++   // Grid columns class based on columns prop (Tailwind requires explicit classes)
++   const gridColsClass = {
++     2: 'grid-cols-2',
++     3: 'grid-cols-3',
++     4: 'grid-cols-4',
++     5: 'grid-cols-5',
++     6: 'grid-cols-6',
++   }[columns] || 'grid-cols-5';
+  
+    // Empty state
+```
+
+</details>
+
+</tool-use>
+
+---
+
+<tool-use data-tool-type="generic" data-tool-name="read_lints">
+<details>
+          <summary>Tool use: **read_lints** • Read lints for 1 file</summary>
+      
+Lint paths:
+
+- `extension/ui/components`
+
+Lint results
+
+
+**No lint errors found**
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Marking tasks T034-T038 as completed in tasks.md:
+
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="search_replace">
+
+<details><summary>Tool use: **search_replace** • Edit file: specs/001-capthat-extension/tasks.md</summary>
+
+**Chunk 1**
+Lines added: 5, lines removed: 5
+
+```diff
+@@ -128,9 +128,9 @@
+  ### UI Components
+  
+- - [ ] T034 [P] [US2] Create Header component at &#96;extension/ui/components/Header.tsx&#96; (browser-like header with title "CapThat!", styled with Tailwind dark mode, glassmorphism effects, teal/cyan accents)
+- - [ ] T035 [P] [US2] Create ImageGrid component at &#96;extension/ui/components/ImageGrid.tsx&#96; (grid layout with N slots, placeholder support, virtual scrolling configuration, Tailwind styling)
+- - [ ] T036 [P] [US2] Create ImageCard component at &#96;extension/ui/components/ImageCard.tsx&#96; (individual image card with thumbnail display, metadata display, hover states, Tailwind styling)
+- - [ ] T037 [P] [US2] Create CapBoardPanel component at &#96;extension/ui/components/CapBoardPanel.tsx&#96; (main panel component with Header, ImageGrid for captured items, action buttons, empty state with placeholder text "Click Cap! to capture images", Tailwind styling)
+- - [ ] T038 [P] [US2] Create ActionButton component at &#96;extension/ui/components/ActionButton.tsx&#96; (reusable button component with states: default, hover, active, disabled, keyboard accessible, Tailwind styling with teal/cyan accents, smooth transitions)
++ - [X] T034 [P] [US2] Create Header component at &#96;extension/ui/components/Header.tsx&#96; (browser-like header with title "CapThat!", styled with Tailwind dark mode, glassmorphism effects, teal/cyan accents)
++ - [X] T035 [P] [US2] Create ImageGrid component at &#96;extension/ui/components/ImageGrid.tsx&#96; (grid layout with N slots, placeholder support, virtual scrolling configuration, Tailwind styling)
++ - [X] T036 [P] [US2] Create ImageCard component at &#96;extension/ui/components/ImageCard.tsx&#96; (individual image card with thumbnail display, metadata display, hover states, Tailwind styling)
++ - [X] T037 [P] [US2] Create CapBoardPanel component at &#96;extension/ui/components/CapBoardPanel.tsx&#96; (main panel component with Header, ImageGrid for captured items, action buttons, empty state with placeholder text "Click Cap! to capture images", Tailwind styling)
++ - [X] T038 [P] [US2] Create ActionButton component at &#96;extension/ui/components/ActionButton.tsx&#96; (reusable button component with states: default, hover, active, disabled, keyboard accessible, Tailwind styling with teal/cyan accents, smooth transitions)
+  
+  ### Panel Integration
+```
+
+</details>
+
+</tool-use>
+
+---
+
+
+
+---
+
+
+Verifying the components compile and checking for any remaining issues:
+
+
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd c:\dev\capthat\cap-that && npm run build 2>&1 | Select-Object -First 50</summary>
+
+```bash
+cd c:\dev\capthat\cap-that && npm run build 2>&1 | Select-Object -First 50
+```
+
+```
+At C:\Users\maadh\AppData\Local\Temp\ps-script-3181a7b2-5571-4471-9eb6-e7097e4e076e.ps1:79 char:28
++ cd c:\dev\capthat\cap-that &amp;&amp; npm run build 2&gt;&amp;1 | Select-Object -Fir ...
++                            ~~
+The token '&amp;&amp;' is not a valid statement separator in this version.
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : InvalidEndOfLine
+ 
+
+```
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+
+
+
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd c:\dev\capthat\cap-that; npm run build 2>&1 | Select-Object -First 50</summary>
+
+```bash
+cd c:\dev\capthat\cap-that; npm run build 2>&1 | Select-Object -First 50
+```
+
+```
+
+&gt; nextjs@0.1.0 build
+&gt; next build
+
+node.exe :  ⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+At line:1 char:1
++ &amp; "C:\nodejs/node.exe" "C:\nodejs/node_modules/npm/bin/npm-cli.js" ru ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ( ⚠ Warning: N...not be correct.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+ We detected multiple lockfiles and selected the directory of C:\dev\package-lock.json as the root directory.
+   ▲ Next.js 16.0.10 (Turbopack)
+
+   Creating an optimized production build ...
+ To silence this warning, set &#96;turbopack.root&#96; in your Next.js config, or consider removing one of the lockfiles if 
+it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * C:\dev\capthat\cap-that\package-lock.json
+   * C:\dev\capthat\package-lock.json
+ ✓ Compiled successfully in 1762.3ms
+   Running TypeScript ...
+   Collecting page data using 23 workers ...
+   Generating static pages using 23 workers (0/4) ...
+   Generating static pages using 23 workers (1/4) 
+   Generating static pages using 23 workers (2/4) 
+   Generating static pages using 23 workers (3/4) 
+ ✓ Generating static pages using 23 workers (4/4) in 10.9s
+   Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+└ ○ /_not-found
+
+
+○  (Static)  prerendered as static content
+
+
+```
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Checking package.json for extension build scripts:
+
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="grep">
+<details>
+<summary>Tool use: **grep** • Grep for "build|script" in "package.json" • 9 matches</summary>
+
+Output mode: content
+
+
+| File | Content | Line |
+|------|------|------|
+| `package.json` | `"scripts": \{` | L5 |
+| `package.json` | `"build": "next build",` | L7 |
+| `package.json` | `"build:extension": "cd extension && vite build && node ../scripts/copy-extension-assets.js",` | L8 |
+| `package.json` | `"build:extension:watch": "cd extension && vite build --watch",` | L9 |
+| `package.json` | `"build:all": "npm run build:extension && npm run build",` | L10 |
+| `package.json` | `"clean:extension": "rimraf build/extension",` | L11 |
+| `package.json` | `"clean:all": "rimraf build .next",` | L12 |
+| `package.json` | `"validate:extension": "node scripts/validate-extension.js",` | L13 |
+| `package.json` | `"typescript": "^5",` | L34 |
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="read_file">
+<details><summary>Tool use: **read_file** • Read file: package.json</summary>
+
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Building the extension to check for TypeScript errors:
+
+
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_cmd">
+<details><summary>Tool use: **run_terminal_cmd** • Run command: cd c:\dev\capthat\cap-that; npm run build:extension 2>&1 | Select-Object -First 100</summary>
+
+```bash
+cd c:\dev\capthat\cap-that; npm run build:extension 2>&1 | Select-Object -First 100
+```
+
+```
+
+&gt; nextjs@0.1.0 build:extension
+&gt; cd extension &amp;&amp; vite build &amp;&amp; node ../scripts/copy-extension-assets.js
+
+vite v5.4.21 building for production...
+transforming...
+node.exe : [33mThe CJS build of Vite's Node API is deprecated. See 
+https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+At line:1 char:1
++ &amp; "C:\nodejs/node.exe" "C:\nodejs/node_modules/npm/bin/npm-cli.js" ru ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([33mThe CJS bu...e details.[39m:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+✓ 38 modules transformed.
+rendering chunks...
+computing gzip size...
+../build/extension/ui/side-panel.html                0.45 kB │ gzip:  0.30 kB
+../build/extension/assets/side-panel-UG7sSA3A.css   34.92 kB │ gzip:  6.20 kB
+../build/extension/content/content-script.js         0.31 kB │ gzip:  0.21 kB
+../build/extension/background/service-worker.js      5.94 kB │ gzip:  1.67 kB
+../build/extension/ui/side-panel.js                193.69 kB │ gzip: 60.59 kB
+✓ built in 704ms
+✓ Copied manifest.json
+✓ Copied icons
+✓ Fixed HTML paths for Chrome extension compatibility
+Extension assets copied successfully
+
+```
+</details>
+</tool-use>
+
+---
+
+
+
+---
+
+
+Build succeeded. Summary of completed work:
+
+## Implementation Summary
+
+Completed tasks T034-T038 for User Story 2 (Show CapThat Panel UI):
+
+### T034: Header Component
+- Created Header component with title "CapThat!"
+- Styled with Tailwind dark mode and glassmorphism effects
+- Uses teal/cyan accent colors
+
+### T035: ImageGrid Component
+- Grid layout with configurable N slots
+- Placeholder support for empty slots
+- Virtual scrolling configuration support
+- Styled with Tailwind CSS
+- Works with `CapturedItem` types from the type system
+
+### T036: ImageCard Component
+- Individual image card with thumbnail display
+- Metadata display (title, domain) on hover
+- Hover states with lift and glow effects
+- Quality indicator badge for fallback images
+- Remove button on hover
+- Styled with Tailwind CSS
+
+### T037: CapBoardPanel Component
+- Main panel component integrating Header, ImageGrid, and action buttons
+- Empty state with placeholder text "Click Cap! to capture images"
+- Warning banner for board limits (80/100 items)
+- Clear confirmation modal
+- Styled with Tailwind CSS and glassmorphism
+
+### T038: ActionButton Component
+- Reusable button with states: default, hover, active, disabled
+- Keyboard accessible (Enter and Space key support)
+- Smooth transitions (250ms)
+- Tailwind styling with teal/cyan accents
+- Three variants: primary, secondary, danger
+
+All components:
+- Build successfully with no TypeScript errors
+- Follow the design system with glassmorphism and dark theme
+- Use proper TypeScript types from `extension/types/index.ts`
+- Are marked as complete in `tasks.md`
+
+The components are ready for integration into the side panel UI (T039).
+
+---
+
