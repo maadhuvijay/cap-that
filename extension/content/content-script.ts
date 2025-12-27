@@ -19,6 +19,8 @@
  */
 
 import { validateURL } from '../validation/url-validator';
+import type { CaptureRequestMessage, CaptureResponseMessage, ErrorMessage } from '../types/messages';
+import { isCaptureResponseMessage } from '../types/messages';
 
 console.log('CapThat content script loaded');
 
@@ -94,21 +96,21 @@ if (document.readyState === 'loading') {
  * Receives:
  * - CaptureResponseMessage (T059): Capture success/failure
  * - ErrorMessage: Error notifications
+ * - StorageUpdateMessage: Board state updates
  * 
- * Future: T050, T059 - Send capture requests and handle responses
+ * T050: Capture button click handler implemented
+ * T059: Full error handling with toasts (future task)
  */
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   console.log('Content script received message:', message, 'from:', sender);
   
-  // TODO: T059 - Handle capture responses
+  // T059: Handle capture responses (will implement toast notifications)
   // - Show success toast when capture succeeds
   // - Show error toast with retry button if capture fails
   // - Handle different error categories (permission, CORS, storage, validation)
   
-  // TODO: T050 - Handle capture button clicks (triggered by injected buttons)
-  // - Extract image URL and source page URL
-  // - Send CaptureRequestMessage to service worker
-  // - Handle response from service worker
+  // T050: Capture button clicks are now handled in the button click handler
+  // Messages from service worker (responses) are handled here
   
   // Return true to keep message channel open for async responses
   return true;
@@ -453,6 +455,8 @@ function injectCaptureControls(capturableImages: CapturableImage[]): void {
  * Uses inline styles to avoid conflicts with page CSS.
  * Styled with Tailwind-like appearance (teal/cyan accents, rounded, glassmorphism).
  * 
+ * T050: Button click handler implemented to send capture requests
+ * 
  * @param img - The image element this button is for
  * @param imageUrl - The image URL to capture
  * @returns Button element ready to be added to DOM
@@ -462,7 +466,7 @@ function createCaptureButton(img: HTMLImageElement, imageUrl: string): HTMLButto
   button.textContent = 'Cap!';
   button.className = CAP_BUTTON_CLASS;
   
-  // Set data attributes for identification
+  // T050: Set data attributes for identification (used by click handler)
   button.setAttribute('data-capthat-image-url', imageUrl);
   button.setAttribute('data-capthat-source-url', window.location.href);
   
@@ -513,8 +517,8 @@ function createCaptureButton(img: HTMLImageElement, imageUrl: string): HTMLButto
     button.style.transform = 'scale(1.05)';
   });
   
-  // Click handler (T050 will implement the actual message sending)
-  button.addEventListener('click', (event) => {
+  // Click handler (T050: Implement capture button click handler)
+  button.addEventListener('click', async (event) => {
     event.preventDefault();
     event.stopPropagation();
     
@@ -528,19 +532,79 @@ function createCaptureButton(img: HTMLImageElement, imageUrl: string): HTMLButto
     button.style.opacity = '0.6';
     button.style.cursor = 'wait';
     
-    // TODO: T050 - Send CaptureRequestMessage to service worker
-    // For now, just log the capture attempt
-    console.log('Capture button clicked:', {
-      imageUrl: imageUrl,
-      sourceUrl: window.location.href,
-    });
+    // T050: Extract image URL and source page URL from button data attributes
+    const captureImageUrl = button.getAttribute('data-capthat-image-url') || imageUrl;
+    const captureSourceUrl = button.getAttribute('data-capthat-source-url') || window.location.href;
     
-    // Re-enable button after a short delay (T050 will handle this properly)
-    setTimeout(() => {
+    // T050: Collect optional metadata from page
+    const metadata: Record<string, unknown> = {
+      pageTitle: document.title || undefined,
+      domain: window.location.hostname || undefined,
+      timestamp: Date.now(),
+    };
+    
+    // Try to extract additional metadata if available
+    // Look for Open Graph or meta tags that might have useful info
+    const ogTitle = document.querySelector('meta[property="og:title"]')?.getAttribute('content');
+    const ogImage = document.querySelector('meta[property="og:image"]')?.getAttribute('content');
+    const ogUrl = document.querySelector('meta[property="og:url"]')?.getAttribute('content');
+    
+    if (ogTitle) {
+      metadata.ogTitle = ogTitle;
+    }
+    if (ogUrl) {
+      metadata.ogUrl = ogUrl;
+    }
+    
+    // T050: Send CaptureRequestMessage to service worker
+    const captureRequest: CaptureRequestMessage = {
+      type: 'CAPTURE_REQUEST',
+      payload: {
+        imageUrl: captureImageUrl,
+        sourceUrl: captureSourceUrl,
+        metadata: Object.keys(metadata).length > 0 ? metadata : undefined,
+      },
+    };
+    
+    try {
+      console.log('Sending capture request:', captureRequest);
+      
+      // Send message to service worker and wait for response
+      const response = await chrome.runtime.sendMessage(captureRequest) as CaptureResponseMessage | ErrorMessage | undefined;
+      
+      // T050: Handle capture response (basic handling - T059 will implement full error handling)
+      if (isCaptureResponseMessage(response)) {
+        if (response.payload.success) {
+          console.log('Capture successful:', response.payload.itemId);
+          // T059: Will show success toast
+          // For now, just re-enable button
+          button.disabled = false;
+          button.style.opacity = '1';
+          button.style.cursor = 'pointer';
+        } else {
+          console.error('Capture failed:', response.payload.error, response.payload.errorCategory);
+          // T059: Will show error toast with retry button
+          // For now, re-enable button so user can retry
+          button.disabled = false;
+          button.style.opacity = '1';
+          button.style.cursor = 'pointer';
+        }
+      } else {
+        // Received error message or unexpected response
+        console.error('Unexpected response from service worker:', response);
+        button.disabled = false;
+        button.style.opacity = '1';
+        button.style.cursor = 'pointer';
+      }
+    } catch (error) {
+      // Handle errors sending message (e.g., service worker not available)
+      console.error('Error sending capture request:', error);
+      // T059: Will show error toast
+      // For now, re-enable button
       button.disabled = false;
       button.style.opacity = '1';
       button.style.cursor = 'pointer';
-    }, 2000);
+    }
   });
   
   // Keyboard accessibility

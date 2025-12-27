@@ -184,8 +184,8 @@ description: "Task list for CapThat Chrome Extension implementation"
 
 ### Capture Flow
 
-- [ ] T050 [US4] Implement capture button click handler in `extension/content/content-script.ts` (listen for "Cap!" button clicks, extract image URL and source page URL, collect optional metadata, send CaptureRequestMessage to service worker)
-- [ ] T051 [US4] Implement capture request handler in `extension/background/service-worker.ts` (receive CaptureRequestMessage, validate image URL and source URL, attempt image fetch with CORS fallback, create CapturedItem with unique ID, validate item via schema validator)
+- [X] T050 [US4] Implement capture button click handler in `extension/content/content-script.ts` (listen for "Cap!" button clicks, extract image URL and source page URL, collect optional metadata, send CaptureRequestMessage to service worker)
+- [X] T051 [US4] Implement capture request handler in `extension/background/service-worker.ts` (receive CaptureRequestMessage, validate image URL and source URL, attempt image fetch with CORS fallback, create CapturedItem with unique ID, validate item via schema validator)
 - [ ] T052 [US4] Implement image fetch with CORS fallback in `extension/background/service-worker.ts` (try fetch blob first, fallback to URL storage if CORS blocked, set qualityIndicator based on method used, handle fetch errors gracefully)
 - [ ] T053 [US4] Create CapturedItem with metadata in `extension/background/service-worker.ts` (generate UUID v4 for id, create ImageReference with urlOrBlob, set sourceUrl, set timestamp to current time, extract optional metadata from page, set qualityIndicator)
 - [ ] T054 [US4] Implement duplicate detection in `extension/background/service-worker.ts` (calculate content hash for image, check against existing items, prevent duplicate or mark as already captured, use image content hash not URL)
