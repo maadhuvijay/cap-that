@@ -30,6 +30,7 @@ import {
 import { validateURL, validateSourceURL } from '../validation/url-validator';
 import { ValidationError } from '../validation/url-validator';
 import { validateCapturedItem } from '../validation/schema-validator';
+import { validateImageBlob } from '../validation/image-validator';
 import { chromeStorageAdapter } from '../storage/storage-adapter';
 import { indexedDBAdapter } from '../storage/indexeddb-adapter';
 import type { CapturedItem, ImageReference, CapBoard } from '../types/index';
@@ -316,51 +317,182 @@ function generateUUID(): string {
 }
 
 /**
+ * Generates a thumbnail from a blob image.
+ * 
+ * Creates a base64-encoded thumbnail (max 200x200px) for grid display.
+ * Uses ImageBitmap and OffscreenCanvas which are available in service workers.
+ * 
+ * @param blob - Image blob to generate thumbnail from
+ * @returns Promise that resolves to base64-encoded thumbnail string or undefined if generation fails
+ */
+async function generateThumbnail(blob: Blob): Promise<string | undefined> {
+  try {
+    // Create ImageBitmap from blob (available in service workers)
+    const imageBitmap = await createImageBitmap(blob);
+    
+    // Calculate thumbnail dimensions (max 200x200, maintain aspect ratio)
+    const maxSize = 200;
+    let width = imageBitmap.width;
+    let height = imageBitmap.height;
+
+    if (width > height) {
+      if (width > maxSize) {
+        height = Math.round((height * maxSize) / width);
+        width = maxSize;
+      }
+    } else {
+      if (height > maxSize) {
+        width = Math.round((width * maxSize) / height);
+        height = maxSize;
+      }
+    }
+
+    // Use OffscreenCanvas (available in service workers)
+    const canvas = new OffscreenCanvas(width, height);
+    const ctx = canvas.getContext('2d');
+
+    if (!ctx) {
+      imageBitmap.close();
+      return undefined;
+    }
+
+    // Draw resized image to canvas
+    ctx.drawImage(imageBitmap, 0, 0, width, height);
+    imageBitmap.close();
+
+    // Convert to blob and then to base64 data URL
+    const thumbnailBlob = await canvas.convertToBlob({ type: 'image/jpeg', quality: 0.8 });
+    
+    // Convert blob to base64 data URL
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const result = reader.result;
+        resolve(typeof result === 'string' ? result : undefined);
+      };
+      reader.onerror = () => {
+        resolve(undefined);
+      };
+      reader.readAsDataURL(thumbnailBlob);
+    });
+  } catch (error) {
+    console.warn('Thumbnail generation error:', error);
+    return undefined;
+  }
+}
+
+/**
  * Attempts to fetch an image with CORS fallback.
  * 
  * Task: T052 - Implement image fetch with CORS fallback
- * This is a basic implementation that will be expanded in T052.
+ * 
+ * Strategy:
+ * 1. Try to fetch image as blob first (best quality)
+ * 2. Validate blob using image validator (MIME type, size, dimensions)
+ * 3. Generate thumbnail for grid display
+ * 4. Store blob in IndexedDB with unique key
+ * 5. If CORS blocked or fetch fails, fallback to URL-only storage
+ * 6. Set qualityIndicator based on method used ('blob', 'url-only', or 'fallback')
  * 
  * @param imageUrl - URL of the image to fetch
- * @returns Promise that resolves to ImageReference or null if fetch fails
+ * @returns Promise that resolves to ImageReference with appropriate quality indicator, or null if all methods fail
  */
 async function fetchImageWithFallback(imageUrl: string): Promise<ImageReference | null> {
+  // Try to fetch as blob first (best quality)
   try {
-    // Attempt to fetch the image as a blob
-    const response = await fetch(imageUrl);
-    
+    const response = await fetch(imageUrl, {
+      method: 'GET',
+      // Don't set credentials to avoid CORS issues
+      credentials: 'omit',
+    });
+
     if (!response.ok) {
-      throw new Error(`Failed to fetch image: ${response.status} ${response.statusText}`);
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
 
     const blob = await response.blob();
-    
-    // Validate blob (basic check - T052 will expand this)
+
+    // Validate blob is actually a Blob
     if (!(blob instanceof Blob)) {
-      throw new Error('Fetched data is not a blob');
+      throw new Error('Fetched data is not a Blob');
     }
 
-    // Store blob in IndexedDB and get reference key
-    const blobKey = `blob-${generateUUID()}`;
-    await indexedDBAdapter.saveBlob(blobKey, blob);
+    // Validate image blob (MIME type, size, dimensions)
+    try {
+      await validateImageBlob(blob);
+    } catch (validationError) {
+      // Image validation failed (wrong type, too large, etc.)
+      if (validationError instanceof ValidationError) {
+        console.warn('Image validation failed:', validationError.message);
+        throw new Error(`Image validation failed: ${validationError.message}`);
+      }
+      throw validationError;
+    }
 
-    // Create ImageReference with blob reference
+    // Generate thumbnail for grid display
+    const thumbnail = await generateThumbnail(blob);
+
+    // Store blob in IndexedDB with unique key
+    const blobKey = `blob-${generateUUID()}`;
+    try {
+      await indexedDBAdapter.saveBlob(blobKey, blob);
+    } catch (storageError) {
+      console.error('Failed to save blob to IndexedDB:', storageError);
+      // If storage fails, fallback to URL-only
+      throw new Error('Storage failed, using URL fallback');
+    }
+
+    // Get image dimensions for metadata using ImageBitmap (available in service workers)
+    let dimensions: { width: number; height: number } | undefined;
+    try {
+      const imageBitmap = await createImageBitmap(blob);
+      dimensions = {
+        width: imageBitmap.width,
+        height: imageBitmap.height,
+      };
+      imageBitmap.close();
+    } catch (error) {
+      console.warn('Failed to get image dimensions:', error);
+      dimensions = undefined;
+    }
+
+    // Create ImageReference with blob reference (best quality)
     const imageReference: ImageReference = {
       urlOrBlob: blobKey,
+      thumbnail,
+      dimensions,
     };
 
     return imageReference;
   } catch (error) {
-    // CORS or fetch failed - fallback to URL-only storage
-    console.warn('Image fetch failed, using URL fallback:', error);
-    
-    // Create ImageReference with URL-only (fallback)
-    const imageReference: ImageReference = {
-      urlOrBlob: imageUrl,
-      fallbackIndicator: true,
-    };
+    // Check if error is CORS-related
+    const isCorsError = error instanceof TypeError && 
+      (error.message.includes('Failed to fetch') || 
+       error.message.includes('CORS') ||
+       error.message.includes('network'));
 
-    return imageReference;
+    // Check if error is a fetch/network error
+    const isNetworkError = error instanceof Error && 
+      (error.message.includes('Failed to fetch') ||
+       error.message.includes('network') ||
+       error.message.includes('HTTP'));
+
+    if (isCorsError || isNetworkError) {
+      // CORS blocked or network error - fallback to URL-only storage
+      console.warn('Image fetch failed (CORS/network), using URL fallback:', error);
+      
+      // Create ImageReference with URL-only (fallback)
+      const imageReference: ImageReference = {
+        urlOrBlob: imageUrl,
+        fallbackIndicator: true,
+      };
+
+      return imageReference;
+    }
+
+    // Other errors (validation, storage, etc.) - log and return null
+    console.error('Image fetch failed with unexpected error:', error);
+    return null;
   }
 }
 
@@ -368,7 +500,11 @@ async function fetchImageWithFallback(imageUrl: string): Promise<ImageReference 
  * Creates a CapturedItem with unique ID and metadata.
  * 
  * Task: T053 - Create CapturedItem with metadata
- * This is a basic implementation that will be expanded in T053.
+ * 
+ * Sets qualityIndicator based on the ImageReference:
+ * - 'blob': Successfully fetched and stored as blob (best quality)
+ * - 'fallback': CORS blocked, using URL-only with fallback indicator
+ * - 'url-only': URL-only storage (no fallback indicator, direct URL reference)
  * 
  * @param imageReference - ImageReference for the captured image
  * @param sourceUrl - URL of the page where image was captured
@@ -380,13 +516,20 @@ function createCapturedItem(
   sourceUrl: string,
   metadata?: Record<string, unknown>
 ): CapturedItem {
-  // Determine quality indicator based on whether we have a blob or URL
-  const qualityIndicator: 'url-only' | 'blob' | 'fallback' = 
-    typeof imageReference.urlOrBlob === 'string' && imageReference.urlOrBlob.startsWith('blob-')
-      ? 'blob'
-      : imageReference.fallbackIndicator
-      ? 'fallback'
-      : 'url-only';
+  // Determine quality indicator based on ImageReference structure
+  // T052: Set qualityIndicator based on method used in fetchImageWithFallback
+  let qualityIndicator: 'url-only' | 'blob' | 'fallback';
+  
+  if (typeof imageReference.urlOrBlob === 'string' && imageReference.urlOrBlob.startsWith('blob-')) {
+    // Blob reference stored in IndexedDB (best quality)
+    qualityIndicator = 'blob';
+  } else if (imageReference.fallbackIndicator) {
+    // CORS blocked, using URL-only with fallback indicator
+    qualityIndicator = 'fallback';
+  } else {
+    // URL-only storage (direct URL reference, no fallback)
+    qualityIndicator = 'url-only';
+  }
 
   const item: CapturedItem = {
     id: generateUUID(),
@@ -413,7 +556,7 @@ function createCapturedItem(
  * - Validates item via schema validator
  * 
  * Future tasks will expand:
- * - T052: Enhanced image fetch with better CORS handling
+ * - T052: ✅ Enhanced image fetch with better CORS handling (COMPLETE)
  * - T053: Enhanced metadata extraction
  * - T054: Duplicate detection
  * - T055: Board size limit checks

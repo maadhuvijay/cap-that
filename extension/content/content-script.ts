@@ -573,7 +573,7 @@ function createCaptureButton(img: HTMLImageElement, imageUrl: string): HTMLButto
       const response = await chrome.runtime.sendMessage(captureRequest) as CaptureResponseMessage | ErrorMessage | undefined;
       
       // T050: Handle capture response (basic handling - T059 will implement full error handling)
-      if (isCaptureResponseMessage(response)) {
+      if (response && isCaptureResponseMessage(response)) {
         if (response.payload.success) {
           console.log('Capture successful:', response.payload.itemId);
           // T059: Will show success toast
